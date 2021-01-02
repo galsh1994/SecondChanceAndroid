@@ -18,7 +18,7 @@ public class ModelFirebase {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Create a new user with a first and last name
         Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
+        user.put("first", "Alda");
         user.put("last", "Lovelace");
         user.put("born", 1815);
 // if you want to make a shortcut , you can put a class (like student)
