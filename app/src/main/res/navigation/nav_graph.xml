@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/newsFeedFragment">
+
+    <fragment
+        android:id="@+id/newsFeedFragment"
+        android:name="com.example.secondchance.newsFeedFragment"
+        android:label="fragment_news_feed"
+        tools:layout="@layout/fragment_news_feed" >
+        <action
+            android:id="@+id/action_newsFeedFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment" />
+        <action
+            android:id="@+id/action_newsFeedFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_newsFeedFragment_to_inboxFragment"
+            app:destination="@id/messagesFragment" />
+        <action
+            android:id="@+id/action_newsFeedFragment_self"
+            app:destination="@id/newsFeedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.secondchance.profileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_newsFeedFragment"
+            app:destination="@id/newsFeedFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_inboxFragment"
+            app:destination="@id/messagesFragment" />
+        <action
+            android:id="@+id/action_profileFragment_self"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.example.secondchance.addPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.example.secondchance.messagesFragment"
+        android:label="fragment_inbox"
+        tools:layout="@layout/fragment_messages" />
+</navigation>
