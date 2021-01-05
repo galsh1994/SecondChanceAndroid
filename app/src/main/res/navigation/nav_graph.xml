@@ -35,14 +35,18 @@
             android:id="@+id/action_profileFragment_to_newsFeedFragment"
             app:destination="@id/newsFeedFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_inboxFragment"
-            app:destination="@id/messagesFragment" />
-        <action
             android:id="@+id/action_profileFragment_self"
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_profile_to_item_details"
             app:destination="@id/fragment_item_details" />
+        <action
+            android:id="@+id/action_profileFragment_pop"
+            app:popUpTo="@id/newsFeedFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_profileFragment_to_messagesFragment"
+            app:destination="@id/messagesFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPostFragment"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#74F6F9FA"
+    android:background="@color/white"
     tools:context=".newsFeedFragment">
 
 
@@ -23,18 +23,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     //bottom nav starts here
+
     <Button
         android:id="@+id/addApost_newsFeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="92dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="80dp"
         android:background="#FDF7F7"
         android:fontFamily="@font/quicksand"
         android:textColor="#07080C"
         android:textSize="24sp"
-        app:backgroundTint="#45FFFFFF"
-        app:icon="@drawable/plus"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/plus2"
         app:iconGravity="textEnd"
         app:iconPadding="0dp"
         app:iconSize="40dp"
@@ -45,37 +45,37 @@
 
     <Button
         android:id="@+id/visitProfileFrom_newsFeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="88dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="80dp"
         android:background="#FDF7F7"
         android:fontFamily="@font/quicksand"
         android:textColor="#07080C"
         android:textSize="18sp"
-        app:backgroundTint="#45FFFFFF"
-        app:icon="@drawable/profile"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/profile2"
         app:iconGravity="textEnd"
         app:iconSize="40dp"
         app:iconTint="#656363"
         app:iconTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addApost_newsFeed"
-        app:layout_constraintStart_toEndOf="@+id/homeFrom_newsFeed" />
+        app:layout_constraintEnd_toStartOf="@+id/addApost_newsFeed" />
+
+    //bottom nav ends here
+
 
     <Button
         android:id="@+id/MessagesFrom_newsFeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="93dp"
+        android:layout_height="73dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="80dp"
         android:background="#FDF7F7"
         android:fontFamily="@font/quicksand"
         android:textColor="#07080C"
         android:textSize="18sp"
-        app:backgroundTint="#45FFFFFF"
-        app:icon="@drawable/inbox"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/inbox2"
         app:iconGravity="textEnd"
         app:iconSize="40dp"
         app:iconTint="#656363"
@@ -85,25 +85,21 @@
 
     <Button
         android:id="@+id/homeFrom_newsFeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="50dp"
-        android:background="#FDF7F7"
+        android:layout_width="83dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="80dp"
+        android:background="@color/white"
         android:fontFamily="@font/quicksand"
         android:textColor="#07080C"
         android:textSize="18sp"
-        app:backgroundTint="#45FFFFFF"
-        app:icon="@drawable/home"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/home2__orange_line"
         app:iconGravity="textEnd"
         app:iconSize="40dp"
-        app:iconTint="#656363"
+        app:iconTint="@color/black"
         app:iconTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    //bottom nav ends here
-
+        app:layout_constraintEnd_toStartOf="@+id/visitProfileFrom_newsFeed" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -114,4 +110,5 @@
         android:src="@drawable/icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

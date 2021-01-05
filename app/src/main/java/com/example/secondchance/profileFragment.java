@@ -21,7 +21,7 @@ public class profileFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_profile, container, false);
 
         Button newsFeedFromProfile= view.findViewById(R.id.homeFrom_profile);
-        newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_newsFeedFragment));
+        newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_pop));
 
         Button profileToself= view.findViewById(R.id.visitProfileFrom_profile);
         profileToself.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_self));
@@ -30,16 +30,16 @@ public class profileFragment extends Fragment {
         addAPostProfileBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_addPostFragment));
 
         Button messagesFromProfile= view.findViewById(R.id.messagesFrom_profile);
-        messagesFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_inboxFragment));
+        messagesFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_messagesFragment));
 
-        ImageButton itemDetailsFromProfile= view.findViewById(R.id.itemDetailsFrom_profile);
+       /* ImageButton itemDetailsFromProfile= view.findViewById(R.id.itemDetailsFrom_profile);
         itemDetailsFromProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_profile_to_item_details);
             }
         });
-
+*/
 
         return view;
     }
