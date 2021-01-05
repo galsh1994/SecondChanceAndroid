@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class profileFragment extends Fragment {
 
@@ -30,6 +31,14 @@ public class profileFragment extends Fragment {
 
         Button messagesFromProfile= view.findViewById(R.id.messagesFrom_profile);
         messagesFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_inboxFragment));
+
+        ImageButton itemDetailsFromProfile= view.findViewById(R.id.itemDetailsFrom_profile);
+        itemDetailsFromProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_profile_to_item_details);
+            }
+        });
 
 
         return view;
