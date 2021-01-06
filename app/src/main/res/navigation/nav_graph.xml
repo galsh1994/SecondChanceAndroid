@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/newsFeedFragment"
         android:name="com.example.secondchance.newsFeedFragment"
-        android:label="fragment_news_feed"
-        tools:layout="@layout/fragment_news_feed" >
+        android:label="News Feed"
+        tools:layout="@layout/fragment_news_feed">
         <action
             android:id="@+id/action_newsFeedFragment_to_addPostFragment"
             app:destination="@id/addPostFragment" />
@@ -26,8 +26,8 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.secondchance.profileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        android:label="My Profile"
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_addPostFragment"
             app:destination="@id/addPostFragment" />
@@ -47,17 +47,24 @@
         <action
             android:id="@+id/action_profileFragment_to_messagesFragment"
             app:destination="@id/messagesFragment" />
+        <argument
+            android:name="userID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addPostFragment"
         android:name="com.example.secondchance.addPostFragment"
-        android:label="fragment_add_post"
-        tools:layout="@layout/fragment_add_post" />
+        android:label="Add A Post"
+        tools:layout="@layout/fragment_add_post">
+        <argument android:name="userID" />
+    </fragment>
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.example.secondchance.messagesFragment"
-        android:label="fragment_inbox"
-        tools:layout="@layout/fragment_messages" />
+        android:label="Messages"
+        tools:layout="@layout/fragment_messages">
+        <argument android:name="userID" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_item_details"
         android:name="com.example.secondchance.fragment_item_details"
