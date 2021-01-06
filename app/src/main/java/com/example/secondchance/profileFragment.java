@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import android.widget.ImageButton;
 
 public class profileFragment extends Fragment {
 
+    RecyclerView postList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -22,6 +26,19 @@ public class profileFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_profile, container, false);
         String userID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
         Log.d("TAG","user id is:"+userID);
+
+        //post list
+
+        postList=view.findViewById(R.id.profile_post_list);
+        postList.hasFixedSize();
+
+        LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
+        postList.setLayoutManager(layoutmaneger);
+
+        postListAdapter adapter = new postListAdapter();
+        postList.setAdapter(adapter);
+
+
 
         Button newsFeedFromProfile= view.findViewById(R.id.homeFrom_profile);
         newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_pop));
