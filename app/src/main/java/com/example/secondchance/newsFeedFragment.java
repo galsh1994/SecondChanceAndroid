@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +14,31 @@ import android.widget.Button;
 
 public class newsFeedFragment extends Fragment {
 
+    RecyclerView postList;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_news_feed, container, false);
+
+        //postList
+
+        postList=view.findViewById(R.id.postList_newFeed);
+        postList.hasFixedSize();
+
+        LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
+        postList.setLayoutManager(layoutmaneger);
+
+        postListAdapter adapter = new postListAdapter();
+        postList.setAdapter(adapter);
+
+
+
+
+
+
 
         //Redirect to Add a post
         Button addAPostBtn= view.findViewById(R.id.addApost_newsFeed);
