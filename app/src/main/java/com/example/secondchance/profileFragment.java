@@ -46,6 +46,11 @@ public class profileFragment extends Fragment {
         Button profileToself= view.findViewById(R.id.visitProfileFrom_profile);
         profileToself.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_self));
 
+
+        Button editProfileBtn= view.findViewById(R.id.edit_details_on_profile);
+        editProfileBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profile_to_editProfile));
+
+
         Button addAPostProfileBtn= view.findViewById(R.id.addApost_profile);
         addAPostProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
