@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ public class addPostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_add_post, container, false);
+
+        String userID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
+        Log.d("TAG","user id is:"+userID);
 
         Button savePost= view.findViewById(R.id.save_post);
         savePost.setOnClickListener(new View.OnClickListener() {
