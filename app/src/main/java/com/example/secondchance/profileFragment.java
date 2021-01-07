@@ -56,7 +56,7 @@ public class profileFragment extends Fragment {
             }
         });
         Button messagesFromProfile= view.findViewById(R.id.messagesFrom_profile);
-        messagesFromProfile.setOnClickListener(new View.OnClickListener() {
+         messagesFromProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String stID="123";
@@ -64,14 +64,17 @@ public class profileFragment extends Fragment {
                 Navigation.findNavController(view).navigate(actionMessages);
             }
         });
-       /* ImageButton itemDetailsFromProfile= view.findViewById(R.id.itemDetailsFrom_profile);
+           ImageButton itemDetailsFromProfile= view.findViewById(R.id.item_details_From_profile);
         itemDetailsFromProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_profile_to_item_details);
+                String id = "223";
+                String item_name = "Basket";
+                profileFragmentDirections.ActionProfileToItemDetails action = profileFragmentDirections.actionProfileToItemDetails(id,item_name);
+                Navigation.findNavController(v).navigate(action);
             }
         });
-*/
+
 
         return view;
     }

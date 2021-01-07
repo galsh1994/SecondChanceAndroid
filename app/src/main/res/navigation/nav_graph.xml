@@ -69,5 +69,12 @@
         android:id="@+id/fragment_item_details"
         android:name="com.example.secondchance.fragment_item_details"
         android:label="fragment_item_details"
-        tools:layout="@layout/fragment_item_details" />
+        tools:layout="@layout/fragment_item_details" >
+        <argument
+            android:name="item_id"
+            app:argType="string" />
+        <argument
+            android:name="item_name"
+            app:argType="string" />
+    </fragment>
 </navigation>

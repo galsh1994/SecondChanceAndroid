@@ -108,7 +108,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+   <ImageButton
+        android:id="@+id/item_details_From_profile"
+        android:layout_width="245dp"
+        android:layout_height="148dp"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="140dp"
+        app:layout_constraintBottom_toTopOf="@+id/visitProfileFrom_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:src="@drawable/basket" />
+  
+  <ImageView
         android:id="@+id/profile_user_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -117,8 +130,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
+  
+      <TextView
         android:id="@+id/profile_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -127,8 +140,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_user_img" />
-
-    <Button
+  
+       <Button
         android:id="@+id/profile_message_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -137,8 +150,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_email" />
-
-    <androidx.recyclerview.widget.RecyclerView
+  
+   <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profile_post_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -153,5 +166,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_message_btn"
         app:layout_constraintVertical_bias="0.0" />
+  
+ 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
