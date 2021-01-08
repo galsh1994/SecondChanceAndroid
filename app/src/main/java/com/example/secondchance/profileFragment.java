@@ -47,8 +47,27 @@ public class profileFragment extends Fragment {
         profileToself.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_self));
 
 
+
+        Button editItemBtn= view.findViewById(R.id.edit_item_btn);
+        editItemBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = "123";
+                profileFragmentDirections.ActionProfileToEditItem actionEditItem = profileFragmentDirections.actionProfileToEditItem(id);
+                Navigation.findNavController(v).navigate(actionEditItem);
+            }
+        });
+
+
         Button editProfileBtn= view.findViewById(R.id.edit_details_on_profile);
-        editProfileBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profile_to_editProfile));
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = "123";
+                profileFragmentDirections.ActionProfileToEditProfile actionEdit = profileFragmentDirections.actionProfileToEditProfile(id);
+            Navigation.findNavController(v).navigate(actionEdit);
+            }
+        });
 
 
         Button addAPostProfileBtn= view.findViewById(R.id.addApost_profile);

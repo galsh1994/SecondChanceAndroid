@@ -10,24 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class editProfileFragment extends Fragment {
+public class RegisterFragment extends Fragment {
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=  inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        View view =  inflater.inflate(R.layout.fragment_register, container, false);
 
-        Button saveDetailsBtn = view.findViewById(R.id.save_btn);
-        saveDetailsBtn.setOnClickListener(new View.OnClickListener() {
+        Button saveRegister = view.findViewById(R.id.register_btn);
+        saveRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //replace the details in the database
-                Navigation.findNavController(v).popBackStack();
+                //save the new user to database
+                Navigation.findNavController(v).navigate(R.id.action_register_to_login);
             }
         });
- 
 
-        return view;
+return view;
     }
 }
