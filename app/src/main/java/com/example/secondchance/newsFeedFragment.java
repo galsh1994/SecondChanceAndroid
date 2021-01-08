@@ -67,6 +67,10 @@ public class newsFeedFragment extends Fragment {
         Button newsFeedToSelf= view.findViewById(R.id.homeFrom_newsFeed);
         newsFeedToSelf.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newsFeedFragment_self));
 
+        //Redirect to map mode
+        Button mapMode = view.findViewById(R.id.map_mode);
+        mapMode.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newsFeed_to_maps));
+
 
         //Redirect to Messages
         Button messagesFromNewsfeedBtn= view.findViewById(R.id.MessagesFrom_newsFeed);
@@ -80,4 +84,7 @@ public class newsFeedFragment extends Fragment {
         });
         return view;
     }
+
+
+
 }
