@@ -24,7 +24,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-//bottom nav
+    //bottom nav
 
     <Button
         android:id="@+id/addApost_profile"
@@ -56,10 +56,10 @@
         android:textColor="#07080C"
         android:textSize="18sp"
         app:backgroundTint="@color/white"
-        app:icon="@drawable/profile2___orangeold"
+        app:icon="@drawable/profile2"
         app:iconGravity="textEnd"
         app:iconSize="40dp"
-        app:iconTint="@color/black"
+        app:iconTint="#2B2B2B"
         app:iconTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addApost_profile"
@@ -103,9 +103,11 @@
         app:iconTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/visitProfileFrom_profile"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent" />
 
     //bottom nav ends here
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="65dp"
@@ -186,26 +188,30 @@
         android:id="@+id/edit_details_on_profile"
         android:layout_width="38dp"
         android:layout_height="47dp"
+        android:layout_marginEnd="231dp"
         android:background="@color/white"
         app:backgroundTint="@color/white"
         app:icon="@android:drawable/ic_menu_edit"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/profile_user_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/profile_user_img"
         app:layout_constraintTop_toTopOf="@+id/profile_user_img"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="142dp" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/edit_item_btn"
         android:layout_width="55dp"
         android:layout_height="43dp"
+        android:layout_marginEnd="120dp"
         android:textColor="#FFFFFF"
         app:backgroundTint="@color/teal_200"
         app:icon="@android:drawable/ic_menu_edit"
         app:layout_constraintBottom_toBottomOf="@+id/item_details_From_profile"
-        app:layout_constraintTop_toTopOf="@+id/item_details_From_profile"
-        tools:layout_editor_absoluteX="236dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_details_From_profile"
+        app:layout_constraintTop_toTopOf="@+id/item_details_From_profile" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

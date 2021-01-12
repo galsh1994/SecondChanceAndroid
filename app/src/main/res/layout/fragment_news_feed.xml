@@ -65,6 +65,7 @@
         app:iconTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addApost_newsFeed"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/homeFrom_newsFeed" />
 
     //bottom nav ends here
@@ -101,13 +102,12 @@
         android:textColor="#07080C"
         android:textSize="18sp"
         app:backgroundTint="@color/white"
-        app:icon="@drawable/home2__orange_line"
+        app:icon="@drawable/home2"
         app:iconGravity="textEnd"
         app:iconSize="40dp"
-        app:iconTint="@color/black"
+        app:iconTint="#F4C3A1"
         app:iconTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/visitProfileFrom_newsFeed"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
