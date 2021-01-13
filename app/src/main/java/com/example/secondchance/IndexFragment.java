@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.secondchance.Model.User;
+
 public class IndexFragment extends Fragment {
 
 
@@ -27,4 +29,5 @@ public class IndexFragment extends Fragment {
 
         return view;
     }
-}
+
+    }

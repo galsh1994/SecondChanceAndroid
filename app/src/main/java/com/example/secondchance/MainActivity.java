@@ -19,11 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ModelFirebase mf = new ModelFirebase();
+        /*ModelFirebase mf = new ModelFirebase();
         mf.exampleToAcess();
-
+*/
         navController = Navigation.findNavController(this, R.id.mainactivity_navhost);
         NavigationUI.setupActionBarWithNavController(this,navController);
+
+
 
     }
 
