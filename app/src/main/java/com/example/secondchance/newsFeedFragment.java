@@ -3,6 +3,9 @@ package com.example.secondchance;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,9 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.secondchance.Model.User;
+
+import java.util.List;
+
 public class newsFeedFragment extends Fragment {
 
     RecyclerView postList;
+    UserListViewModel viewModel;
 
 
     @Override
@@ -22,6 +30,12 @@ public class newsFeedFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_news_feed, container, false);
+
+        //get the view model
+        //should be post list but this is just a test
+        //need to change to postListViewModel
+
+        viewModel= new ViewModelProvider(this).get(UserListViewModel.class);
 
         //postList
 
@@ -31,8 +45,15 @@ public class newsFeedFragment extends Fragment {
         LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
         postList.setLayoutManager(layoutmaneger);
 
-        postListAdapter adapter = new postListAdapter();
+        postListAdapter adapter = new postListAdapter(viewModel.getUserList().getValue());
         postList.setAdapter(adapter);
+
+        viewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+                adapter.notifyDataSetChanged();
+            }
+        });
 
 
 

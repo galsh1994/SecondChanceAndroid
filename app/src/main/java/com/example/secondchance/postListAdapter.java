@@ -7,7 +7,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.secondchance.Model.User;
+
+import java.util.List;
+
 public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
+
+    //this is post list but i am testing with users instead of posts
+    //need to change
+
+    List<User> userList;
+    public postListAdapter(List<User> data){
+        userList=data;
+    }
 
 
     @NonNull
@@ -22,12 +34,15 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull postListViewHolder holder, int position) {
         //here we need to update the data of each member in the holder,this is just a test
-        holder.postUserName.setText(String.valueOf(position));
+        holder.postUserName.setText(userList.get(position).getFirstName());
+        holder.postItemDescription.setText(userList.get(position).getDescription());
     }
 
     @Override
     public int getItemCount() {
         //return 3 is just for checking, after we use database ew need to change to data.lenget/size();
-        return 3;
+        if(userList==null)
+            return 0;
+        return userList.size();
     }
 }

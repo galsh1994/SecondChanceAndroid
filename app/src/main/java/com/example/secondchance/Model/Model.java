@@ -3,14 +3,26 @@ package com.example.secondchance.Model;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import java.util.List;
 
 public class Model {
+
     public final static Model instance= new Model();
-    ModelFirebase modelFirebase = new ModelFirebase();
+    ModelFirebase modelFirebase;
+    UserModel userModel;
+
+    // not sure if modelSql is needed
     ModelSql modelSql = new ModelSql();
 
-    private Model(){ }
+
+    private Model(){
+
+        modelFirebase = new ModelFirebase();
+        userModel=UserModel.instance;
+    }
 
     public interface Listener<T>{
         void onComplete(T result);
@@ -18,8 +30,8 @@ public class Model {
 
     public interface getAllUsersListener extends Listener<List<User>>{}
 
-    public void getAllUsers(getAllUsersListener listener) {
-        modelFirebase.getAllUsers(listener);
+    public MutableLiveData<List<User>> getAllUsers() {
+        return userModel.getAllUsers();
     }
 
     public interface GetUserListener{
