@@ -58,6 +58,11 @@ public class ModelFirebase {
                 });
     }
 */
+
+
+   ///////////////////// user section /////////////////////////////////////
+
+
     public void getAllUsers(final Model.getAllUsersListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -151,6 +156,68 @@ public class ModelFirebase {
                 });
             }
         });
+    }
+
+
+    //////////////////////////post section////////////////////////////////////////////////////////
+
+    public void addPost(Post post, Model.addPostListener listener){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("posts").document(post.getUserID())
+                .set(post.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("TAG","post added successfully");
+                listener.onComplete();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("TAG","fail adding post");
+                listener.onComplete();
+            }
+        });
+    }
+
+    public void updatePost(Post post, Model.addPostListener listener) {
+        addPost(post,listener);
+    }
+
+    public void getPost(String id, final Model.GetPostListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("posts").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Post post = null;
+                if (task.isSuccessful()){
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc != null) {
+                        post = task.getResult().toObject(Post.class);
+                    }
+                }
+                listener.onComplete(post);
+            }
+        });
+    }
+
+    public void getAllPosts(final Model.getAllPostsListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<Post> data = new LinkedList<Post>();
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot doc : task.getResult()) {
+                        Post post = new Post();
+                        post.fromMap(doc.getData());
+                        data.add(post);
+
+                    }
+                }
+                listener.onComplete(data);
+            }
+        });
+
     }
 }
 

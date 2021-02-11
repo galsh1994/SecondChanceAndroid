@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.secondchance.Model.Post;
 import com.example.secondchance.Model.User;
 
 import java.util.List;
@@ -22,7 +23,8 @@ import java.util.List;
 public class newsFeedFragment extends Fragment {
 
     RecyclerView postList;
-    UserListViewModel viewModel;
+//    UserListViewModel viewModel;
+    PostListViewModel postListViewModel;
 
 
     @Override
@@ -35,7 +37,8 @@ public class newsFeedFragment extends Fragment {
         //should be post list but this is just a test
         //need to change to postListViewModel
 
-        viewModel= new ViewModelProvider(this).get(UserListViewModel.class);
+//        viewModel= new ViewModelProvider(this).get(UserListViewModel.class);
+        postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
 
         //postList
 
@@ -45,13 +48,20 @@ public class newsFeedFragment extends Fragment {
         LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
         postList.setLayoutManager(layoutmaneger);
 
-        postListAdapter adapter = new postListAdapter(viewModel.getUserList().getValue());
+        postListAdapter adapter = new postListAdapter(postListViewModel.getPostList().getValue());
         postList.setAdapter(adapter);
 
-        viewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+//        viewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+//            @Override
+//            public void onChanged(List<User> users) {
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
+        postListViewModel.getPostList().observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
             @Override
-            public void onChanged(List<User> users) {
+            public void onChanged(List<Post> posts) {
                 adapter.notifyDataSetChanged();
+
             }
         });
 

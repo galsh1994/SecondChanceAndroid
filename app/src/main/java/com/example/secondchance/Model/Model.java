@@ -13,6 +13,7 @@ public class Model {
     public final static Model instance= new Model();
     ModelFirebase modelFirebase;
     UserModel userModel;
+    PostModel postModel;
 
     // not sure if modelSql is needed
     ModelSql modelSql = new ModelSql();
@@ -22,6 +23,7 @@ public class Model {
 
         modelFirebase = new ModelFirebase();
         userModel=UserModel.instance;
+        postModel=PostModel.instance;
     }
 
     public interface Listener<T>{
@@ -31,6 +33,7 @@ public class Model {
     public interface getAllUsersListener extends Listener<List<User>>{}
 
     public MutableLiveData<List<User>> getAllUsers() {
+
         return userModel.getAllUsers();
     }
 
@@ -63,4 +66,27 @@ public class Model {
     public void uploadImage(Bitmap imageBmp, String name, final UploadImageListener listener) {
         modelFirebase.uploadImage(imageBmp, name, listener);
     }
+
+    interface addPostListener{ void onComplete();}
+    public void addPost(Post post,addPostListener listener){
+      postModel.addPost(post,listener);
+    }
+
+    public interface GetPostListener{ void onComplete(Post post);}
+    public void getPost(String id, GetPostListener listener){
+        postModel.getPost(id,listener);
+
+    }
+
+    public interface getAllPostsListener extends Listener<List<Post>>{}
+
+    public MutableLiveData<List<Post>> getAllPosts() {
+
+        return postModel.getAllPosts();
+    }
+
+
+
+
+
 }
