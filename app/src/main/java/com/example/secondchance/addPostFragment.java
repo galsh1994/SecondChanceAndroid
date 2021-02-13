@@ -50,7 +50,7 @@ public class addPostFragment extends Fragment {
                 Model.instance.addPost(post, new Model.addPostListener() {
                     @Override
                     public void onComplete() {
-
+                        Model.instance.refreshAllPosts(null);
                         Navigation.findNavController(view).popBackStack();
 
                     }
