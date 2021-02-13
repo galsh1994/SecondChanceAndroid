@@ -10,8 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.secondchance.Model.Model;
+import com.example.secondchance.Model.Post;
 
 public class addPostFragment extends Fragment {
+
+    EditText description;
+    EditText location;
+    EditText condition;
 
 
 
@@ -27,7 +35,28 @@ public class addPostFragment extends Fragment {
         savePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).popBackStack();
+
+                description = view.findViewById(R.id.addPostDescription);
+                location = view.findViewById(R.id.addPostLocation);
+                condition = view.findViewById(R.id.addPostCondition);
+                Post post=new Post();
+                post.setPostID(String.valueOf(Math.random()));
+                post.setDescription(description.getText().toString());
+                post.setLocation(location.getText().toString());
+                post.setCondition(condition.getText().toString());
+                post.setUserID(userID);
+                post.setPhotoUrl("test");
+
+                Model.instance.addPost(post, new Model.addPostListener() {
+                    @Override
+                    public void onComplete() {
+
+                        Navigation.findNavController(view).popBackStack();
+
+                    }
+                });
+
+
 
             }
         });

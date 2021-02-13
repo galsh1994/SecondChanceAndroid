@@ -6,7 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,8 +17,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 
 import java.util.LinkedList;
@@ -163,7 +161,7 @@ public class ModelFirebase {
 
     public void addPost(Post post, Model.addPostListener listener){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("posts").document(post.getUserID())
+        db.collection("posts").document(post.getPostID())
                 .set(post.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -200,9 +198,13 @@ public class ModelFirebase {
         });
     }
 
-    public void getAllPosts(final Model.getAllPostsListener listener) {
+    public void getAllPosts(Long lastUpdated, final Model.getAllPostsListener listener) {
+
+        // need to use lastUpdated
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Timestamp ts=new Timestamp(lastUpdated,0);
+        db.collection("posts").whereGreaterThanOrEqualTo("lastUpdated",ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<Post> data = new LinkedList<Post>();

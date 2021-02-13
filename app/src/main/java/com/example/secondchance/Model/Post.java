@@ -43,9 +43,8 @@ public class Post {
         description=(String)map.get("description");
         location=(String)map.get("location");
         condition=(String)map.get("condition");
-
-//        Timestamp ts=(Timestamp)map.get("lastUpdated");
-//        lastUpdated=ts.getSeconds();
+        Timestamp ts=(Timestamp)map.get("lastUpdated");
+        lastUpdated=ts.getSeconds();
     }
 
     @NonNull
@@ -95,5 +94,13 @@ public class Post {
 
     public void setLastUpdated(Long lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 }
