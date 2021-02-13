@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
 import com.example.secondchance.Model.User;
 
@@ -48,8 +49,9 @@ public class newsFeedFragment extends Fragment {
         LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
         postList.setLayoutManager(layoutmaneger);
 
-        postListAdapter adapter = new postListAdapter(postListViewModel.getPostList().getValue());
+        postListAdapter adapter = new postListAdapter(postListViewModel.getPostList());
         postList.setAdapter(adapter);
+
 
 //        viewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
 //            @Override
