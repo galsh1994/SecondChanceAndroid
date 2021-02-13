@@ -91,7 +91,6 @@ public class Model {
     public interface addPostListener{ void onComplete();}
     public void addPost(Post post,addPostListener listener){
         modelFirebase.addPost(post,listener);
-        refreshAllPosts(null);
     }
 
     public interface GetPostListener{ void onComplete(Post post);}
