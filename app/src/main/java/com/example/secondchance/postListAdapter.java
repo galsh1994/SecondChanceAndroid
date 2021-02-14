@@ -16,10 +16,24 @@ import java.util.List;
 public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
 
 
-
+    onItemClickListener listener;
     LiveData<List<Post>> postList;
     public postListAdapter(LiveData<List<Post>> data){
         postList=data;
+    }
+
+
+    public void bindData(postListViewHolder holder,int position){
+
+        ///TODO : add all the fieldS of the post to the view
+
+
+        Post post= postList.getValue().get(position);
+        holder.postUserName.setText(post.getPostID());
+        holder.postItemDescription.setText(post.getDescription());
+        holder.postDate.setText(post.getLocation());
+        holder.position=position;
+
     }
 
 
@@ -29,15 +43,15 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
 
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.post_view,parent,false);
         postListViewHolder vh=new postListViewHolder(v);
+        vh.listener=listener;
+
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull postListViewHolder holder, int position) {
-        //here we need to update the data of each member in the holder,this is just a test
-        holder.postUserName.setText(postList.getValue().get(position).getPostID());
-        holder.postItemDescription.setText(postList.getValue().get(position).getDescription());
-        holder.postDate.setText(postList.getValue().get(position).getLocation());
+
+        bindData(holder,position);
     }
 
     @Override
@@ -46,5 +60,12 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         if(postList.getValue()==null)
             return 0;
         return postList.getValue().size();
+    }
+
+    public interface onItemClickListener{
+        void onClick(int position);
+    }
+    void setOnItemClickListener(onItemClickListener listener){
+        this.listener=listener;
     }
 }
