@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,20 @@ public class newsFeedFragment extends Fragment {
 
         postListAdapter adapter = new postListAdapter(postListViewModel.getPostList());
         postList.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new postListAdapter.onItemClickListener() {
+            @Override
+            public void onClick(int position) {
+
+                // TODO : navigate to single post fragment, this is just a test
+
+                String postDesc=postListViewModel.getPostList().getValue().get(position).getDescription();
+                Log.d("tag",postDesc);
+                
+
+
+            }
+        });
 
 
 //        viewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {

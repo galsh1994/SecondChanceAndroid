@@ -16,6 +16,8 @@ public class postListViewHolder extends RecyclerView.ViewHolder {
     TextView postItemDescription;
     ImageView postUserImage;
     ImageView postItemImage;
+    int position;
+    postListAdapter.onItemClickListener listener;
 
     public postListViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -26,6 +28,12 @@ public class postListViewHolder extends RecyclerView.ViewHolder {
         postItemDescription=itemView.findViewById(R.id.post_item_description);
         postItemLocation=itemView.findViewById(R.id.post_item_location);
         postItemCondition=itemView.findViewById(R.id.post_item_condotion);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(position);
+            }
+        });
 
 
     }
