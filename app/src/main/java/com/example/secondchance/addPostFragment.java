@@ -40,7 +40,7 @@ public class addPostFragment extends Fragment {
                 location = view.findViewById(R.id.addPostLocation);
                 condition = view.findViewById(R.id.addPostCondition);
                 Post post=new Post();
-                post.setPostID(String.valueOf(Math.random()));
+                post.setPostID(String.valueOf(Math.random()*10));
                 post.setDescription(description.getText().toString());
                 post.setLocation(location.getText().toString());
                 post.setCondition(condition.getText().toString());

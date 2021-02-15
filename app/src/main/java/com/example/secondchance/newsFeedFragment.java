@@ -59,8 +59,8 @@ public class newsFeedFragment extends Fragment {
 
                 // TODO : navigate to single post fragment, this is just a test
 
-                String postDesc=postListViewModel.getPostList().getValue().get(position).getDescription();
-                Log.d("tag",postDesc);
+                String postID=postListViewModel.getPostList().getValue().get(position).getPostID();
+                Log.d("tag",postID);
                 
 
 

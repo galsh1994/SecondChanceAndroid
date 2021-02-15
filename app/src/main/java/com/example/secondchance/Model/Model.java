@@ -12,7 +12,16 @@ import com.example.secondchance.MyApplicaion;
 
 import java.util.List;
 
-public class Model {
+public class
+
+
+
+
+
+
+
+
+Model {
 
     public final static Model instance= new Model();
     ModelFirebase modelFirebase;
