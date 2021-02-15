@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,8 +60,8 @@ public class newsFeedFragment extends Fragment {
 
                 // TODO : navigate to single post fragment, this is just a test
 
-                String postDesc=postListViewModel.getPostList().getValue().get(position).getDescription();
-                Log.d("tag",postDesc);
+                String postID=postListViewModel.getPostList().getValue().get(position).getPostID();
+                Log.d("tag",postID);
                 
 
 
@@ -130,6 +131,21 @@ public class newsFeedFragment extends Fragment {
                 Navigation.findNavController(view).navigate(actionMessages);
             }
         });
+
+       SwipeRefreshLayout swipeRefreshLayout=view.findViewById(R.id.newsFeedSwipe);
+       swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+           @Override
+           public void onRefresh() {
+               swipeRefreshLayout.setRefreshing(true);
+               Model.instance.refreshAllPosts(new Model.getAllPostsListener() {
+                   @Override
+                   public void onComplete(List<Post> result) {
+                       swipeRefreshLayout.setRefreshing(false);
+                   }
+               });
+           }
+       });
+
         return view;
     }
 

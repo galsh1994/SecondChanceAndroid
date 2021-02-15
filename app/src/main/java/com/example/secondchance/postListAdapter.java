@@ -28,10 +28,12 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         ///TODO : add all the fieldS of the post to the view
 
 
-        Post post= postList.getValue().get(position);
+        Post post= postList.getValue().get(postList.getValue().size()-position-1);
         holder.postUserName.setText(post.getPostID());
         holder.postItemDescription.setText(post.getDescription());
-        holder.postDate.setText(post.getLocation());
+        holder.postItemLocation.setText(post.getLocation());
+        holder.postDate.setText(String.valueOf(post.getLastUpdated()));
+        holder.postItemCondition.setText(post.getCondition());
         holder.position=position;
 
     }
