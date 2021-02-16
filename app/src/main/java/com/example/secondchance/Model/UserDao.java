@@ -1,5 +1,6 @@
 package com.example.secondchance.Model;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface UserDao {
 
     @Query("select * from User")
-    List<User> getAllUsers();
+    LiveData<List<User>> getAllUsers();
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(User... students);
     @Delete

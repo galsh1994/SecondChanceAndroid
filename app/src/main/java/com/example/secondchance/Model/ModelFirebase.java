@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -61,36 +62,40 @@ public class ModelFirebase {
    ///////////////////// user section /////////////////////////////////////
 
 
-    public void getAllUsers(final Model.getAllUsersListener listener) {
+    public void getAllUsers(Long lastUpdated, final Model.getAllUsersListener listener) {
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Timestamp ts=new Timestamp(lastUpdated,0);
+        db.collection("users").whereGreaterThanOrEqualTo("lastUpdated",ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<User> data = new LinkedList<User>();
-                if (task.isSuccessful()){
-                    for (DocumentSnapshot doc:task.getResult()) {
-                        User us = doc.toObject(User.class);
-                        data.add(us);
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot doc : task.getResult()) {
+                       User user=new User();
+                        user.fromMap(doc.getData());
+                        user.setUserID(doc.getId());
+                        db.collection("users").document(user.getUserID()).set(user.toMap());
+                        data.add(user);
+
                     }
                 }
                 listener.onComplete(data);
             }
         });
+
     }
     public void addUser(User user, final Model.addUserListener listener) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(user.getUserID())
-                .set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("users").add(user.toMap()).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
-            public void onSuccess(Void aVoid) {
-                Log.d("TAG","user added successfully");
+            public void onSuccess(DocumentReference documentReference) {
                 listener.onComplete();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d("TAG","fail adding user");
                 listener.onComplete();
             }
         });
@@ -98,7 +103,8 @@ public class ModelFirebase {
 
 
         public void updateUser(User user, Model.addUserListener listener) {
-            addUser(user,listener);
+           FirebaseFirestore db=FirebaseFirestore.getInstance();
+           db.collection("users").document(user.getUserID()).set(user);
         }
 
         public void getUser(String id, final Model.GetUserListener listener) {
@@ -161,24 +167,22 @@ public class ModelFirebase {
 
     public void addPost(Post post, Model.addPostListener listener){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("posts").document(post.getPostID())
-                .set(post.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("posts").add(post.toMap()).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
-            public void onSuccess(Void aVoid) {
-                Log.d("TAG","post added successfully");
+            public void onSuccess(DocumentReference documentReference) {
                 listener.onComplete();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d("TAG","fail adding post");
                 listener.onComplete();
             }
         });
     }
 
     public void updatePost(Post post, Model.addPostListener listener) {
-        addPost(post,listener);
+        FirebaseFirestore db=FirebaseFirestore.getInstance();
+        db.collection("posts").document(post.getUserID()).set(post);
     }
 
     public void getPost(String id, final Model.GetPostListener listener) {
@@ -212,6 +216,8 @@ public class ModelFirebase {
                     for (DocumentSnapshot doc : task.getResult()) {
                         Post post = new Post();
                         post.fromMap(doc.getData());
+                        post.setPostID(doc.getId());
+                        db.collection("posts").document(post.getPostID()).set(post.toMap());
                         data.add(post);
 
                     }

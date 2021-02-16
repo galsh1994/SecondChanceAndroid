@@ -82,7 +82,6 @@ public class RegisterFragment extends Fragment {
         user.setFirstName(registerFirstName.getText().toString());
         user.setLastName(registerLastName.getText().toString());
         user.setEmail(registerEmail.getText().toString());
-        user.setDescription(registerDescription.getText().toString());
         user.setPassword(registerPassword.getText().toString());
 
 
@@ -99,6 +98,7 @@ public class RegisterFragment extends Fragment {
                     Model.instance.addUser(user, new Model.addUserListener() {
                         @Override
                         public void onComplete() {
+                           Model.instance.refreshAllUsers(null);
                             Navigation.findNavController(saveRegister).popBackStack();
                         }
                     });

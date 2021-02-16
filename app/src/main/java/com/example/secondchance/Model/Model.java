@@ -17,21 +17,17 @@ public class Model {
     public final static Model instance= new Model();
     ModelFirebase modelFirebase;
 
-    MutableLiveData<List<User>> userList;
+    LiveData<List<User>> userList;
 
     LiveData<List<Post>> postList;
 
-    // not sure if modelSql is needed
-    ModelSql modelSql = new ModelSql();
+    ModelSql modelSql;
 
 
     private Model(){
 
         modelFirebase = new ModelFirebase();
-
-        userList =new MutableLiveData<List<User>>();
-
-       // postList =new MutableLiveData<List<Post>>();
+        modelSql=ModelSql.instance;
 
     }
 
@@ -43,15 +39,12 @@ public class Model {
 
     public interface getAllUsersListener extends Listener<List<User>>{}
 
-    public MutableLiveData<List<User>> getAllUsers() {
-        modelFirebase.getAllUsers(new Model.getAllUsersListener() {
-            @Override
-            public void onComplete(List<User> result) {
+    public LiveData<List<User>> getAllUsers() {
+        if(userList==null) {
+            userList=ModelSql.instance.getAllUsers();
+            refreshAllPosts(null);
 
-                userList.setValue(result);
-            }
-        });
-        Log.d("TAG","users from db");
+        }
         return userList;
     }
 
@@ -78,6 +71,34 @@ public class Model {
     interface  DeleteListener extends addUserListener{}
     public void deleteUser(User user, DeleteListener listener){
         modelFirebase.delete(user, listener);
+    }
+
+    public void refreshAllUsers(getAllUsersListener listener){
+
+        SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+        Long lastUpdated=sp.getLong("userLastUpdated",0);
+        modelFirebase.getAllUsers(lastUpdated,new getAllUsersListener() {
+            @Override
+            public void onComplete(List<User> result) {
+
+                long lastU=0;
+                for (User user: result) {
+                    ModelSql.instance.addUser(user,null);
+                    if(user.getLastUpdated()>lastU)
+                        lastU=user.getLastUpdated();
+
+                }
+
+                SharedPreferences.Editor editor=sp.edit();
+                editor.putLong("userLastUpdated",lastU);
+                editor.commit();
+
+                if(listener!=null)
+                    listener.onComplete(result);
+
+
+            }
+        });
     }
     public interface UploadImageListener extends Listener<String>{ }
 

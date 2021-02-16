@@ -9,32 +9,9 @@ import java.util.List;
 public class ModelSql {
     public final static ModelSql instance= new ModelSql();
 
-    public interface getAllUsersListener{
-        void OnComplete(List<User> users);
-    }
-    public void getAllUsers(getAllUsersListener listener) {
-        class MyAsyncTask extends AsyncTask {
-            List<User> users;
-            @Override
-            protected Object doInBackground(Object[] objects) {
-                users = AppLocalDb.db.userDao().getAllUsers();
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                super.onPostExecute(o);
-                listener.OnComplete(users);
-            }
-        }
-        MyAsyncTask task = new MyAsyncTask();
-        task.execute();
+    public LiveData<List<User>> getAllUsers() {
+      return AppLocalDb.db.userDao().getAllUsers();
     }
 
 

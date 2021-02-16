@@ -10,9 +10,9 @@ import com.example.secondchance.Model.User;
 import java.util.List;
 
 public class UserListViewModel extends ViewModel {
-    private MutableLiveData<List<User>> userList= Model.instance.getAllUsers();
+    private LiveData<List<User>> userList= Model.instance.getAllUsers();
 
-    public MutableLiveData<List<User>> getUserList(){
+    public LiveData<List<User>> getUserList(){
         return userList;
     }
 
