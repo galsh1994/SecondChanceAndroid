@@ -130,6 +130,9 @@ public class Model {
         }
         return postList;
     }
+    public LiveData<List<Post>> getAllUserPost(String userID){
+        return ModelSql.instance.getAllUserPosts(userID);
+    }
 
     public void refreshAllPosts(getAllPostsListener listener){
 
@@ -157,6 +160,7 @@ public class Model {
 
             }
         });
+
     }
 
 
