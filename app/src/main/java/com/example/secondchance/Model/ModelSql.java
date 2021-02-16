@@ -68,5 +68,9 @@ public class ModelSql {
         return AppLocalDb.db.postDao().getAllPosts();
     }
 
+    public LiveData<List<Post>> getAllUserPosts(String userID){
+        return AppLocalDb.db.postDao().getAllUserPosts(userID);
+    }
+
 
 }
