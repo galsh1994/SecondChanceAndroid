@@ -25,11 +25,11 @@ import java.util.List;
 
 public class ModelFirebase {
 
-   ///////////////////// user section /////////////////////////////////////
+ 
 
     public void getAllUsers(Long lastUpdated, final Model.getAllUsersListener listener) {
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts=new Timestamp(lastUpdated,0);
         db.collection("users").whereGreaterThanOrEqualTo("lastUpdated",ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class fragment_private_messages extends Fragment {
+public class privateMessagesFragment extends Fragment {
 
 
     @Override
