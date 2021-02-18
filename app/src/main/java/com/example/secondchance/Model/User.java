@@ -4,6 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
 
 public class User {
@@ -15,7 +21,32 @@ public class User {
     private String password;
     private String email;
     private String photoUrl;
-    private String description;
+    private Long lastUpdated;
+
+
+    public Map<String,Object> toMap(){
+        HashMap<String,Object> result=new HashMap<>();
+        result.put("userID",userID);
+        result.put("firstName",firstName);
+        result.put("lastName",lastName);
+        result.put("password",password);
+        result.put("email",email);
+        result.put("photoUrl",photoUrl);
+        result.put("lastUpdated", FieldValue.serverTimestamp());
+        return result;
+    }
+
+    public void fromMap(Map<String,Object> map){
+
+        userID=(String)map.get("userID");
+        firstName=(String)map.get("firstName");
+        lastName=(String)map.get("lastName");
+        password=(String)map.get("password");
+        email=(String)map.get("email");
+        photoUrl=(String)map.get("photoUrl");
+        Timestamp ts=(Timestamp)map.get("lastUpdated");
+        lastUpdated=ts.getSeconds();
+    }
 
     @NonNull
     public String getUserID() { return userID; }
@@ -40,10 +71,9 @@ public class User {
         return photoUrl;
     }
 
-    public String getDescription() {
-        return description;
+    public Long getLastUpdated() {
+        return lastUpdated;
     }
-
 
     public void setUserID(@NonNull String userID) {
         this.userID = userID;
@@ -69,7 +99,7 @@ public class User {
         this.photoUrl = photoUrl;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }

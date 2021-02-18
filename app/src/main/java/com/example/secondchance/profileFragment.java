@@ -29,14 +29,14 @@ public class profileFragment extends Fragment {
 
         //post list
 
-        postList=view.findViewById(R.id.profile_post_list);
-        postList.hasFixedSize();
-
-        LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
-        postList.setLayoutManager(layoutmaneger);
-
-        postListAdapter adapter = new postListAdapter();
-        postList.setAdapter(adapter);
+//        postList=view.findViewById(R.id.profile_post_list);
+//        postList.hasFixedSize();
+//
+//        LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
+//        postList.setLayoutManager(layoutmaneger);
+//
+//        postListAdapter adapter = new postListAdapter();
+//        postList.setAdapter(adapter);
 
 
 
