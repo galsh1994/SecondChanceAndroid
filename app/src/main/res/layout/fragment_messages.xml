@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />/>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo"
         android:layout_width="65dp"
         android:layout_height="68dp"
         android:layout_marginTop="8dp"
@@ -32,13 +32,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/private_m_button"
-        android:layout_width="264dp"
-        android:layout_height="114dp"
-        android:layout_marginTop="32dp"
-        android:text="Go to Private message "
-        app:backgroundTint="#9C27B0"
-        app:layout_constraintTop_toBottomOf="@+id/messages_title"
-        tools:layout_editor_absoluteX="76dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

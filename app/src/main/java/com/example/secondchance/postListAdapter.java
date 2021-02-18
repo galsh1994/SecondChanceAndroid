@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.secondchance.Model.Post;
 import com.example.secondchance.Model.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,6 +36,10 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         holder.postDate.setText(String.valueOf(post.getLastUpdated()));
         holder.postItemCondition.setText(post.getCondition());
         holder.position=position;
+        if (post.getPhotoUrl()!=null){
+            Picasso.get().load(post.getPhotoUrl()).into(holder.postItemImage);
+        }
+
 
     }
 

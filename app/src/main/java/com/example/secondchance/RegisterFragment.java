@@ -42,21 +42,17 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
 
         View view=  inflater.inflate(R.layout.fragment_register, container, false);
 
-
         saveRegister = view.findViewById(R.id.register_btn);
-
        registerFirstName = view.findViewById(R.id.registerFirstName);
        registerLastName= view.findViewById(R.id.registerLastName);
        registerEmail= view.findViewById(R.id.registerEmail);
        registerDescription= view.findViewById(R.id.registerDescreption);
        registerProfilePhoto= view.findViewById(R.id.registerProfilePhoto);
        registerEditProfilePhoto= view.findViewById(R.id.registerEditProfilePhoto);
-        registerPassword= view.findViewById(R.id.registerPassword);
+       registerPassword= view.findViewById(R.id.registerPassword);
 
         registerEditProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +84,7 @@ public class RegisterFragment extends Fragment {
         BitmapDrawable drawable = (BitmapDrawable)registerProfilePhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
 
-        Model.instance.uploadImage(bitmap, user.getUserID(), new Model.UploadImageListener() {
+        Model.instance.uploadUserImage(bitmap, user.getUserID(), new Model.UploadUserImageListener() {
             @Override
             public void onComplete(String url) {
                 if (url == null){
