@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_logout"
+        android:icon="@drawable/_115235_exit_logout_sign_out_114030"
+        android:title="logout"
+        app:showAsAction="always" />
+</menu>

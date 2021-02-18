@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/ItemDetailsFragment"
-        android:name="com.example.secondchance.fragment_item_details"
+        android:name="com.example.secondchance.itemDetailsFragment"
         android:label="fragment_item_details"
         tools:layout="@layout/fragment_item_details" >
         <argument
@@ -101,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/PrivateMsgFragment"
-        android:name="com.example.secondchance.fragment_private_messages"
+        android:name="com.example.secondchance.privateMessagesFragment"
         android:label="fragment_private_messages"
         tools:layout="@layout/fragment_private_messages" >
         <action
