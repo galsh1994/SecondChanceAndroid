@@ -1,5 +1,6 @@
 package com.example.secondchance;
 
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import com.example.secondchance.Model.Post;
 import com.example.secondchance.Model.User;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
 
@@ -29,16 +32,23 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         ///TODO : add all the fieldS of the post to the view
 
 
+
+
         Post post= postList.getValue().get(postList.getValue().size()-position-1);
         holder.postUserName.setText(post.getPostID());
         holder.postItemDescription.setText(post.getDescription());
         holder.postItemLocation.setText(post.getLocation());
-        holder.postDate.setText(String.valueOf(post.getLastUpdated()));
         holder.postItemCondition.setText(post.getCondition());
         holder.position=position;
         if (post.getPhotoUrl()!=null){
             Picasso.get().load(post.getPhotoUrl()).into(holder.postItemImage);
         }
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(post.getLastUpdated() * 1000);
+        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+        holder.postDate.setText(date);
+
+
 
 
     }
