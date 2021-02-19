@@ -37,7 +37,7 @@ public class Model {
     public LiveData<List<User>> getAllUsers() {
         if(userList==null) {
             userList=ModelSql.instance.getAllUsers();
-            refreshAllPosts(null);
+            refreshAllUsers(null);
 
         }
         return userList;
@@ -47,8 +47,10 @@ public class Model {
         void onComplete(User user);
     }
     public void getUser(String id, GetUserListener listener){
-        modelFirebase.getUser(id,listener);
-    }
+         modelFirebase.getUser(id,listener);
+       modelFirebase.getUser( id,  listener);
+
+     }
 
     public interface addUserListener{
         void onComplete();

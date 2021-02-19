@@ -1,5 +1,7 @@
 package com.example.secondchance;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,8 +28,9 @@ import java.util.List;
 public class newsFeedFragment extends Fragment {
 
     RecyclerView postList;
-//    UserListViewModel viewModel;
+    UserListViewModel userListViewModel;
     PostListViewModel postListViewModel;
+    String currentUserID="0";
 
 
     @Override
@@ -36,12 +39,11 @@ public class newsFeedFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_news_feed, container, false);
 
-        //get the view model
-        //should be post list but this is just a test
-        //need to change to postListViewModel
 
-//        viewModel= new ViewModelProvider(this).get(UserListViewModel.class);
         postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
+        userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
+        SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+        currentUserID=sp.getString("currentUser","0");
 
         //postList
 
@@ -51,7 +53,7 @@ public class newsFeedFragment extends Fragment {
         LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
         postList.setLayoutManager(layoutmaneger);
 
-        postListAdapter adapter = new postListAdapter(postListViewModel.getPostList());
+        postListAdapter adapter = new postListAdapter(postListViewModel.getPostList(),userListViewModel.getUserList());
         postList.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new postListAdapter.onItemClickListener() {
@@ -60,21 +62,10 @@ public class newsFeedFragment extends Fragment {
 
                 // TODO : navigate to single post fragment, this is just a test
 
-                String postID=postListViewModel.getPostList().getValue().get(position).getPostID();
-                Log.d("tag",postID);
-                
-
-
+                Log.d("Tag",currentUserID);
             }
         });
 
-
-//        viewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
-//            @Override
-//            public void onChanged(List<User> users) {
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
         postListViewModel.getPostList().observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
@@ -94,8 +85,8 @@ public class newsFeedFragment extends Fragment {
         addAPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stID="123";
-                newsFeedFragmentDirections.ActionNewsFeedFragmentToAddPostFragment actionAdd = newsFeedFragmentDirections.actionNewsFeedFragmentToAddPostFragment(stID);
+
+                newsFeedFragmentDirections.ActionNewsFeedFragmentToAddPostFragment actionAdd = newsFeedFragmentDirections.actionNewsFeedFragmentToAddPostFragment(currentUserID);
                 Navigation.findNavController(view).navigate(actionAdd);
             }
         });

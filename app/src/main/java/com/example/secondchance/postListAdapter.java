@@ -1,5 +1,6 @@
 package com.example.secondchance;
 
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,19 +9,24 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
 import com.example.secondchance.Model.User;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
 
 
     onItemClickListener listener;
     LiveData<List<Post>> postList;
-    public postListAdapter(LiveData<List<Post>> data){
+    LiveData<List<User>> users;
+    public postListAdapter(LiveData<List<Post>> data, LiveData<List<User>> userList){
         postList=data;
+        users=userList;
     }
 
 
@@ -29,16 +35,38 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         ///TODO : add all the fieldS of the post to the view
 
 
+        // get the post
         Post post= postList.getValue().get(postList.getValue().size()-position-1);
-        holder.postUserName.setText(post.getPostID());
-        holder.postItemDescription.setText(post.getDescription());
-        holder.postItemLocation.setText(post.getLocation());
-        holder.postDate.setText(String.valueOf(post.getLastUpdated()));
-        holder.postItemCondition.setText(post.getCondition());
-        holder.position=position;
+
+        // set username in the holder
+        for (User user:users.getValue()) {
+            if(user.getUserID().equals(post.getUserID())){
+                holder.postUserName.setText(user.getFirstName());
+                if(user.getPhotoUrl()!=null){
+                    Picasso.get().load(user.getPhotoUrl()).into(holder.postUserImage);
+                }
+                break;
+            }
+        }
+
+      // set post photo
         if (post.getPhotoUrl()!=null){
             Picasso.get().load(post.getPhotoUrl()).into(holder.postItemImage);
         }
+
+        //set the date
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(post.getLastUpdated() * 1000);
+        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+        holder.postDate.setText(date);
+
+        //set rest of the fields
+        holder.postItemDescription.setText(post.getDescription());
+        holder.postItemLocation.setText(post.getLocation());
+        holder.postItemCondition.setText(post.getCondition());
+        holder.position=position;
+
+
 
 
     }
