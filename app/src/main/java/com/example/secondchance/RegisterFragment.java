@@ -48,8 +48,9 @@ public class RegisterFragment extends Fragment {
     ImageButton registerEditProfilePhoto;
     ImageView registerProfilePhoto;
     Button saveRegister;
+    EditText registerPhone;
     TextView message;
-
+ 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class RegisterFragment extends Fragment {
        registerProfilePhoto= view.findViewById(R.id.registerProfilePhoto);
        registerEditProfilePhoto= view.findViewById(R.id.registerEditProfilePhoto);
        registerPassword= view.findViewById(R.id.registerPassword);
+       registerPhone = view.findViewById(R.id.registerPhone);
        message=view.findViewById(R.id.register_message_text);
        message.setVisibility(view.INVISIBLE);
 
@@ -84,7 +86,7 @@ public class RegisterFragment extends Fragment {
                 }
             }
         });
-
+ 
         registerEditProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +123,7 @@ public class RegisterFragment extends Fragment {
         user.setLastName(registerLastName.getText().toString());
         user.setEmail(registerEmail.getText().toString());
         user.setPassword(registerPassword.getText().toString());
+        user.setPhone(registerPhone.getText().toString());
 
 
         BitmapDrawable drawable = (BitmapDrawable)registerProfilePhoto.getDrawable();
