@@ -16,19 +16,14 @@ public class Model {
 
     public final static Model instance= new Model();
     ModelFirebase modelFirebase;
-
     LiveData<List<User>> userList;
-
     LiveData<List<Post>> postList;
-
     ModelSql modelSql;
 
 
     private Model(){
-
         modelFirebase = new ModelFirebase();
         modelSql=ModelSql.instance;
-
     }
 
     public interface Listener<T>{
@@ -52,7 +47,7 @@ public class Model {
         void onComplete(User user);
     }
     public void getUser(String id, GetUserListener listener){
-        modelFirebase.getUser( id,  listener);
+        modelFirebase.getUser(id,listener);
     }
 
     public interface addUserListener{

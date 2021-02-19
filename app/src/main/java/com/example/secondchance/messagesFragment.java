@@ -22,15 +22,15 @@ public class messagesFragment extends Fragment {
         String userID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
         Log.d("TAG","user id is:"+userID);
 
-        Button privateMsgBtn = view.findViewById(R.id.private_m_button);
-        privateMsgBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        Navigation.findNavController(v).navigate(R.id.action_messages_to_private_messages);
-         }
-        });
-
-
+////        Button privateMsgBtn = view.findViewById(R.id.private_m_button);
+//  ///      privateMsgBtn.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//        Navigation.findNavController(v).navigate(R.id.action_messages_to_private_messages);
+//         }
+//        });
+//
+//
 
         return view;
     }
