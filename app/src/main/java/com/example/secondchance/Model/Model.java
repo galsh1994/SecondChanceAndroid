@@ -42,7 +42,7 @@ public class Model {
     public LiveData<List<User>> getAllUsers() {
         if(userList==null) {
             userList=ModelSql.instance.getAllUsers();
-            refreshAllPosts(null);
+            refreshAllUsers(null);
 
         }
         return userList;
