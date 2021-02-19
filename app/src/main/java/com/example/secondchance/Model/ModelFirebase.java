@@ -24,47 +24,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ModelFirebase {
-/*
-    public void exampleToAcess() {
 
-
-        // Access a Cloud Firestore instance from your Activity
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Create a new user with a first and last name
-        Map<String, Object> user = new HashMap<>();
-        user.put("first", "Alda");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
-// if you want to make a shortcut , you can put a class (like student)
-        //but it must be Serializable - getters & setters and public empty c'tor
-// one more thing is to change the default id to real id,
-//        lesson number 8 part b , 2:58
-
-// Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("TAG", "Error adding document", e);
-                    }
-                });
-    }
-*/
-
-
-   ///////////////////// user section /////////////////////////////////////
-
+ 
 
     public void getAllUsers(Long lastUpdated, final Model.getAllUsersListener listener) {
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts=new Timestamp(lastUpdated,0);
         db.collection("users").whereGreaterThanOrEqualTo("lastUpdated",ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -136,9 +101,9 @@ public class ModelFirebase {
         }
 
 
-    public void uploadImage(Bitmap imageBmp, String name, final Model.UploadImageListener listener){
+    public void uploadUserImage(Bitmap imageBmp, String name, final Model.UploadUserImageListener listener){
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        final StorageReference imagesRef = storage.getReference().child("images").child(name);
+        final StorageReference imagesRef = storage.getReference().child("User images").child(name);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imageBmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
@@ -227,7 +192,67 @@ public class ModelFirebase {
         });
 
     }
+    public void uploadPostImage(Bitmap imageBmp, String name, final Model.UploadPostImageListener listener){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        final StorageReference imagesRef = storage.getReference().child("Posts images").child(name);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = imagesRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception exception) {
+                listener.onComplete(null);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                imagesRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Uri downloadUrl = uri;
+                        listener.onComplete(downloadUrl.toString());
+                    }
+                });
+            }
+        });
+    }
+
 }
+
+/*
+    public void exampleToAcess() {
+
+
+        // Access a Cloud Firestore instance from your Activity
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Create a new user with a first and last name
+        Map<String, Object> user = new HashMap<>();
+        user.put("first", "Alda");
+        user.put("last", "Lovelace");
+        user.put("born", 1815);
+// if you want to make a shortcut , you can put a class (like student)
+        //but it must be Serializable - getters & setters and public empty c'tor
+// one more thing is to change the default id to real id,
+//        lesson number 8 part b , 2:58
+
+// Add a new document with a generated ID
+        db.collection("users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error adding document", e);
+                    }
+                });
+    }
+*/
 
 
 

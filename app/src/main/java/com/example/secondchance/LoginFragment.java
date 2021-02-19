@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.icu.lang.UScript;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -13,6 +15,8 @@ import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,10 +32,21 @@ import java.util.List;
 
 
 public class LoginFragment extends Fragment {
-
-
-    List<User> userList;
+  
+   List<User> userList;
     boolean redirectToNewsFeed;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.login_menu,menu);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

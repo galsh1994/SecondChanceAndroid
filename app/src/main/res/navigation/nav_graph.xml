@@ -31,9 +31,6 @@
         <action
             android:id="@+id/action_newsFeedFragment_to_anotherProfileFragment"
             app:destination="@id/anotherProfileFragment" />
-        <action
-            android:id="@+id/action_newsFeed_to_single_post_fragment"
-            app:destination="@id/singlePostFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -92,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/ItemDetailsFragment"
-        android:name="com.example.secondchance.fragment_item_details"
+        android:name="com.example.secondchance.itemDetailsFragment"
         android:label="fragment_item_details"
         tools:layout="@layout/fragment_item_details" >
         <argument
@@ -104,7 +101,7 @@
     </fragment>
     <fragment
         android:id="@+id/PrivateMsgFragment"
-        android:name="com.example.secondchance.fragment_private_messages"
+        android:name="com.example.secondchance.privateMessagesFragment"
         android:label="fragment_private_messages"
         tools:layout="@layout/fragment_private_messages" >
         <action
@@ -194,14 +191,5 @@
             android:id="@+id/action_anotherProfileFragment_pop"
             app:popUpTo="@id/anotherProfileFragment"
             app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/singlePostFragment"
-        android:name="com.example.secondchance.SinglePostFragment"
-        android:label="fragment_single_post"
-        tools:layout="@layout/fragment_single_post" >
-        <argument
-            android:name="postID"
-            app:argType="string" />
     </fragment>
 </navigation>

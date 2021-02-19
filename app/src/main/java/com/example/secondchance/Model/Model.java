@@ -100,10 +100,10 @@ public class Model {
             }
         });
     }
-    public interface UploadImageListener extends Listener<String>{ }
+    public interface UploadUserImageListener extends Listener<String>{ }
 
-    public void uploadImage(Bitmap imageBmp, String name, final UploadImageListener listener) {
-        modelFirebase.uploadImage(imageBmp, name, listener);
+    public void uploadUserImage(Bitmap imageBmp, String name, final UploadUserImageListener listener) {
+        modelFirebase.uploadUserImage(imageBmp, name, listener);
     }
 
 
@@ -134,34 +134,39 @@ public class Model {
         return ModelSql.instance.getAllUserPosts(userID);
     }
 
-    public void refreshAllPosts(getAllPostsListener listener){
+    public void refreshAllPosts(getAllPostsListener listener) {
 
-        SharedPreferences sp= MyApplicaion.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        Long lastUpdated=sp.getLong("lastUpdated",0);
-        modelFirebase.getAllPosts(lastUpdated,new getAllPostsListener() {
+        SharedPreferences sp = MyApplicaion.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        Long lastUpdated = sp.getLong("lastUpdated", 0);
+        modelFirebase.getAllPosts(lastUpdated, new getAllPostsListener() {
             @Override
             public void onComplete(List<Post> result) {
 
-                long lastU=0;
-                for (Post p: result) {
-                    ModelSql.instance.addPost(p,null);
-                    if(p.getLastUpdated()>lastU)
-                        lastU=p.getLastUpdated();
-                    
+                long lastU = 0;
+                for (Post p : result) {
+                    ModelSql.instance.addPost(p, null);
+                    if (p.getLastUpdated() > lastU)
+                        lastU = p.getLastUpdated();
+
                 }
 
-                SharedPreferences.Editor editor=sp.edit();
-                editor.putLong("lastUpdated",lastU);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putLong("lastUpdated", lastU);
                 editor.commit();
 
-                if(listener!=null)
+                if (listener != null)
                     listener.onComplete(result);
 
 
             }
         });
-
     }
+        public interface UploadPostImageListener extends Listener<String>{ }
+
+        public void uploadPostImage(Bitmap imageBmp, String name, final Model.UploadPostImageListener listener) {
+            modelFirebase.uploadPostImage(imageBmp, name, listener);
+        }
+
 
 
 

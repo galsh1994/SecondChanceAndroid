@@ -13,7 +13,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 
-public class fragment_item_details extends Fragment {
+public class itemDetailsFragment extends Fragment {
 
 
     @Override
@@ -22,8 +22,8 @@ public class fragment_item_details extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_item_details, container, false);
 
-        String item_id_arg = fragment_item_detailsArgs.fromBundle(getArguments()).getItemId();
-        String item_name_arg = fragment_item_detailsArgs.fromBundle(getArguments()).getItemName();
+        String item_id_arg = itemDetailsFragmentArgs.fromBundle(getArguments()).getItemId();
+        String item_name_arg = itemDetailsFragmentArgs.fromBundle(getArguments()).getItemName();
         TextView item_name_text = view.findViewById(R.id.item_name);
         item_name_text.setText(item_name_arg);
         Log.d("TAG","item id is"+item_id_arg);
