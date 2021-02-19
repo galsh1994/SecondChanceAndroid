@@ -1,5 +1,7 @@
 package com.example.secondchance;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -28,6 +30,7 @@ public class newsFeedFragment extends Fragment {
     RecyclerView postList;
 //    UserListViewModel viewModel;
     PostListViewModel postListViewModel;
+    String currentUserID="0";
 
 
     @Override
@@ -36,12 +39,8 @@ public class newsFeedFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_news_feed, container, false);
 
-        //get the view model
-        //should be post list but this is just a test
-        //need to change to postListViewModel
-
-//        viewModel= new ViewModelProvider(this).get(UserListViewModel.class);
         postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
+        SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
 
         //postList
 
@@ -59,22 +58,11 @@ public class newsFeedFragment extends Fragment {
             public void onClick(int position) {
 
                 // TODO : navigate to single post fragment, this is just a test
-
-                String postID=postListViewModel.getPostList().getValue().get(position).getPostID();
-                Log.d("tag",postID);
-                
-
-
+                currentUserID=sp.getString("currentUser","0");
+                Log.d("Tag",currentUserID);
             }
         });
 
-
-//        viewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
-//            @Override
-//            public void onChanged(List<User> users) {
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
         postListViewModel.getPostList().observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
