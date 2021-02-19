@@ -52,7 +52,8 @@ public class Model {
         void onComplete(User user);
     }
     public void getUser(String id, GetUserListener listener){
-        modelFirebase.getUser( id,  listener);
+       modelFirebase.getUser( id,  listener);
+
     }
 
     public interface addUserListener{
