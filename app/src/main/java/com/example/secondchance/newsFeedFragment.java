@@ -28,7 +28,7 @@ import java.util.List;
 public class newsFeedFragment extends Fragment {
 
     RecyclerView postList;
-//    UserListViewModel viewModel;
+    UserListViewModel userListViewModel;
     PostListViewModel postListViewModel;
     String currentUserID="0";
 
@@ -39,8 +39,11 @@ public class newsFeedFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_news_feed, container, false);
 
+
         postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
+        userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
         SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+        currentUserID=sp.getString("currentUser","0");
 
         //postList
 
@@ -50,7 +53,7 @@ public class newsFeedFragment extends Fragment {
         LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
         postList.setLayoutManager(layoutmaneger);
 
-        postListAdapter adapter = new postListAdapter(postListViewModel.getPostList());
+        postListAdapter adapter = new postListAdapter(postListViewModel.getPostList(),userListViewModel.getUserList());
         postList.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new postListAdapter.onItemClickListener() {
@@ -58,7 +61,7 @@ public class newsFeedFragment extends Fragment {
             public void onClick(int position) {
 
                 // TODO : navigate to single post fragment, this is just a test
-                currentUserID=sp.getString("currentUser","0");
+
                 Log.d("Tag",currentUserID);
             }
         });
@@ -82,8 +85,8 @@ public class newsFeedFragment extends Fragment {
         addAPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stID="123";
-                newsFeedFragmentDirections.ActionNewsFeedFragmentToAddPostFragment actionAdd = newsFeedFragmentDirections.actionNewsFeedFragmentToAddPostFragment(stID);
+
+                newsFeedFragmentDirections.ActionNewsFeedFragmentToAddPostFragment actionAdd = newsFeedFragmentDirections.actionNewsFeedFragmentToAddPostFragment(currentUserID);
                 Navigation.findNavController(view).navigate(actionAdd);
             }
         });

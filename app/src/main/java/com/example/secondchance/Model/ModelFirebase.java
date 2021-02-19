@@ -77,11 +77,11 @@ public class ModelFirebase {
             db.collection("users").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    User user = null;
+                    User user = new User();
                     if (task.isSuccessful()){
                         DocumentSnapshot doc = task.getResult();
                         if (doc != null) {
-                            user = task.getResult().toObject(User.class);
+                            user.fromMap(task.getResult().getData());
                         }
                     }
                     listener.onComplete(user);

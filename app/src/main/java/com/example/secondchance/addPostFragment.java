@@ -48,7 +48,7 @@ public class addPostFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_post, container, false);
         userID = profileFragmentArgs.fromBundle(getArguments()).getUserID();
-        Log.d("TAG", "user id is:" + userID);
+
         description = view.findViewById(R.id.addPostDescription);
         location = view.findViewById(R.id.addPostLocation);
         condition = view.findViewById(R.id.addPostCondition);
