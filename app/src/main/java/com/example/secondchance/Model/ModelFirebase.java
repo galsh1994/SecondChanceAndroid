@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +21,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -216,6 +218,51 @@ public class ModelFirebase {
                 });
             }
         });
+    }
+
+
+    public void deletePost(Post post, Model.DeleteListener listener){
+        FirebaseFirestore db=FirebaseFirestore.getInstance();
+        db.collection("posts").document(post.getPostID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                HashMap<String,Object> deletedPost=new HashMap<>();
+                deletedPost.put("deletedPostID",post.getPostID());
+                deletedPost.put("lastDeleted", FieldValue.serverTimestamp());
+                db.collection("deletedPosts").add(deletedPost).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        listener.onComplete();
+                    }
+                });
+
+            }
+        });
+    }
+
+    public interface getAllPostsListener extends Model.Listener<List<Post>> {}
+
+    public void getAllDeletedPosts(Long lastDeleted,getAllPostsListener listener){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Timestamp ts=new Timestamp(lastDeleted,0);
+        db.collection("deletedPosts").whereGreaterThanOrEqualTo("lastDeleted",ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<Post> data = new LinkedList<Post>();
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot doc : task.getResult()) {
+                        Post post = new Post();
+                        post.setPostID((String) doc.getData().get(("deletedPostID")));
+                        Timestamp ts=(Timestamp)doc.getData().get("lastDeleted");
+                        post.setLastUpdated(ts.getSeconds());
+                        data.add(post);
+
+                    }
+                }
+                listener.onComplete(data);
+            }
+        });
+
     }
 
 }

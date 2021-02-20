@@ -1,5 +1,7 @@
 package com.example.secondchance;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,8 +24,10 @@ public class postListViewHolder extends RecyclerView.ViewHolder {
     int position;
     postListAdapter.onItemClickListener listener;
 
+
     public postListViewHolder(@NonNull View itemView) {
         super(itemView);
+
         postUserImage=itemView.findViewById(R.id.post_user_img);
         postUserName=itemView.findViewById(R.id.post_user_name);
         postDate=itemView.findViewById(R.id.post_date);
@@ -33,12 +37,8 @@ public class postListViewHolder extends RecyclerView.ViewHolder {
         postItemCondition=itemView.findViewById(R.id.post_item_condotion);
         postItemDelete = itemView.findViewById(R.id.deletePost_btn);
         postItemEdit = itemView.findViewById(R.id.editPost_btn);
-        if (false)
-        {
-            //it checks if the post is yours or not
-            postItemEdit.setVisibility(View.INVISIBLE);
-            postItemDelete.setVisibility(View.INVISIBLE);
-        }
+        postItemEdit.setVisibility(View.INVISIBLE);
+        postItemDelete.setVisibility(View.INVISIBLE);
         postItemDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -129,7 +129,12 @@ public class newsFeedFragment extends Fragment {
                Model.instance.refreshAllPosts(new Model.getAllPostsListener() {
                    @Override
                    public void onComplete(List<Post> result) {
-                       swipeRefreshLayout.setRefreshing(false);
+                      Model.instance.updateDeletedPosts(new Model.UpdateDeletedUsersListener() {
+                          @Override
+                          public void onComplete(String result) {
+                              swipeRefreshLayout.setRefreshing(false);
+                          }
+                      });
                    }
                });
            }
