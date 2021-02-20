@@ -92,7 +92,12 @@ public class LoginFragment extends Fragment {
                     if(email.getText().toString().equals(user.getEmail())) {
                         if (password.getText().toString().equals(user.getPassword())) {
                             redirectToNewsFeed=true;
-                            editor.putString("currentUser",user.getUserID());
+                            editor.putString("currentUserID",user.getUserID());
+                            editor.putString("currentUserFirstName",user.getFirstName());
+                            editor.putString("currentUserLastName",user.getLastName());
+                            editor.putString("currentUserEmail",user.getEmail());
+                            editor.putString("currentUserPhotoUrl",user.getPhotoUrl());
+
                             editor.commit();
                             break;
 

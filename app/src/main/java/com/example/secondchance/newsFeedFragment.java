@@ -43,7 +43,7 @@ public class newsFeedFragment extends Fragment {
         postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
         userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
         SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
-        currentUserID=sp.getString("currentUser","0");
+        currentUserID=sp.getString("currentUserID","0");
 
         //postList
 
@@ -96,8 +96,7 @@ public class newsFeedFragment extends Fragment {
         visitProfile_newsfeedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stID="123";
-                newsFeedFragmentDirections.ActionNewsFeedFragmentToProfileFragment actionProfile = newsFeedFragmentDirections.actionNewsFeedFragmentToProfileFragment(stID);
+                newsFeedFragmentDirections.ActionNewsFeedFragmentToProfileFragment actionProfile = newsFeedFragmentDirections.actionNewsFeedFragmentToProfileFragment(currentUserID);
                 Navigation.findNavController(view).navigate(actionProfile);
             }
         });
@@ -117,8 +116,7 @@ public class newsFeedFragment extends Fragment {
         messagesFromNewsfeedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stID="123";
-                newsFeedFragmentDirections.ActionNewsFeedFragmentToInboxFragment actionMessages = newsFeedFragmentDirections.actionNewsFeedFragmentToInboxFragment(stID);
+                newsFeedFragmentDirections.ActionNewsFeedFragmentToInboxFragment actionMessages = newsFeedFragmentDirections.actionNewsFeedFragmentToInboxFragment(currentUserID);
                 Navigation.findNavController(view).navigate(actionMessages);
             }
         });

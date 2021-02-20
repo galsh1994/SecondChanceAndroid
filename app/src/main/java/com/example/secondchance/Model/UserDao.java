@@ -8,12 +8,16 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 @Dao
 public interface UserDao {
 
     @Query("select * from User")
     LiveData<List<User>> getAllUsers();
+
+    @Query("select userID from User WHERE userID= :id")
+    User getUserById(String id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(User... students);
