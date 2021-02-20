@@ -81,6 +81,20 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         holder.postItemCondition.setText(post.getCondition());
         holder.position=position;
 
+        holder.postItemDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Model.instance.deletePost(post);
+            }
+        });
+
+        holder.postItemEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
 
 

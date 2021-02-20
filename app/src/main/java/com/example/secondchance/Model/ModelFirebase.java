@@ -253,7 +253,7 @@ public class ModelFirebase {
                     for (DocumentSnapshot doc : task.getResult()) {
                         Post post = new Post();
                         post.setPostID((String) doc.getData().get(("deletedPostID")));
-                        Timestamp ts=(Timestamp)doc.getData().get("lastUpdated");
+                        Timestamp ts=(Timestamp)doc.getData().get("lastDeleted");
                         post.setLastUpdated(ts.getSeconds());
                         data.add(post);
 
