@@ -73,5 +73,11 @@ public class ModelSql {
         return AppLocalDb.db.postDao().getAllUserPosts(userID);
     }
 
+    public void deletePost(Post post, Model.DeleteListener listener){
+        AppLocalDb.db.postDao().delete(post);
+        listener.onComplete();
+
+    }
+
 
 }

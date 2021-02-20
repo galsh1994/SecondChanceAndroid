@@ -163,6 +163,53 @@ public class Model {
         public void uploadPostImage(Bitmap imageBmp, String name, final Model.UploadPostImageListener listener) {
             modelFirebase.uploadPostImage(imageBmp, name, listener);
         }
+    public interface DeletePostListener{
+        public void onComplete();
+    }
+        public void deletePost(Post post){
+        modelFirebase.deletePost(post, new DeleteListener() {
+            @Override
+            public void onComplete() {
+                ModelSql.instance.deletePost(post,null);
+            }
+        });
+
+        }
+
+        public interface UpdateDeletedUsersListener extends Listener<String>{}
+        public void updateDeletedPosts(UpdateDeletedUsersListener listener){
+
+            SharedPreferences sp = MyApplicaion.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
+            Long lastDeleted = sp.getLong("lastDeleted", 0);
+            modelFirebase.getAllDeletedPosts(lastDeleted, new ModelFirebase.getAllPostsListener() {
+                @Override
+                public void onComplete(List<Post> result) {
+
+                    long lastD = 0;
+                    for (Post p : result) {
+                        ModelSql.instance.deletePost(p, null);
+                        if (p.getLastUpdated() > lastD)
+                            lastD = p.getLastUpdated();
+
+                    }
+
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putLong("lastDeleted", lastD);
+                    editor.commit();
+
+                    if (listener != null)
+                        listener.onComplete(null);
+
+
+                }
+
+
+            });
+
+
+
+
+        }
 
 
 
