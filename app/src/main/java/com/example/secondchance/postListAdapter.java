@@ -1,6 +1,9 @@
 package com.example.secondchance;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,24 +33,36 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
     }
 
 
-    public void bindData(postListViewHolder holder,int position){
+    public void bindData(postListViewHolder holder,int position) {
 
         ///TODO : add all the fieldS of the post to the view
 
+        SharedPreferences sp = MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+        String currentUserID = sp.getString("currentUserID", "0");
 
         // get the post
-        Post post= postList.getValue().get(postList.getValue().size()-position-1);
+        Post post = postList.getValue().get(postList.getValue().size() - position - 1);
 
         // set username in the holder
-        for (User user:users.getValue()) {
-            if(user.getUserID().equals(post.getUserID())){
+        for (User user : users.getValue()) {
+            if (user.getUserID().equals(post.getUserID())) {
                 holder.postUserName.setText(user.getFirstName());
-                if(user.getPhotoUrl()!=null){
+                if (user.getPhotoUrl() != null) {
                     Picasso.get().load(user.getPhotoUrl()).into(holder.postUserImage);
                 }
                 break;
             }
         }
+
+        // hide or display the edit and delete options ,depends on permissions
+
+
+        if (post.getUserID().equals(currentUserID)){
+
+            holder.postItemEdit.setVisibility(View.VISIBLE);
+           holder.postItemDelete.setVisibility(View.VISIBLE);
+        }
+
 
       // set post photo
         if (post.getPhotoUrl()!=null){
