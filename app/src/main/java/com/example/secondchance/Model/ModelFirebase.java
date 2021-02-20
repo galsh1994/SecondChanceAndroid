@@ -69,7 +69,7 @@ public class ModelFirebase {
 
         public void updateUser(User user, Model.addUserListener listener) {
            FirebaseFirestore db=FirebaseFirestore.getInstance();
-           db.collection("users").document(user.getUserID()).set(user);
+           db.collection("users").document(user.getUserID()).set(user.toMap());
         }
 
         public void getUser(String id, final Model.GetUserListener listener) {

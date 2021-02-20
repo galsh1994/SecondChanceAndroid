@@ -89,7 +89,7 @@
         app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/photo_icon" />
+        app:srcCompat="@drawable/photo_icon2" />
 
     <EditText
         android:id="@+id/addPostLocation"

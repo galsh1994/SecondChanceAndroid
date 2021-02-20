@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -12,11 +11,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.secondchance.Model.Model;
+import com.example.secondchance.Model.User;
+import com.squareup.picasso.Picasso;
 
 public class profileFragment extends Fragment {
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     RecyclerView postList;
+    TextView fullName;
+    TextView email;
+    ImageView profilePhoto;
+    User currentUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,8 +36,23 @@ public class profileFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_profile, container, false);
+        profilePhoto= view.findViewById(R.id.profile_user_img);
+        fullName= view.findViewById(R.id.profile_FullName);
+        email= view.findViewById(R.id.profile_email);
+
         String userID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
         Log.d("TAG","user id is:"+userID);
+        Model.instance.getUser(userID, new Model.GetUserListener() {
+            @Override
+            public void onComplete(User user) {
+                if (user.getPhotoUrl()!=null){
+                    Picasso.get().load(user.getPhotoUrl()).into(profilePhoto);
+                }
+                fullName.setText(user.getFirstName()+" "+user.getLastName());
+                email.setText(user.getEmail());
+                currentUser=user;
+            }
+        });
 
         //post list
 
@@ -52,8 +79,7 @@ public class profileFragment extends Fragment {
         editItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = "123";
-                profileFragmentDirections.ActionProfileToEditItem actionEditItem = profileFragmentDirections.actionProfileToEditItem(id);
+                profileFragmentDirections.ActionProfileToEditItem actionEditItem = profileFragmentDirections.actionProfileToEditItem(currentUser.getUserID());
                 Navigation.findNavController(v).navigate(actionEditItem);
             }
         });
@@ -63,8 +89,7 @@ public class profileFragment extends Fragment {
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = "123";
-                profileFragmentDirections.ActionProfileToEditProfile actionEdit = profileFragmentDirections.actionProfileToEditProfile(id);
+                profileFragmentDirections.ActionProfileToEditProfile actionEdit = profileFragmentDirections.actionProfileToEditProfile(currentUser.getUserID());
             Navigation.findNavController(v).navigate(actionEdit);
             }
         });
@@ -74,8 +99,7 @@ public class profileFragment extends Fragment {
         addAPostProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stID="123";
-                profileFragmentDirections.ActionProfileFragmentToAddPostFragment actionAdd = profileFragmentDirections.actionProfileFragmentToAddPostFragment(stID);
+                profileFragmentDirections.ActionProfileFragmentToAddPostFragment actionAdd = profileFragmentDirections.actionProfileFragmentToAddPostFragment(currentUser.getUserID());
                 Navigation.findNavController(view).navigate(actionAdd);
             }
         });
@@ -83,8 +107,7 @@ public class profileFragment extends Fragment {
          messagesFromProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stID="123";
-                profileFragmentDirections.ActionProfileFragmentToMessagesFragment actionMessages = profileFragmentDirections.actionProfileFragmentToMessagesFragment(stID);
+                profileFragmentDirections.ActionProfileFragmentToMessagesFragment actionMessages = profileFragmentDirections.actionProfileFragmentToMessagesFragment(currentUser.getUserID());
                 Navigation.findNavController(view).navigate(actionMessages);
             }
         });
@@ -92,9 +115,8 @@ public class profileFragment extends Fragment {
         itemDetailsFromProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = "223";
                 String item_name = "Basket";
-                profileFragmentDirections.ActionProfileToItemDetails action = profileFragmentDirections.actionProfileToItemDetails(id,item_name);
+                profileFragmentDirections.ActionProfileToItemDetails action = profileFragmentDirections.actionProfileToItemDetails(currentUser.getUserID(),item_name);
                 Navigation.findNavController(v).navigate(action);
             }
         });

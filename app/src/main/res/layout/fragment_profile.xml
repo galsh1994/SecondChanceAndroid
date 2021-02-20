@@ -120,50 +120,58 @@
 
     <ImageButton
         android:id="@+id/item_details_From_profile"
-        android:layout_width="148dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="119dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="140dp"
-        android:layout_marginBottom="23dp"
-        app:layout_constraintBottom_toTopOf="@+id/profile_post_list"
+        android:layout_width="101dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="136dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_message_btn"
-        app:layout_constraintVertical_bias="0.411"
         tools:src="@drawable/basket" />
 
     <ImageView
         android:id="@+id/profile_user_img"
-        android:layout_width="164dp"
-        android:layout_height="119dp"
+        android:layout_width="165dp"
+        android:layout_height="144dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:src="@drawable/profile2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_FullName" />
 
     <TextView
         android:id="@+id/profile_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="201dp"
+        android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/quicksand"
         android:text="Email"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.042"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_user_img" />
 
+    <TextView
+        android:id="@+id/profile_FullName"
+        android:layout_width="201dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/quicksand"
+        android:text="full name"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
     <Button
         android:id="@+id/profile_message_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/quicksand"
         android:text="message"
         app:backgroundTint="#92FF5722"
@@ -174,8 +182,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profile_post_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="359dp"
+        android:layout_height="131dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
@@ -183,22 +191,23 @@
         android:background="#CCF1A1"
         app:layout_constraintBottom_toTopOf="@+id/visitProfileFrom_profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_details_From_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/item_details_From_profile"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/edit_details_on_profile"
         android:layout_width="38dp"
         android:layout_height="47dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="100dp"
         android:background="@color/white"
         app:backgroundTint="@color/white"
         app:icon="@android:drawable/ic_menu_edit"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
         app:layout_constraintStart_toEndOf="@+id/profile_user_img"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_FullName" />
 
     <Button
         android:id="@+id/edit_item_btn"
