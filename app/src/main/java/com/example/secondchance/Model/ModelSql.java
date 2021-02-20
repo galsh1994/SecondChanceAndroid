@@ -74,8 +74,22 @@ public class ModelSql {
     }
 
     public void deletePost(Post post, Model.DeleteListener listener){
-        AppLocalDb.db.postDao().delete(post);
-        listener.onComplete();
+        class MyAsyncTask extends AsyncTask {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                AppLocalDb.db.postDao().delete(post);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+                if (listener!=null)
+                    listener.onComplete();
+            }
+        }
+        MyAsyncTask task = new MyAsyncTask();
+        task.execute();
 
     }
 
