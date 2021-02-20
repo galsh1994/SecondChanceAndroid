@@ -11,6 +11,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -21,14 +24,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.User;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class RegisterFragment extends Fragment {
+
+    List<User> userList;
+    Boolean saveUser;
 
     EditText registerFirstName;
     EditText registerLastName;
@@ -38,12 +48,16 @@ public class RegisterFragment extends Fragment {
     ImageButton registerEditProfilePhoto;
     ImageView registerProfilePhoto;
     Button saveRegister;
-
+    EditText registerPhone;
+    TextView message;
+ 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view=  inflater.inflate(R.layout.fragment_register, container, false);
+
+        //catch all buttons
 
         saveRegister = view.findViewById(R.id.register_btn);
        registerFirstName = view.findViewById(R.id.registerFirstName);
@@ -53,7 +67,26 @@ public class RegisterFragment extends Fragment {
        registerProfilePhoto= view.findViewById(R.id.registerProfilePhoto);
        registerEditProfilePhoto= view.findViewById(R.id.registerEditProfilePhoto);
        registerPassword= view.findViewById(R.id.registerPassword);
+       registerPhone = view.findViewById(R.id.registerPhone);
+       message=view.findViewById(R.id.register_message_text);
+       message.setVisibility(view.INVISIBLE);
 
+
+
+       // get user list
+
+        UserListViewModel userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
+        LiveData<List<User>> users =userListViewModel.getUserList();
+        userList=new LinkedList<>();
+        users.observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+                for (User user:users) {
+                    userList.add(user);
+                }
+            }
+        });
+ 
         registerEditProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +97,17 @@ public class RegisterFragment extends Fragment {
         saveRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                saveUser=true;
+
+                for (User user:userList) {
+                    if(user.getEmail().equals(registerEmail.getText().toString())){
+                        message.setVisibility(view.VISIBLE);
+                        saveUser=false;
+                        break;
+                    }
+                }
+                if(saveUser)
                 saveChanges();
 
             }
@@ -79,6 +123,7 @@ public class RegisterFragment extends Fragment {
         user.setLastName(registerLastName.getText().toString());
         user.setEmail(registerEmail.getText().toString());
         user.setPassword(registerPassword.getText().toString());
+        user.setPhone(registerPhone.getText().toString());
 
 
         BitmapDrawable drawable = (BitmapDrawable)registerProfilePhoto.getDrawable();

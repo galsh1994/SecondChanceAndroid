@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Entity
-
 public class User {
     @PrimaryKey
     @NonNull
@@ -22,6 +21,7 @@ public class User {
     private String email;
     private String photoUrl;
     private Long lastUpdated;
+    private String phone;
 
 
     public Map<String,Object> toMap(){
@@ -33,6 +33,8 @@ public class User {
         result.put("email",email);
         result.put("photoUrl",photoUrl);
         result.put("lastUpdated", FieldValue.serverTimestamp());
+        result.put("phone",phone);
+
         return result;
     }
 
@@ -46,6 +48,9 @@ public class User {
         photoUrl=(String)map.get("photoUrl");
         Timestamp ts=(Timestamp)map.get("lastUpdated");
         lastUpdated=ts.getSeconds();
+        phone=(String)map.get("phone");
+
+
     }
 
     @NonNull
@@ -74,6 +79,10 @@ public class User {
     public Long getLastUpdated() {
         return lastUpdated;
     }
+
+    public String getPhone() { return phone;  }
+
+    public void setPhone(String phone) { this.phone = phone; }
 
     public void setUserID(@NonNull String userID) {
         this.userID = userID;
