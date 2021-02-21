@@ -8,17 +8,17 @@
     android:textDirection="firstStrong">
 
     <ImageView
-        android:id="@+id/post_item_img"
+        android:id="@+id/single_post_item_img"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_date"
+        app:layout_constraintTop_toBottomOf="@+id/single_post_date"
         app:srcCompat="?attr/actionModePasteDrawable" />
 
     <ImageView
-        android:id="@+id/post_user_img"
+        android:id="@+id/single_post_user_img"
         android:layout_width="56dp"
         android:layout_height="54dp"
         android:layout_marginStart="8dp"
@@ -28,7 +28,7 @@
         app:srcCompat="@drawable/profile2" />
 
     <Button
-        android:id="@+id/post_user_name"
+        android:id="@+id/single_post_user_name"
         android:layout_width="268dp"
         android:layout_height="46dp"
         android:layout_marginStart="50dp"
@@ -39,11 +39,11 @@
         android:textColor="#0E0B0B"
         app:backgroundTint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/post_user_img"
+        app:layout_constraintStart_toEndOf="@+id/single_post_user_img"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/post_date"
+        android:id="@+id/single_post_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -52,11 +52,11 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toEndOf="@+id/post_user_img"
-        app:layout_constraintTop_toBottomOf="@+id/post_user_name" />
+        app:layout_constraintStart_toEndOf="@+id/single_post_user_img"
+        app:layout_constraintTop_toBottomOf="@+id/single_post_user_name" />
 
     <TextView
-        android:id="@+id/post_item_description"
+        android:id="@+id/single_post_item_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -64,10 +64,10 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_item_img" />
+        app:layout_constraintTop_toBottomOf="@+id/single_post_item_img" />
 
     <TextView
-        android:id="@+id/post_item_condotion"
+        android:id="@+id/single_post_item_condotion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -77,10 +77,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_item_location" />
+        app:layout_constraintTop_toBottomOf="@+id/single_post_item_location" />
 
     <TextView
-        android:id="@+id/post_item_location"
+        android:id="@+id/single_post_item_location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -88,26 +88,26 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_item_description" />
+        app:layout_constraintTop_toBottomOf="@+id/single_post_item_description" />
 
     <ImageButton
-        android:id="@+id/deletePost_btn"
+        android:id="@+id/delete_single_Post_btn"
         android:layout_width="43dp"
         android:layout_height="34dp"
         android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.168"
-        app:layout_constraintStart_toEndOf="@+id/post_item_img"
-        app:layout_constraintTop_toBottomOf="@+id/post_date"
+        app:layout_constraintStart_toEndOf="@+id/single_post_item_img"
+        app:layout_constraintTop_toBottomOf="@+id/single_post_date"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
     <ImageButton
-        android:id="@+id/editPost_btn"
+        android:id="@+id/edit_single_Post_btn"
         android:layout_width="43dp"
         android:layout_height="35dp"
-        app:layout_constraintBottom_toBottomOf="@+id/deletePost_btn"
-        app:layout_constraintStart_toEndOf="@+id/deletePost_btn"
-        app:layout_constraintTop_toTopOf="@+id/deletePost_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/delete_single_Post_btn"
+        app:layout_constraintStart_toEndOf="@+id/delete_single_Post_btn"
+        app:layout_constraintTop_toTopOf="@+id/delete_single_Post_btn"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 

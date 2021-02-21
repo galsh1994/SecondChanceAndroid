@@ -57,15 +57,6 @@ public class newsFeedFragment extends Fragment {
         postList.setAdapter(adapter);
 
 
-        adapter.setOnItemClickListener(new postListAdapter.onItemClickListener() {
-            @Override
-            public void onClick(int position) {
-
-                // TODO : navigate to single post fragment, this is just a test
-
-                Log.d("Tag",currentUserID);
-            }
-        });
 
         postListViewModel.getPostList().observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
             @Override
@@ -141,7 +132,18 @@ public class newsFeedFragment extends Fragment {
                });
            }
        });
+        adapter.setOnItemClickListener(new postListAdapter.onItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                int size= postListViewModel.getPostList().getValue().size();
+                String postId = postListViewModel.getPostList().getValue().get(size-position-1).getPostID() ;
+                Log.d("dd",postId);
+                newsFeedFragmentDirections.ActionNewsFeedFragmentToSinglePostFragment actionToSinglePost =
+                        newsFeedFragmentDirections.actionNewsFeedFragmentToSinglePostFragment(postId);
 
+                Navigation.findNavController(view).navigate(actionToSinglePost);
+            }
+        });
         return view;
     }
 

@@ -160,6 +160,11 @@ public class Model {
 
     }
 
+    public interface UpdatePostListener extends addPostListener{}
+    public void updatePost(final Post post, final UpdatePostListener listener){
+        modelFirebase.updatePost(post,listener);
+    }
+
     public interface getAllPostsListener extends Listener<List<Post>>{}
 
     public LiveData<List<Post>> getAllPosts() {

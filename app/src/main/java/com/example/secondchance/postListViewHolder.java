@@ -3,6 +3,7 @@ package com.example.secondchance;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class postListViewHolder extends RecyclerView.ViewHolder {
 
-    TextView postUserName;
+    Button postUserName;
     TextView postDate;
     TextView postItemLocation;
     TextView postItemCondition;
@@ -23,7 +24,6 @@ public class postListViewHolder extends RecyclerView.ViewHolder {
     ImageButton postItemEdit;
     int position;
     postListAdapter.onItemClickListener listener;
-    String postID;
 
 
     public postListViewHolder(@NonNull View itemView) {

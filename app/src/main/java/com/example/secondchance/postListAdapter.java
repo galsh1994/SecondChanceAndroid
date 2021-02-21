@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.secondchance.Model.Model;
@@ -27,9 +28,8 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
     onItemClickListener listener;
     LiveData<List<Post>> postList;
     LiveData<List<User>> users;
-    RecyclerView recycler;
     public postListAdapter(LiveData<List<Post>> data, LiveData<List<User>> userList){
-        this.postList =data;
+        postList=data;
         users=userList;
     }
 
@@ -47,7 +47,7 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         // set username in the holder
         for (User user : users.getValue()) {
             if (user.getUserID().equals(post.getUserID())) {
-                holder.postUserName.setText(user.getFirstName());
+                holder.postUserName.setText(user.getFirstName()+" "+user.getLastName());
                 if (user.getPhotoUrl() != null) {
                     Picasso.get().load(user.getPhotoUrl()).into(holder.postUserImage);
                 }
@@ -56,13 +56,6 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         }
 
         // hide or display the edit and delete options ,depends on permissions
-
-
-        if (post.getUserID().equals(currentUserID)){
-
-            holder.postItemEdit.setVisibility(View.VISIBLE);
-           holder.postItemDelete.setVisibility(View.VISIBLE);
-        }
 
 
       // set post photo
@@ -79,16 +72,15 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         holder.postDate.setText(date+" "+hours+":"+minutes);
 
         //set rest of the fields
-        holder.postItemDescription.setText(post.getDescription());
-        holder.postItemLocation.setText(post.getLocation());
-        holder.postItemCondition.setText(post.getCondition());
+        holder.postItemDescription.setText("Description: "+post.getDescription());
+        holder.postItemLocation.setText("Location: "+post.getLocation());
+        holder.postItemCondition.setText("Condition: "+post.getCondition());
         holder.position=position;
 
         holder.postItemDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Model.instance.deletePost(post);
-
             }
         });
 
@@ -96,6 +88,15 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        holder.postUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newsFeedFragmentDirections.ActionNewsFeedFragmentToProfileFragment actionToUsersProfile =
+                        newsFeedFragmentDirections.actionNewsFeedFragmentToProfileFragment(post.getUserID());
+                Navigation.findNavController(v).navigate(actionToUsersProfile);
             }
         });
 
