@@ -27,8 +27,9 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
     onItemClickListener listener;
     LiveData<List<Post>> postList;
     LiveData<List<User>> users;
+    RecyclerView recycler;
     public postListAdapter(LiveData<List<Post>> data, LiveData<List<User>> userList){
-        postList=data;
+        this.postList =data;
         users=userList;
     }
 
@@ -73,7 +74,9 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(post.getLastUpdated() * 1000);
         String date = DateFormat.format("dd-MM-yyyy", cal).toString();
-        holder.postDate.setText(date);
+        String  hours = String.valueOf(cal.get(Calendar.HOUR_OF_DAY));
+        String  minutes = String.valueOf(cal.get(Calendar.MINUTE));
+        holder.postDate.setText(date+" "+hours+":"+minutes);
 
         //set rest of the fields
         holder.postItemDescription.setText(post.getDescription());
@@ -85,6 +88,7 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
             @Override
             public void onClick(View v) {
                 Model.instance.deletePost(post);
+
             }
         });
 

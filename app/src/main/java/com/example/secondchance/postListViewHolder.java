@@ -23,6 +23,7 @@ public class postListViewHolder extends RecyclerView.ViewHolder {
     ImageButton postItemEdit;
     int position;
     postListAdapter.onItemClickListener listener;
+    String postID;
 
 
     public postListViewHolder(@NonNull View itemView) {

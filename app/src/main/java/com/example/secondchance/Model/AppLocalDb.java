@@ -15,7 +15,7 @@ import com.example.secondchance.MyApplicaion;
         static public AppLocalDbRepository db =
                 Room.databaseBuilder(MyApplicaion.context,
                         AppLocalDbRepository.class,
-                        "ContextDb5.db")
+                        "ContextDb6.db")
                         .fallbackToDestructiveMigration()
                         .build();
     };
