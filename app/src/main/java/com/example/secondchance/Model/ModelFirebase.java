@@ -93,15 +93,24 @@ public class ModelFirebase {
             });
         }
 
-        public void delete(User user, final Model.DeleteListener listener) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("users").document(user.getUserID())
-                    .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+        public void deleteUser(User user, final Model.DeleteListener listener) {
+            FirebaseFirestore db=FirebaseFirestore.getInstance();
+            db.collection("users").document(user.getUserID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    listener.onComplete();
+                public void onSuccess(Void aVoid) {
+                    HashMap<String,Object> deletedUser=new HashMap<>();
+                    deletedUser.put("deletedUserID",user.getUserID());
+                    deletedUser.put("lastDeleted", FieldValue.serverTimestamp());
+                    db.collection("deletedUsers").add(deletedUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            listener.onComplete();
+                        }
+                    });
+
                 }
             });
+
         }
 
 
@@ -130,6 +139,32 @@ public class ModelFirebase {
             }
         });
     }
+
+    public interface GetAllDeletedUsersListener extends Model.Listener<List<User>>{}
+
+    public void getAllDeletedUsers(Long lastDeleted,GetAllDeletedUsersListener listener){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Timestamp ts=new Timestamp(lastDeleted,0);
+        db.collection("deletedUsers").whereGreaterThanOrEqualTo("lastDeleted",ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<User> data = new LinkedList<User>();
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot doc : task.getResult()) {
+                        User user=new User();
+                        user.setUserID((String) doc.getData().get(("deletedUserID")));
+                        Timestamp ts=(Timestamp)doc.getData().get("lastDeleted");
+                        user.setLastUpdated(ts.getSeconds());
+                        data.add(user);
+
+                    }
+                }
+                listener.onComplete(data);
+            }
+        });
+
+    }
+
 
 
     //////////////////////////post section////////////////////////////////////////////////////////

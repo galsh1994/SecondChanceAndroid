@@ -66,8 +66,16 @@ public class Model {
     }
 
     interface  DeleteListener extends addUserListener{}
-    public void deleteUser(User user, DeleteListener listener){
-        modelFirebase.delete(user, listener);
+    public void deleteUser(User user){
+
+
+        modelFirebase.deleteUser(user, new DeleteListener() {
+            @Override
+            public void onComplete() {
+                ModelSql.instance.deleteUser(user,null);
+            }
+        });
+
     }
 
     public void refreshAllUsers(getAllUsersListener listener){
@@ -97,6 +105,41 @@ public class Model {
             }
         });
     }
+
+    public void updateDeletedUsers(UpdateDeletedUsersListener listener){
+
+        SharedPreferences sp = MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+        Long lastDeleted = sp.getLong("lastDeleted", 0);
+        modelFirebase.getAllDeletedUsers(lastDeleted, new ModelFirebase.GetAllDeletedUsersListener(){
+            @Override
+            public void onComplete(List<User> result) {
+
+                long lastD = 0;
+                for (User user : result) {
+                    ModelSql.instance.deleteUser(user, null);
+                    if (user.getLastUpdated() > lastD)
+                        lastD = user.getLastUpdated();
+
+                }
+
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putLong("lastDeleted", lastD);
+                editor.commit();
+
+                if (listener != null)
+                    listener.onComplete(null);
+
+
+            }
+
+
+        });
+
+
+
+
+    }
+
     public interface UploadUserImageListener extends Listener<String>{ }
 
     public void uploadUserImage(Bitmap imageBmp, String name, final UploadUserImageListener listener) {
