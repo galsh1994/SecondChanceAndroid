@@ -56,6 +56,7 @@ public class newsFeedFragment extends Fragment {
         postListAdapter adapter = new postListAdapter(postListViewModel.getPostList(),userListViewModel.getUserList());
         postList.setAdapter(adapter);
 
+
         adapter.setOnItemClickListener(new postListAdapter.onItemClickListener() {
             @Override
             public void onClick(int position) {
@@ -132,6 +133,7 @@ public class newsFeedFragment extends Fragment {
                       Model.instance.updateDeletedPosts(new Model.UpdateDeletedUsersListener() {
                           @Override
                           public void onComplete(String result) {
+                              adapter.notifyDataSetChanged();
                               swipeRefreshLayout.setRefreshing(false);
                           }
                       });

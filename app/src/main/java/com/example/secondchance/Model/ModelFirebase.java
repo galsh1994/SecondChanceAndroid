@@ -42,7 +42,9 @@ public class ModelFirebase {
                        User user=new User();
                         user.fromMap(doc.getData());
                         user.setUserID(doc.getId());
-                        db.collection("users").document(user.getUserID()).set(user.toMap());
+                        HashMap<String,Object> update=new HashMap<>();
+                        update.put("userID",user.getUserID());
+                        db.collection("users").document(user.getUserID()).update(update);
                         data.add(user);
 
                     }
@@ -184,7 +186,9 @@ public class ModelFirebase {
                         Post post = new Post();
                         post.fromMap(doc.getData());
                         post.setPostID(doc.getId());
-                        db.collection("posts").document(post.getPostID()).set(post.toMap());
+                        HashMap<String,Object> update=new HashMap<>();
+                        update.put("postID",post.getPostID());
+                        db.collection("posts").document(post.getPostID()).update(update);
                         data.add(post);
 
                     }
