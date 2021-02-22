@@ -67,6 +67,9 @@ public class Model {
 
     interface  DeleteListener extends addUserListener{}
     public void deleteUser(User user){
+        for (Post post:postList.getValue())
+            if(post.getUserID().equals(user.getUserID()))
+                deletePost(post);
 
 
         modelFirebase.deleteUser(user, new DeleteListener() {

@@ -29,6 +29,7 @@ public class profileFragment extends Fragment {
     TextView email;
     ImageView profilePhoto;
     User currentUser;
+    Button deleteAccountBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +40,7 @@ public class profileFragment extends Fragment {
         profilePhoto= view.findViewById(R.id.profile_user_img);
         fullName= view.findViewById(R.id.profile_FullName);
         email= view.findViewById(R.id.profile_email);
+        deleteAccountBtn=view.findViewById(R.id.delet_account_btn);
 
         String userID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
         Log.d("TAG","user id is:"+userID);
@@ -51,7 +53,14 @@ public class profileFragment extends Fragment {
                 fullName.setText(user.getFirstName()+" "+user.getLastName());
                 email.setText(user.getEmail());
                 currentUser=user;
+                deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Model.instance.deleteUser(currentUser);
+                    }
+                });
             }
+
         });
 
         //post list
