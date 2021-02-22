@@ -66,6 +66,13 @@ public class newsFeedFragment extends Fragment {
             }
         });
 
+        userListViewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+                adapter.notifyDataSetChanged();
+            }
+        });
+
 
 
 
@@ -124,8 +131,17 @@ public class newsFeedFragment extends Fragment {
                       Model.instance.updateDeletedPosts(new Model.UpdateDeletedUsersListener() {
                           @Override
                           public void onComplete(String result) {
-                              adapter.notifyDataSetChanged();
-                              swipeRefreshLayout.setRefreshing(false);
+                             Model.instance.refreshAllUsers(new Model.getAllUsersListener() {
+                                 @Override
+                                 public void onComplete(List<User> result) {
+                                     Model.instance.updateDeletedUsers(new Model.UpdateDeletedUsersListener() {
+                                         @Override
+                                         public void onComplete(String result) {
+                                             swipeRefreshLayout.setRefreshing(false);
+                                         }
+                                     });
+                                 }
+                             });
                           }
                       });
                    }

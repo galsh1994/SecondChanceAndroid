@@ -104,9 +104,7 @@ public class editProfileFragment extends Fragment {
             public void onClick(View v) {
                 saveChanges();
                 Model.instance.refreshAllUsers(null);
-                editProfileFragmentDirections.ActionEditProfileFragmentToProfileFragment actionToUpdatedProfile =
-                        editProfileFragmentDirections.actionEditProfileFragmentToProfileFragment(currentUserID);
-                Navigation.findNavController(v).navigate(actionToUpdatedProfile);            }
+                Navigation.findNavController(save).popBackStack();            }
 
             });
 

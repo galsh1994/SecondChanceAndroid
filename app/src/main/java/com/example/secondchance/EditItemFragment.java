@@ -86,9 +86,7 @@ public class EditItemFragment extends Fragment {
             public void onClick(View v) {
                 saveChanges();
                 Model.instance.refreshAllPosts(null);
-                EditItemFragmentDirections.ActionEditItemFragmentToSinglePostFragment actionToUpdatedPost =
-                        EditItemFragmentDirections.actionEditItemFragmentToSinglePostFragment(currentPostID);
-                Navigation.findNavController(v).navigate(actionToUpdatedPost);
+                Navigation.findNavController(save).popBackStack();
             }
         });
 
