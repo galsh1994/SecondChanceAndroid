@@ -50,7 +50,6 @@ public class editProfileFragment extends Fragment {
     ImageView profilePhoto;
     ImageButton editProfile;
     Button save;
-    String currentUserPhotoUrl="0";
     String currentUserID="0";
     User currentUser;
 
@@ -72,9 +71,8 @@ public class editProfileFragment extends Fragment {
         editProfile= view.findViewById(R.id.editProfilePhoto);
         save = view.findViewById(R.id.saveBtnEditPage);
 
-        SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
-        //currentUserPhotoUrl=sp.getString("currentUserPhotoUrl","0");
-        currentUserID=sp.getString("currentUserID","0");
+        currentUserID= editProfileFragmentArgs.fromBundle(getArguments()).getUserId();
+
 
 
         Model.instance.getUser(currentUserID, new Model.GetUserListener() {
@@ -105,16 +103,19 @@ public class editProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 saveChanges();
-                Navigation.findNavController(v).popBackStack();
-            }
-        });
+                Model.instance.refreshAllUsers(null);
+                editProfileFragmentDirections.ActionEditProfileFragmentToProfileFragment actionToUpdatedProfile =
+                        editProfileFragmentDirections.actionEditProfileFragmentToProfileFragment(currentUserID);
+                Navigation.findNavController(v).navigate(actionToUpdatedProfile);            }
+
+            });
 
         return view;
     }
 
     private void saveChanges() {
         User user = new User();
-        user.setUserID(currentUser.getUserID());
+        user.setUserID(currentUserID);
         user.setFirstName(firstName.getText().toString());
         user.setLastName(lastName.getText().toString());
         user.setEmail(email.getText().toString());

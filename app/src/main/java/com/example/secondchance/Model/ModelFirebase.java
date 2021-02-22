@@ -186,7 +186,7 @@ public class ModelFirebase {
 
     public void updatePost(Post post, Model.addPostListener listener) {
         FirebaseFirestore db=FirebaseFirestore.getInstance();
-        db.collection("posts").document(post.getUserID()).set(post);
+        db.collection("posts").document(post.getPostID()).set(post.toMap());
     }
 
     public void getPost(String id, final Model.GetPostListener listener) {

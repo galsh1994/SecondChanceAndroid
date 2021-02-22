@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textAlignment="viewStart"
-    android:textDirection="firstStrong">
+    android:textDirection="firstStrong"
+    tools:context=".singlePostFragment">
+    >
 
     <ImageView
         android:id="@+id/single_post_item_img"

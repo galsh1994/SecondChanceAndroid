@@ -44,11 +44,9 @@ public class singlePostFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_single_post, container, false);
         String postID= singlePostFragmentArgs.fromBundle(getArguments()).getPostId();
-        Log.d("from single post id",postID);
 
         SharedPreferences sp = MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         String currentUserID = sp.getString("currentUserID", "0");
-        Log.d("from single user id",currentUserID);
 
 
 

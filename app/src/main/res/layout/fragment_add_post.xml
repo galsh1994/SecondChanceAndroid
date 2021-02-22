@@ -84,7 +84,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:background="#FDFBFB"
-        android:src="@android:drawable/btn_star_big_on"
+        android:src="@drawable/photo_icon2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
