@@ -86,6 +86,8 @@ public class EditItemFragment extends Fragment {
             public void onClick(View v) {
                 saveChanges();
                 Model.instance.refreshAllPosts(null);
+
+                // TODO navigate to news feed
                 Navigation.findNavController(save).popBackStack();
             }
         });

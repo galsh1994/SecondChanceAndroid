@@ -156,6 +156,10 @@
         <action
             android:id="@+id/action_index_to_login"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_indexFragment_to_newsFeedFragment"
+            app:destination="@id/newsFeedFragment"
+            app:popUpTo="@id/indexFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"

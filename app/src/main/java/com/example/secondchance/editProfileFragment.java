@@ -104,6 +104,9 @@ public class editProfileFragment extends Fragment {
             public void onClick(View v) {
                 saveChanges();
                 Model.instance.refreshAllUsers(null);
+
+                //TODO pop back to news feed
+
                 Navigation.findNavController(save).popBackStack();            }
 
             });
