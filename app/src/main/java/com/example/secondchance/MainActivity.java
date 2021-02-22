@@ -7,8 +7,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -58,6 +60,18 @@ public class MainActivity extends AppCompatActivity {
                 // click listener on the alert box
                 public void onClick(DialogInterface arg0, int arg1) {
                     // the button was clicked
+                    SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putString("currentUserID","0");
+                    editor.putString("currentUserFirstName","0");
+                    editor.putString("currentUserLastName","0");
+                    editor.putString("currentUserEmail","0");
+                    editor.putString("currentUserPhotoUrl","0");
+
+                    editor.commit();
+
+                    //TODO navigate or pop back to index fragment
+
 
                 }
             });

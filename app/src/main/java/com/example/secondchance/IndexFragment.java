@@ -1,5 +1,7 @@
 package com.example.secondchance;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +21,7 @@ import com.example.secondchance.Model.User;
 
 public class IndexFragment extends Fragment {
 
+    String currentUserID;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +34,22 @@ public class IndexFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_index, container, false);
+
+        SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+        currentUserID=sp.getString("currentUserID","0");
+
+        Log.d("nivo",currentUserID);
+
+        if(!currentUserID.equals("0")){
+
+            //TODO navigate to news feed
+
+
+
+
+        }
+
+
 
         Button GoToLogIn = view.findViewById(R.id.log_in_from_index_btn);
         GoToLogIn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_index_to_login));
