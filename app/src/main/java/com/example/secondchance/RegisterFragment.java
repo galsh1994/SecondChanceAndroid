@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,7 +88,21 @@ public class RegisterFragment extends Fragment {
                 }
             }
         });
- 
+        Log.d("before" ,registerPhone.getText().toString());
+        // replace the phone number to the right format
+        Editable checkPhone = registerPhone.getText();
+        String checkPhoneStr= checkPhone.toString();
+        if (checkPhoneStr.startsWith("+"))
+        {
+            checkPhoneStr = checkPhoneStr.substring(1);
+        }
+        if (checkPhoneStr.startsWith("0"))
+        {
+            checkPhoneStr = checkPhoneStr.replace("0","972");
+        }
+        registerPhone.setText(checkPhoneStr);
+        Log.d("after" ,registerPhone.getText().toString());
+
         registerEditProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
