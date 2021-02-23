@@ -28,9 +28,11 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
     onItemClickListener listener;
     LiveData<List<Post>> postList;
     LiveData<List<User>> users;
+    Boolean userNameClickable;
     public postListAdapter(LiveData<List<Post>> data, LiveData<List<User>> userList){
         postList=data;
         users=userList;
+        userNameClickable=true;
     }
 
 
@@ -91,6 +93,7 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
             }
         });
 
+        if(userNameClickable)
         holder.postUserName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,5 +139,9 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
     }
     void setOnItemClickListener(onItemClickListener listener){
         this.listener=listener;
+    }
+
+    public void setUserNameUnClickable(Boolean cond){
+        userNameClickable=!cond;
     }
 }

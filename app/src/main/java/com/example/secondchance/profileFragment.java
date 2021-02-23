@@ -3,7 +3,11 @@ package com.example.secondchance;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -17,14 +21,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.secondchance.Model.Model;
+import com.example.secondchance.Model.Post;
 import com.example.secondchance.Model.User;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class profileFragment extends Fragment {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     RecyclerView postList;
+    UserListViewModel userListViewModel;
+    LiveData<List<Post>> userPosts;
     TextView fullName;
     TextView email;
     ImageView profilePhoto;
@@ -44,6 +53,16 @@ public class profileFragment extends Fragment {
 
         String userID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
         Log.d("TAG","user id is:"+userID);
+
+        userListViewModel = new ViewModelProvider(this).get(UserListViewModel.class);
+        userPosts=Model.instance.getAllUserPost(userID);
+
+        postList=view.findViewById(R.id.profile_post_list);
+        postList.hasFixedSize();
+
+        LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
+        postList.setLayoutManager(layoutmaneger);
+
         Model.instance.getUser(userID, new Model.GetUserListener() {
             @Override
             public void onComplete(User user) {
@@ -59,8 +78,41 @@ public class profileFragment extends Fragment {
                         Model.instance.deleteUser(currentUser);
                     }
                 });
-            }
 
+                postListAdapter adapter = new postListAdapter(userPosts,userListViewModel.getUserList());
+                postList.setAdapter(adapter);
+
+                adapter.setOnItemClickListener(new postListAdapter.onItemClickListener() {
+                    @Override
+                    public void onClick(int position) {
+                        //TODO navigate to single post fragment
+
+                        int size= userPosts.getValue().size();
+                        String postId = userPosts.getValue().get(size-position-1).getPostID() ;
+                        profileFragmentDirections.ActionProfileFragmentToSinglePostFragment actionProfileFragmentToSinglePostFragment=
+                        profileFragmentDirections.actionProfileFragmentToSinglePostFragment(postId);
+                        Navigation.findNavController(view).navigate(actionProfileFragmentToSinglePostFragment);
+
+                    }
+                });
+
+                adapter.setUserNameUnClickable(true);
+
+                userListViewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+                    @Override
+                    public void onChanged(List<User> users) {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+
+                userPosts.observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
+                    @Override
+                    public void onChanged(List<Post> posts) {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
         });
 
         //post list
