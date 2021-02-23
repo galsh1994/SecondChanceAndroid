@@ -30,6 +30,34 @@ public class Model {
         void onComplete(T result);
     }
 
+    public interface refreshListener{
+        public void onComplete();
+    }
+    public void refreshData(refreshListener listener){
+        refreshAllPosts(new getAllPostsListener() {
+            @Override
+            public void onComplete(List<Post> result) {
+                updateDeletedPosts(new UpdateDeletedUsersListener() {
+                    @Override
+                    public void onComplete(String result) {
+                        refreshAllUsers(new getAllUsersListener() {
+                            @Override
+                            public void onComplete(List<User> result) {
+                                updateDeletedUsers(new UpdateDeletedUsersListener() {
+                                    @Override
+                                    public void onComplete(String result) {
+                                        listener.onComplete();
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
     //////// user section /////////////////////////
 
     public interface getAllUsersListener extends Listener<List<User>>{}

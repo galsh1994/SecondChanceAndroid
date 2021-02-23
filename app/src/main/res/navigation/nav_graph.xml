@@ -71,6 +71,9 @@
         <action
             android:id="@+id/action_profileFragment_to_singlePostFragment"
             app:destination="@id/singlePostFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_singlePostFragment2"
+            app:destination="@id/singlePostFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPostFragment"
@@ -218,12 +221,14 @@
             app:argType="string" />
         <action
             android:id="@+id/action_singlePostFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment" />
         <action
             android:id="@+id/action_singlePostFragment_to_editItemFragment"
             app:destination="@id/editItemFragment" />
         <action
             android:id="@+id/action_singlePostFragment_to_editItemFragment2"
-            app:destination="@id/editItemFragment" />
+            app:destination="@id/editItemFragment"
+            app:popUpTo="@id/newsFeedFragment" />
     </fragment>
 </navigation>
