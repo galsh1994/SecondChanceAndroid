@@ -17,7 +17,7 @@
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
-        android:hint="Phone number"
+        android:text="Phone number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerPassword" />
 
@@ -63,7 +63,7 @@
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
-        android:hint="First Name"
+        android:text="First Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerProfilePhoto" />
 
@@ -75,7 +75,7 @@
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
-        android:hint="Last Name"
+        android:text="Last Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerFirstName" />
 
@@ -87,7 +87,7 @@
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
-        android:hint="Descriprion"
+        android:text="Descriprion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerEmail" />
 
@@ -99,7 +99,7 @@
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
-        android:hint="Password"
+        android:text="Password"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerDescreption" />
 
@@ -111,7 +111,7 @@
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textEmailAddress"
-        android:hint="Email"
+        android:text="Email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerLastName" />
 
