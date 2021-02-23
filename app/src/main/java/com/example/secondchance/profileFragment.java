@@ -164,14 +164,7 @@ public class profileFragment extends Fragment {
                 Navigation.findNavController(view).navigate(actionAdd);
             }
         });
-        Button messagesFromProfile= view.findViewById(R.id.messagesFrom_profile);
-         messagesFromProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileFragmentDirections.ActionProfileFragmentToMessagesFragment actionMessages = profileFragmentDirections.actionProfileFragmentToMessagesFragment(currentUser.getUserID());
-                Navigation.findNavController(view).navigate(actionMessages);
-            }
-        });
+
            ImageButton itemDetailsFromProfile= view.findViewById(R.id.item_details_From_profile);
         itemDetailsFromProfile.setOnClickListener(new View.OnClickListener() {
             @Override
