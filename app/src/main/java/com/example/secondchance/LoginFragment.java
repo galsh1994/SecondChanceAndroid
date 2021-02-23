@@ -121,9 +121,10 @@ public class LoginFragment extends Fragment {
                 loginMessage.setVisibility(view.VISIBLE);
 
 
-                if(redirectToNewsFeed)
+                if(redirectToNewsFeed) {
+                    loginMessage.setVisibility(view.INVISIBLE);
                     Navigation.findNavController(v).navigate(R.id.action_login_to_newsFeed);
-
+                }
 
             }
         });

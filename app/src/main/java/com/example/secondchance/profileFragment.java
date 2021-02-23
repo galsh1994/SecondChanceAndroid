@@ -33,7 +33,7 @@ public class profileFragment extends Fragment {
 
     RecyclerView postList;
     UserListViewModel userListViewModel;
-    LiveData<List<Post>> userPosts;
+    PostListViewModel postListViewModel;
     TextView fullName;
     TextView email;
     ImageView profilePhoto;
@@ -55,7 +55,7 @@ public class profileFragment extends Fragment {
         Log.d("TAG","user id is:"+userID);
 
         userListViewModel = new ViewModelProvider(this).get(UserListViewModel.class);
-        userPosts=Model.instance.getAllUserPost(userID);
+        postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
 
         postList=view.findViewById(R.id.profile_post_list);
         postList.hasFixedSize();
@@ -79,7 +79,7 @@ public class profileFragment extends Fragment {
                     }
                 });
 
-                postListAdapter adapter = new postListAdapter(userPosts,userListViewModel.getUserList());
+                postListAdapter adapter = new postListAdapter(postListViewModel.getUserPosts(userID),userListViewModel.getUserList());
                 postList.setAdapter(adapter);
 
                 adapter.setOnItemClickListener(new postListAdapter.onItemClickListener() {
@@ -87,8 +87,8 @@ public class profileFragment extends Fragment {
                     public void onClick(int position) {
                         //TODO navigate to single post fragment
 
-                        int size= userPosts.getValue().size();
-                        String postId = userPosts.getValue().get(size-position-1).getPostID() ;
+                        int size= postListViewModel.getUserPosts(userID).getValue().size();
+                        String postId = postListViewModel.getUserPosts(userID).getValue().get(size-position-1).getPostID() ;
                         profileFragmentDirections.ActionProfileFragmentToSinglePostFragment actionProfileFragmentToSinglePostFragment=
                         profileFragmentDirections.actionProfileFragmentToSinglePostFragment(postId);
                         Navigation.findNavController(view).navigate(actionProfileFragmentToSinglePostFragment);
@@ -106,7 +106,7 @@ public class profileFragment extends Fragment {
                 });
 
 
-                userPosts.observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
+                postListViewModel.getUserPosts(userID).observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
                     @Override
                     public void onChanged(List<Post> posts) {
                         adapter.notifyDataSetChanged();
