@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,8 @@ public class profileFragment extends Fragment {
         email= view.findViewById(R.id.profile_email);
         deleteAccountBtn=view.findViewById(R.id.delet_account_btn);
 
-        String userID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
+
+         String userID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
         Log.d("TAG","user id is:"+userID);
 
         userListViewModel = new ViewModelProvider(this).get(UserListViewModel.class);
@@ -136,15 +138,6 @@ public class profileFragment extends Fragment {
 
 
 
-        Button editItemBtn= view.findViewById(R.id.edit_item_btn);
-        editItemBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileFragmentDirections.ActionProfileToEditItem actionEditItem = profileFragmentDirections.actionProfileToEditItem(currentUser.getUserID());
-                Navigation.findNavController(v).navigate(actionEditItem);
-            }
-        });
-
 
         Button editProfileBtn= view.findViewById(R.id.edit_details_on_profile);
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
@@ -164,23 +157,8 @@ public class profileFragment extends Fragment {
                 Navigation.findNavController(view).navigate(actionAdd);
             }
         });
-        Button messagesFromProfile= view.findViewById(R.id.messagesFrom_profile);
-         messagesFromProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileFragmentDirections.ActionProfileFragmentToMessagesFragment actionMessages = profileFragmentDirections.actionProfileFragmentToMessagesFragment(currentUser.getUserID());
-                Navigation.findNavController(view).navigate(actionMessages);
-            }
-        });
-           ImageButton itemDetailsFromProfile= view.findViewById(R.id.item_details_From_profile);
-        itemDetailsFromProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String item_name = "Basket";
-                profileFragmentDirections.ActionProfileToItemDetails action = profileFragmentDirections.actionProfileToItemDetails(currentUser.getUserID(),item_name);
-                Navigation.findNavController(v).navigate(action);
-            }
-        });
+
+
 
 
         return view;

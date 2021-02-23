@@ -110,15 +110,7 @@ public class newsFeedFragment extends Fragment {
         mapMode.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newsFeed_to_maps));
 
 
-        //Redirect to Messages
-        Button messagesFromNewsfeedBtn= view.findViewById(R.id.MessagesFrom_newsFeed);
-        messagesFromNewsfeedBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newsFeedFragmentDirections.ActionNewsFeedFragmentToInboxFragment actionMessages = newsFeedFragmentDirections.actionNewsFeedFragmentToInboxFragment(currentUserID);
-                Navigation.findNavController(view).navigate(actionMessages);
-            }
-        });
+
 
        SwipeRefreshLayout swipeRefreshLayout=view.findViewById(R.id.newsFeedSwipe);
        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

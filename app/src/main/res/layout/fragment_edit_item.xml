@@ -48,7 +48,7 @@
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
-        android:text="Description"
+        android:hint="Description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postPictureEditPage" />
 
@@ -60,7 +60,7 @@
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
-        android:text="Location"
+        android:hint="Location"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDescription" />
 
@@ -74,7 +74,7 @@
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textEmailAddress"
-        android:text="Condition"
+        android:hint="Condition"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextLocation" />
 
