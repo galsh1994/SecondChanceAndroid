@@ -136,14 +136,7 @@ public class profileFragment extends Fragment {
 
 
 
-        Button editItemBtn= view.findViewById(R.id.edit_item_btn);
-        editItemBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileFragmentDirections.ActionProfileToEditItem actionEditItem = profileFragmentDirections.actionProfileToEditItem(currentUser.getUserID());
-                Navigation.findNavController(v).navigate(actionEditItem);
-            }
-        });
+
 
 
         Button editProfileBtn= view.findViewById(R.id.edit_details_on_profile);
@@ -162,16 +155,6 @@ public class profileFragment extends Fragment {
             public void onClick(View v) {
                 profileFragmentDirections.ActionProfileFragmentToAddPostFragment actionAdd = profileFragmentDirections.actionProfileFragmentToAddPostFragment(currentUser.getUserID());
                 Navigation.findNavController(view).navigate(actionAdd);
-            }
-        });
-
-           ImageButton itemDetailsFromProfile= view.findViewById(R.id.item_details_From_profile);
-        itemDetailsFromProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String item_name = "Basket";
-                profileFragmentDirections.ActionProfileToItemDetails action = profileFragmentDirections.actionProfileToItemDetails(currentUser.getUserID(),item_name);
-                Navigation.findNavController(v).navigate(action);
             }
         });
 
