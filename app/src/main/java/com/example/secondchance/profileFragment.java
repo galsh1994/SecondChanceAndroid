@@ -1,5 +1,7 @@
 package com.example.secondchance;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -31,6 +33,8 @@ public class profileFragment extends Fragment {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+
+
     RecyclerView postList;
     UserListViewModel userListViewModel;
     PostListViewModel postListViewModel;
@@ -39,6 +43,8 @@ public class profileFragment extends Fragment {
     ImageView profilePhoto;
     User currentUser;
     Button deleteAccountBtn;
+    ImageButton whatAppBtn;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +56,8 @@ public class profileFragment extends Fragment {
         fullName= view.findViewById(R.id.profile_FullName);
         email= view.findViewById(R.id.profile_email);
         deleteAccountBtn=view.findViewById(R.id.delet_account_btn);
+        whatAppBtn = view.findViewById(R.id.whatAppBtn);
+
 
         String userID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
         Log.d("TAG","user id is:"+userID);
@@ -72,6 +80,18 @@ public class profileFragment extends Fragment {
                 fullName.setText(user.getFirstName()+" "+user.getLastName());
                 email.setText(user.getEmail());
                 currentUser=user;
+
+
+                whatAppBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String url = "https://api.whatsapp.com/send?phone="+user.getPhone();
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+
+                    }
+                });
                 deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
