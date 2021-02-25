@@ -1,7 +1,9 @@
 package com.example.secondchance;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -36,8 +38,8 @@ public class singlePostFragment extends Fragment {
     ImageView postItemImage;
     ImageButton postItemDelete;
     ImageButton postItemEdit;
-
-
+    Button whatAppBtn;
+    Button VisitProfile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +50,7 @@ public class singlePostFragment extends Fragment {
         SharedPreferences sp = MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         String currentUserID = sp.getString("currentUserID", "0");
 
-
+        whatAppBtn = view.findViewById(R.id.whatAppBtn);
         postUserImage=view.findViewById(R.id.single_post_user_img);
         postUserName=view.findViewById(R.id.single_post_user_name);
         postDate=view.findViewById(R.id.single_post_date);
@@ -58,8 +60,11 @@ public class singlePostFragment extends Fragment {
         postItemCondition=view.findViewById(R.id.single_post_item_condotion);
         postItemDelete = view.findViewById(R.id.delete_single_Post_btn);
         postItemEdit = view.findViewById(R.id.edit_single_Post_btn);
+        VisitProfile= view.findViewById(R.id.moveToProfile);
         postItemEdit.setVisibility(View.INVISIBLE);
         postItemDelete.setVisibility(View.INVISIBLE);
+        VisitProfile.setVisibility(View.INVISIBLE);
+        whatAppBtn.setVisibility(View.INVISIBLE);
 
 
         Model.instance.getPost(postID, new Model.GetPostListener() {
@@ -77,6 +82,27 @@ public class singlePostFragment extends Fragment {
                             postItemEdit.setVisibility(View.VISIBLE);
                             postItemDelete.setVisibility(View.VISIBLE);
                         }
+                        else{
+                            VisitProfile.setVisibility(View.VISIBLE);
+                            whatAppBtn.setVisibility(View.VISIBLE);
+                        }
+                        VisitProfile.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                singlePostFragmentDirections.ActionSinglePostFragmentToProfileFragment actionToProfile =
+                                        singlePostFragmentDirections.actionSinglePostFragmentToProfileFragment(PostWriterUser.getUserID());
+                                Navigation.findNavController(v).navigate(actionToProfile);
+                            }
+                        });
+                        whatAppBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String url = "https://api.whatsapp.com/send?phone="+PostWriterUser.getPhone();
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(url));
+                                startActivity(i);
+                            }
+                        });
                         postUserName.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

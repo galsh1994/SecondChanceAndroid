@@ -20,93 +20,138 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="405dp"
+        android:layout_height="101dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/rounded_corners"
+
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/map_mode"
+            android:layout_width="71dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/quicksand"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/greylo2"
+            android:textColor="#07080C"
+            android:textSize="18sp"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/location"
+            app:iconGravity="textEnd"
+            app:iconSize="40dp"
+            app:iconTint="#E91E63"
+            app:iconTintMode="add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/visitProfileFrom_newsFeed"
+            android:layout_width="71dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/quicksand"
+            android:textColor="#07080C"
+            android:textSize="18sp"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/profile2"
+            app:iconGravity="textEnd"
+            app:iconSize="40dp"
+            app:iconTint="#656363"
+            app:iconTintMode="add"
+            android:background="@drawable/rounded_corners"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/homeFrom_newsFeed"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/addApost_newsFeed"
+            android:layout_width="71dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="16dp"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/quicksand"
+            android:textColor="#07080C"
+            android:textSize="24sp"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/plus2"
+            app:iconGravity="textEnd"
+            app:iconPadding="0dp"
+            app:iconSize="40dp"
+            app:iconTint="#615D5D"
+            app:iconTintMode="add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/map_mode"
+            app:layout_constraintStart_toEndOf="@+id/visitProfileFrom_newsFeed"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/homeFrom_newsFeed"
+            android:layout_width="71dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/quicksand"
+            android:textColor="#07080C"
+            android:textSize="18sp"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/home2"
+            app:iconGravity="textEnd"
+            app:iconSize="40dp"
+            app:iconTint="#F4C3A1"
+            app:iconTintMode="add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="233dp"
+        android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         android:fontFamily="@font/quicksand"
         android:text="What's New?"
         android:textColor="#07080C"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     //bottom nav starts here
 
-    <Button
-        android:id="@+id/addApost_newsFeed"
-        android:layout_width="128dp"
-        android:layout_height="71dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/white"
-        app:backgroundTint="@color/white"
-
-        android:fontFamily="@font/quicksand"
-        android:textColor="#07080C"
-        android:textSize="24sp"
-        app:icon="@drawable/plus2"
-        app:iconGravity="textEnd"
-        app:iconPadding="0dp"
-        app:iconSize="40dp"
-        app:iconTint="#615D5D"
-        app:iconTintMode="add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     //bottom nav ends here
 
-
-    <Button
-        android:id="@+id/visitProfileFrom_newsFeed"
-        android:layout_width="181dp"
-        android:layout_height="71dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/quicksand"
-        android:textColor="#07080C"
-        android:textSize="18sp"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/profile2"
-        app:iconGravity="textEnd"
-        app:iconSize="40dp"
-        app:iconTint="#656363"
-        app:iconTintMode="add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addApost_newsFeed"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/homeFrom_newsFeed" />
-
-    <Button
-        android:id="@+id/homeFrom_newsFeed"
-        android:layout_width="127dp"
-        android:layout_height="71dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/rounded_corners"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/quicksand"
-        android:textColor="#07080C"
-        android:textSize="18sp"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/home2"
-        app:iconGravity="textEnd"
-        app:iconSize="40dp"
-        app:iconTint="#F4C3A1"
-        app:iconTintMode="add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="65dp"
-        android:layout_height="68dp"
+        android:layout_height="65dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/bin_"
@@ -120,43 +165,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/visitProfileFrom_newsFeed"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map_mode"
-        app:layout_constraintVertical_bias="0.725" />
-
-    <Button
-        android:id="@+id/feed_mode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/quicksand"
-        android:text="feed mode"
-        android:background="@drawable/rounded_corners"
-        app:backgroundTint="#92FF5722"
-        app:layout_constraintEnd_toStartOf="@+id/map_mode"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
-
-    <Button
-        android:id="@+id/map_mode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/quicksand"
-        android:text="Map mode"
-        android:background="@drawable/rounded_corners"
-        app:backgroundTint="#92FF5722"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/feed_mode"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

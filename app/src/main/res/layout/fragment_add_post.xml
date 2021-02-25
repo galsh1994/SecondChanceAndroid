@@ -4,9 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backupc"
+    android:background="@drawable/lightback"
     tools:context=".addPostFragment">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo">
+
+        <EditText
+            android:id="@+id/addPostCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
+            android:ems="10"
+            android:fontFamily="@font/quicksand"
+            android:hint="Condition"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addPostDescription" />
+
+        <EditText
+            android:id="@+id/addPostDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:fontFamily="@font/quicksand"
+            android:hint="Description"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postPhoto" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="225dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="16dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addPostLocation" />
+
+        <ImageButton
+            android:id="@+id/EditPostPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="70dp"
+            android:background="#00F4F3F3"
+            android:src="@android:drawable/ic_menu_edit"
+            app:layout_constraintStart_toEndOf="@+id/postPhoto"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/postPhoto"
+            android:layout_width="117dp"
+            android:layout_height="113dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:background="#FDFBFB"
+            android:src="@drawable/photo_icon2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/photo_icon2" />
+
+        <EditText
+            android:id="@+id/addPostLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ems="10"
+            android:fontFamily="@font/quicksand"
+            android:hint="Address"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addPostCondition" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/cancel_post"
@@ -22,36 +107,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="225dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPostLocation" />
-
-    <ImageButton
-        android:id="@+id/EditPostPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="156dp"
-        android:background="#00F4F3F3"
-        android:src="@android:drawable/ic_menu_edit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/postPhoto"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/quicksand"
         android:text="Add A Post"
@@ -66,11 +126,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginBottom="100dp"
+        android:background="@drawable/rounded_corners"
         android:fontFamily="@font/quicksand"
         android:text="Save"
         android:textSize="24sp"
         app:backgroundTint="#61FF5722"
-        android:background="@drawable/rounded_corners"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -79,64 +139,10 @@
         android:id="@+id/logo"
         android:layout_width="65dp"
         android:layout_height="68dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:src="@drawable/bin_"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/postPhoto"
-        android:layout_width="117dp"
-        android:layout_height="113dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:background="#FDFBFB"
-        android:src="@drawable/photo_icon2"
-        app:layout_constraintEnd_toStartOf="@+id/EditPostPhoto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/photo_icon2" />
-
-    <EditText
-        android:id="@+id/addPostLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:fontFamily="@font/quicksand"
-        android:inputType="textPersonName"
-        android:hint="Address"
-        android:textColorHint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPostCondition" />
-
-    <EditText
-        android:id="@+id/addPostCondition"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:fontFamily="@font/quicksand"
-        android:inputType="textPersonName"
-        android:hint="Condition"
-        android:textColorHint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPostDescription" />
-
-    <EditText
-        android:id="@+id/addPostDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:fontFamily="@font/quicksand"
-        android:inputType="textPersonName"
-        android:hint="Description"
-        android:textColorHint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postPhoto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

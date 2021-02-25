@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
@@ -106,7 +107,7 @@ public class newsFeedFragment extends Fragment {
         newsFeedToSelf.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newsFeedFragment_self));
 
         //Redirect to map mode
-        Button mapMode = view.findViewById(R.id.map_mode);
+        ImageButton mapMode = view.findViewById(R.id.map_mode);
         mapMode.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newsFeed_to_maps));
 
 

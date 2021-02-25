@@ -33,11 +33,13 @@
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/quicksand"
         android:gravity="left"
         android:text="TextView"
         android:textColor="#0E0B0B"
         app:backgroundTint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/post_user_img"
         app:layout_constraintTop_toTopOf="parent" />
 

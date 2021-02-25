@@ -4,119 +4,160 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backupc"
+    android:background="@drawable/lightback"
     android:textAlignment="viewStart"
     android:textDirection="firstStrong"
 
     tools:context=".singlePostFragment">
 
 
-    <ImageView
-        android:id="@+id/single_post_item_img"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/single_post_date"
-        app:srcCompat="?attr/actionModePasteDrawable" />
-
-    <ImageView
-        android:id="@+id/single_post_user_img"
-        android:layout_width="56dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/avatar" />
-
-    <Button
-        android:id="@+id/single_post_user_name"
-        android:layout_width="268dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/quicksand"
-        android:gravity="left"
-        android:text="TextView"
-        android:textColor="#0E0B0B"
-        app:backgroundTint="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/single_post_user_img"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/single_post_date"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="407dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/quicksand"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toEndOf="@+id/single_post_user_img"
-        app:layout_constraintTop_toBottomOf="@+id/single_post_user_name" />
+        android:background="@color/white"
 
-    <TextView
-        android:id="@+id/single_post_item_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/quicksand"
-        android:gravity="center"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/single_post_item_img" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/single_post_item_condotion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/quicksand"
-        android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/single_post_item_location" />
+        <ImageView
+            android:id="@+id/single_post_item_img"
+            android:layout_width="181dp"
+            android:layout_height="190dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/single_post_date"
+            app:srcCompat="?attr/actionModePasteDrawable" />
 
-    <TextView
-        android:id="@+id/single_post_item_location"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/quicksand"
-        android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/single_post_item_description" />
+        <ImageView
+            android:id="@+id/single_post_user_img"
+            android:layout_width="56dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/avatar" />
 
-    <ImageButton
-        android:id="@+id/delete_single_Post_btn"
-        android:layout_width="43dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="48dp"
-        android:background="#FFFFFF"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/single_post_item_img"
-        app:layout_constraintTop_toBottomOf="@+id/single_post_date"
-        app:srcCompat="@drawable/trash" />
+        <Button
+            android:id="@+id/single_post_user_name"
+            android:layout_width="228dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/quicksand"
+            android:gravity="left"
+            android:text="TextView"
+            android:textColor="#0E0B0B"
+            app:backgroundTint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/single_post_user_img"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/edit_single_Post_btn"
-        android:layout_width="41dp"
-        android:layout_height="33dp"
-        android:background="#FFFFFF"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/delete_single_Post_btn"
-        app:layout_constraintStart_toEndOf="@+id/delete_single_Post_btn"
-        app:layout_constraintTop_toTopOf="@+id/delete_single_Post_btn"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/pencil2" />
+        <TextView
+            android:id="@+id/single_post_date"
+            android:layout_width="238dp"
+            android:layout_height="17dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/quicksand"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintStart_toEndOf="@+id/single_post_user_img"
+            app:layout_constraintTop_toBottomOf="@+id/single_post_user_name" />
+
+        <TextView
+            android:id="@+id/single_post_item_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/quicksand"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/single_post_item_img" />
+
+        <TextView
+            android:id="@+id/single_post_item_condotion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/quicksand"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/single_post_item_location" />
+
+        <TextView
+            android:id="@+id/single_post_item_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/quicksand"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/single_post_item_description" />
+
+        <ImageButton
+            android:id="@+id/delete_single_Post_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toEndOf="@+id/single_post_item_img"
+            app:layout_constraintTop_toTopOf="@+id/single_post_item_img"
+            app:srcCompat="@drawable/trash" />
+
+        <ImageButton
+            android:id="@+id/edit_single_Post_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            app:backgroundTint="#FFFFFF"
+            app:layout_constraintStart_toEndOf="@+id/single_post_item_img"
+            app:layout_constraintTop_toBottomOf="@+id/delete_single_Post_btn"
+            app:srcCompat="@drawable/pencil2" />
+
+
+        <Button
+            android:id="@+id/whatAppBtn"
+            android:layout_width="412dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:drawableRight="@drawable/whatsapp_icon"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/quicksand"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:text="Contact Owner via WhatsApp"
+            android:textColor="#D50C0C0C"
+            app:backgroundTint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/single_post_item_condotion" />
+
+        <Button
+            android:id="@+id/moveToProfile"
+            android:layout_width="395dp"
+            android:layout_height="45dp"
+            android:fontFamily="@font/quicksand"
+            android:text="Visit Owner's Profile"
+            android:textColor="#D50C0C0C"
+            app:backgroundTint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/whatAppBtn" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
