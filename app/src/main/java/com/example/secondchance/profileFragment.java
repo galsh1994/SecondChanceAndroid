@@ -133,7 +133,7 @@ public class profileFragment extends Fragment {
 
 
         Button newsFeedFromProfile= view.findViewById(R.id.homeFrom_profile);
-        newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_pop));
+        newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_newsFeedFragment));
 
         Button profileToself= view.findViewById(R.id.visitProfileFrom_profile);
         profileToself.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_self));
