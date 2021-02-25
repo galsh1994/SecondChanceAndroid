@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -85,20 +86,6 @@ public class RegisterFragment extends Fragment {
                 }
             }
         });
-        Log.d("before" ,registerPhone.getText().toString());
-        // replace the phone number to the right format
-        Editable checkPhone = registerPhone.getText();
-        String checkPhoneStr= checkPhone.toString();
-        if (checkPhoneStr.startsWith("+"))
-        {
-            checkPhoneStr = checkPhoneStr.substring(1);
-        }
-        if (checkPhoneStr.startsWith("0"))
-        {
-            checkPhoneStr = checkPhoneStr.replace("0","972");
-        }
-        registerPhone.setText(checkPhoneStr);
-        Log.d("after" ,registerPhone.getText().toString());
 
         registerEditProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,8 +123,8 @@ public class RegisterFragment extends Fragment {
         user.setLastName(registerLastName.getText().toString());
         user.setEmail(registerEmail.getText().toString());
         user.setPassword(registerPassword.getText().toString());
-        user.setPhone(registerPhone.getText().toString());
-
+        user.setPhone("972"+(registerPhone.getText().toString()).substring(1));
+        Log.d("TAG","MSG"+user.getPhone());
 
         BitmapDrawable drawable = (BitmapDrawable)registerProfilePhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

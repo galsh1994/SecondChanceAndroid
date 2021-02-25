@@ -9,6 +9,17 @@
 
 
     <!-- TODO: Update blank fragment layout -->
+
+    <ImageButton
+        android:id="@+id/whatAppBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/whatsapp_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_email" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="0dp"
@@ -162,13 +173,15 @@
         android:layout_width="359dp"
         android:layout_height="131dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:background="#CCF1A1"
         app:layout_constraintBottom_toTopOf="@+id/visitProfileFrom_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/whatAppBtn" />
 
     <Button
         android:id="@+id/edit_details_on_profile"
