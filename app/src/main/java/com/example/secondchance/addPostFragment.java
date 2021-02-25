@@ -1,16 +1,17 @@
 package com.example.secondchance;
 
-import android.content.DialogInterface;
+ import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
+ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
+ import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
+  import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -22,10 +23,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
-import com.example.secondchance.Model.User;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -42,13 +43,18 @@ public class addPostFragment extends Fragment {
     String userID;
     View view;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_post, container, false);
         userID = profileFragmentArgs.fromBundle(getArguments()).getUserID();
-
         description = view.findViewById(R.id.addPostDescription);
         location = view.findViewById(R.id.addPostLocation);
         condition = view.findViewById(R.id.addPostCondition);

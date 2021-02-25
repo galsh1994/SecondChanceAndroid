@@ -76,7 +76,6 @@ public class Model {
     }
     public void getUser(String id, GetUserListener listener){
          modelFirebase.getUser(id,listener);
-       modelFirebase.getUser( id,  listener);
 
      }
 
