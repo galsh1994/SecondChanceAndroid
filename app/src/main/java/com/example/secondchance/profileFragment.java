@@ -1,10 +1,10 @@
 package com.example.secondchance;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +26,7 @@ import com.example.secondchance.Model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import androidx.lifecycle.Observer;
 
 public class profileFragment extends Fragment {
 
@@ -90,7 +91,7 @@ public class profileFragment extends Fragment {
                         int size= postListViewModel.getUserPosts(userID).getValue().size();
                         String postId = postListViewModel.getUserPosts(userID).getValue().get(size-position-1).getPostID() ;
                         profileFragmentDirections.ActionProfileFragmentToSinglePostFragment actionProfileFragmentToSinglePostFragment=
-                        profileFragmentDirections.actionProfileFragmentToSinglePostFragment(postId);
+                                profileFragmentDirections.actionProfileFragmentToSinglePostFragment(postId);
                         Navigation.findNavController(view).navigate(actionProfileFragmentToSinglePostFragment);
 
                     }
@@ -129,7 +130,7 @@ public class profileFragment extends Fragment {
 
 
         Button newsFeedFromProfile= view.findViewById(R.id.homeFrom_profile);
-        newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_pop));
+        newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_newsFeedFragment));
 
         Button profileToself= view.findViewById(R.id.visitProfileFrom_profile);
         profileToself.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_self));
@@ -144,7 +145,7 @@ public class profileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 profileFragmentDirections.ActionProfileToEditProfile actionEdit = profileFragmentDirections.actionProfileToEditProfile(currentUser.getUserID());
-            Navigation.findNavController(v).navigate(actionEdit);
+                Navigation.findNavController(v).navigate(actionEdit);
             }
         });
 

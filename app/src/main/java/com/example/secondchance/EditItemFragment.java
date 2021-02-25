@@ -41,7 +41,9 @@ public class EditItemFragment extends Fragment {
     ImageView postPhoto;
     ImageButton editPhoto;
     Button save;
+    Button cancel;
     String currentPostID="0";
+    Double postLat=0.0,postLong=0.0;
     Post currentPost;
 
     @Override
@@ -56,7 +58,7 @@ public class EditItemFragment extends Fragment {
         Condition= view.findViewById(R.id.editTextCondition);;
         postPhoto=view.findViewById(R.id.postPictureEditPage);
         editPhoto= view.findViewById(R.id.editProfilePhoto);;
-
+        cancel = view.findViewById(R.id.cancel_edit_post);
         currentPostID= EditItemFragmentArgs.fromBundle(getArguments()).getPostId();
         Log.d("postID: ",currentPostID);
         Model.instance.getPost(currentPostID, new Model.GetPostListener() {
@@ -70,6 +72,8 @@ public class EditItemFragment extends Fragment {
                 Description.setText(post.getDescription()); ;
                 Location.setText(post.getLocation());
                 Condition.setText(post.getCondition());;
+                postLat= post.getCoordinatesLat();
+                postLong=post.getCoordinatesLong();
                 currentPost=post;
             }
         });
@@ -80,6 +84,12 @@ public class EditItemFragment extends Fragment {
                 editImage();
             }
         });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).popBackStack();
+            }
+        });
 
         save.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -87,7 +97,6 @@ public class EditItemFragment extends Fragment {
                 saveChanges();
                 Model.instance.refreshAllPosts(null);
 
-                // TODO navigate to news feed
                 Navigation.findNavController(save).popBackStack();
             }
         });
@@ -103,6 +112,8 @@ public class EditItemFragment extends Fragment {
         post.setDescription(Description.getText().toString());
         post.setLocation(Location.getText().toString());
         post.setUserID(currentPost.getUserID());
+        post.setCoordinatesLong(postLong);
+        post.setCoordinatesLat(postLat);
 
 
         BitmapDrawable drawable = (BitmapDrawable)postPhoto.getDrawable();

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "0009bb910f9275e9b55b94c2fbc3000d",
+    "identityHash": "30a25309e8e60fd09ceb06ce4274427e",
     "entities": [
       {
         "tableName": "User",
@@ -68,7 +68,7 @@
       },
       {
         "tableName": "Post",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`postID` TEXT NOT NULL, `userID` TEXT, `photoUrl` TEXT, `description` TEXT, `location` TEXT, `condition` TEXT, `lastUpdated` INTEGER, PRIMARY KEY(`postID`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`postID` TEXT NOT NULL, `userID` TEXT, `photoUrl` TEXT, `description` TEXT, `location` TEXT, `condition` TEXT, `lastUpdated` INTEGER, `coordinatesLat` REAL, `coordinatesLong` REAL, PRIMARY KEY(`postID`))",
         "fields": [
           {
             "fieldPath": "postID",
@@ -111,6 +111,18 @@
             "columnName": "lastUpdated",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "coordinatesLat",
+            "columnName": "coordinatesLat",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "coordinatesLong",
+            "columnName": "coordinatesLong",
+            "affinity": "REAL",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -126,7 +138,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0009bb910f9275e9b55b94c2fbc3000d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '30a25309e8e60fd09ceb06ce4274427e')"
     ]
   }
 }

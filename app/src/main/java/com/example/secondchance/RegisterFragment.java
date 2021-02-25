@@ -45,7 +45,6 @@ public class RegisterFragment extends Fragment {
     EditText registerFirstName;
     EditText registerLastName;
     EditText registerEmail;
-    EditText registerDescription;
     EditText registerPassword;
     ImageButton registerEditProfilePhoto;
     ImageView registerProfilePhoto;
@@ -60,12 +59,10 @@ public class RegisterFragment extends Fragment {
         View view=  inflater.inflate(R.layout.fragment_register, container, false);
 
         //catch all buttons
-
         saveRegister = view.findViewById(R.id.register_btn);
        registerFirstName = view.findViewById(R.id.registerFirstName);
        registerLastName= view.findViewById(R.id.registerLastName);
        registerEmail= view.findViewById(R.id.registerEmail);
-       registerDescription= view.findViewById(R.id.registerDescreption);
        registerProfilePhoto= view.findViewById(R.id.registerProfilePhoto);
        registerEditProfilePhoto= view.findViewById(R.id.registerEditProfilePhoto);
        registerPassword= view.findViewById(R.id.registerPassword);

@@ -4,25 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#74F6F9FA"
-    tools:context=".newsFeedFragment">
+    android:background="@drawable/backupc"
+    tools:context=".addPostFragment">
 
 
-    <!-- TODO: Update blank fragment layout -->
     <Button
         android:id="@+id/cancel_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="100dp"
-        android:background="#FDF7F7"
         android:fontFamily="@font/quicksand"
         android:text="Cancel"
-        android:textColor="#07080C"
+        app:backgroundTint="#61FF5722"
+        android:background="@drawable/rounded_corners"
         android:textSize="24sp"
-        app:backgroundTint="#45FF9800"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="225dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addPostLocation" />
 
     <ImageButton
         android:id="@+id/EditPostPhoto"
@@ -44,7 +53,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="24dp"
-        android:background="#FBFCFD"
         android:fontFamily="@font/quicksand"
         android:text="Add A Post"
         android:textColor="#07080C"
@@ -53,17 +61,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/save_post"
+        android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginBottom="100dp"
-        android:background="#FDF7F7"
         android:fontFamily="@font/quicksand"
         android:text="Save"
-        android:textColor="#07080C"
         android:textSize="24sp"
-        app:backgroundTint="#45FF9800"
+        app:backgroundTint="#61FF5722"
+        android:background="@drawable/rounded_corners"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -71,22 +79,21 @@
         android:id="@+id/logo"
         android:layout_width="65dp"
         android:layout_height="68dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/icon"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:src="@drawable/bin_"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/postPhoto"
-        android:layout_width="125dp"
-        android:layout_height="132dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="117dp"
+        android:layout_height="113dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:background="#FDFBFB"
         android:src="@drawable/photo_icon2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintEnd_toStartOf="@+id/EditPostPhoto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:srcCompat="@drawable/photo_icon2" />
@@ -96,12 +103,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
+        android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
-        android:hint="Location"
+        android:hint="Address"
+        android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPostDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/addPostCondition" />
 
     <EditText
         android:id="@+id/addPostCondition"
@@ -110,10 +118,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
         android:hint="Condition"
+        android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPostLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/addPostDescription" />
 
     <EditText
         android:id="@+id/addPostDescription"
@@ -122,8 +132,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
         android:hint="Description"
+        android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postPhoto" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

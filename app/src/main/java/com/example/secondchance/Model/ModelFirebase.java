@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -27,11 +28,11 @@ import java.util.List;
 
 public class ModelFirebase {
 
- 
+
 
     public void getAllUsers(Long lastUpdated, final Model.getAllUsersListener listener) {
 
-         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts=new Timestamp(lastUpdated,0);
         db.collection("users").whereGreaterThanOrEqualTo("lastUpdated",ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -39,7 +40,7 @@ public class ModelFirebase {
                 List<User> data = new LinkedList<User>();
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot doc : task.getResult()) {
-                       User user=new User();
+                        User user=new User();
                         user.fromMap(doc.getData());
                         user.setUserID(doc.getId());
                         HashMap<String,Object> update=new HashMap<>();
@@ -71,47 +72,47 @@ public class ModelFirebase {
     }
 
 
-        public void updateUser(User user, Model.addUserListener listener) {
-           FirebaseFirestore db=FirebaseFirestore.getInstance();
-           db.collection("users").document(user.getUserID()).set(user.toMap());
-        }
+    public void updateUser(User user, Model.addUserListener listener) {
+        FirebaseFirestore db=FirebaseFirestore.getInstance();
+        db.collection("users").document(user.getUserID()).set(user.toMap());
+    }
 
-        public void getUser(String id, final Model.GetUserListener listener) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("users").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    User user = new User();
-                    if (task.isSuccessful()){
-                        DocumentSnapshot doc = task.getResult();
-                        if (doc != null) {
-                            user.fromMap(task.getResult().getData());
-                        }
+    public void getUser(String id, final Model.GetUserListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                User user = new User();
+                if (task.isSuccessful()){
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc != null) {
+                        user.fromMap(task.getResult().getData());
                     }
-                    listener.onComplete(user);
                 }
-            });
-        }
+                listener.onComplete(user);
+            }
+        });
+    }
 
-        public void deleteUser(User user, final Model.DeleteListener listener) {
-            FirebaseFirestore db=FirebaseFirestore.getInstance();
-            db.collection("users").document(user.getUserID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    HashMap<String,Object> deletedUser=new HashMap<>();
-                    deletedUser.put("deletedUserID",user.getUserID());
-                    deletedUser.put("lastDeleted", FieldValue.serverTimestamp());
-                    db.collection("deletedUsers").add(deletedUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            listener.onComplete();
-                        }
-                    });
+    public void deleteUser(User user, final Model.DeleteListener listener) {
+        FirebaseFirestore db=FirebaseFirestore.getInstance();
+        db.collection("users").document(user.getUserID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                HashMap<String,Object> deletedUser=new HashMap<>();
+                deletedUser.put("deletedUserID",user.getUserID());
+                deletedUser.put("lastDeleted", FieldValue.serverTimestamp());
+                db.collection("deletedUsers").add(deletedUser).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        listener.onComplete();
+                    }
+                });
 
-                }
-            });
+            }
+        });
 
-        }
+    }
 
 
     public void uploadUserImage(Bitmap imageBmp, String name, final Model.UploadUserImageListener listener){
@@ -303,11 +304,28 @@ public class ModelFirebase {
         });
 
     }
+    public static void getLatLong(final Model.LatLongListener listener) {
+        List<Double> latitudePoints = new LinkedList<Double>();
+        List<Double> longitudePoints = new LinkedList<Double>();
+        List<String> postID = new LinkedList<String>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("posts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot querySnapshot : task.getResult()){
+                        Post post= new Post();
+                        post.fromMap(querySnapshot.getData());
+                        latitudePoints.add(post.getCoordinatesLat());
+                        longitudePoints.add(post.getCoordinatesLong());
+                        Log.d("from modelFB= ",post.getCoordinatesLat().toString() + post.getCoordinatesLong().toString());
+                        postID.add(post.getPostID());
+                    }
+                }
+                listener.onComplete(latitudePoints,longitudePoints,postID);
+            }
+        });
+    }
+
 
 }
-
-
-
-
-
-

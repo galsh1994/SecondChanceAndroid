@@ -11,7 +11,7 @@ public class ModelSql {
 
 
     public LiveData<List<User>> getAllUsers() {
-      return AppLocalDb.db.userDao().getAllUsers();
+        return AppLocalDb.db.userDao().getAllUsers();
     }
 
     public void deleteUser(User user, Model.DeleteListener listener) {

@@ -38,18 +38,10 @@ public class IndexFragment extends Fragment {
         SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         currentUserID=sp.getString("currentUserID","0");
 
-        Log.d("nivo",currentUserID);
-
         if(!currentUserID.equals("0")){
 
             //TODO navigate to news feed
-
-
-
-
         }
-
-
 
         Button GoToLogIn = view.findViewById(R.id.log_in_from_index_btn);
         GoToLogIn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_index_to_login));

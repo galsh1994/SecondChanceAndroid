@@ -36,8 +36,8 @@ public class singlePostFragment extends Fragment {
     ImageView postItemImage;
     ImageButton postItemDelete;
     ImageButton postItemEdit;
-    Post Currentpost;
-    User CurrentUser;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +47,6 @@ public class singlePostFragment extends Fragment {
 
         SharedPreferences sp = MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         String currentUserID = sp.getString("currentUserID", "0");
-
 
 
         postUserImage=view.findViewById(R.id.single_post_user_img);
@@ -63,44 +62,38 @@ public class singlePostFragment extends Fragment {
         postItemDelete.setVisibility(View.INVISIBLE);
 
 
-        Model.instance.getUser(currentUserID, new Model.GetUserListener() {
+        Model.instance.getPost(postID, new Model.GetPostListener() {
             @Override
-            public void onComplete(User user) {
-                CurrentUser= user;
+            public void onComplete(Post post) {
 
-
-                Model.instance.getPost(postID, new Model.GetPostListener() {
+                Model.instance.getUser(post.getUserID(), new Model.GetUserListener() {
                     @Override
-                    public void onComplete(Post post) {
-
-                        if (currentUserID.equals(post.getUserID())) {
-                            postUserName.setText(CurrentUser.getFirstName()+" "+CurrentUser.getLastName());
-                            if (CurrentUser.getPhotoUrl() != null) {
-                                Picasso.get().load(CurrentUser.getPhotoUrl()).into(postUserImage);
-                            }
+                    public void onComplete(User PostWriterUser) {
+                        postUserName.setText(PostWriterUser.getFirstName()+" "+PostWriterUser.getLastName());
+                        if (PostWriterUser.getPhotoUrl() != null) {
+                            Picasso.get().load(PostWriterUser.getPhotoUrl()).into(postUserImage);
                         }
-                        if (currentUserID.equals(post.getUserID())){
-
+                        if (currentUserID.equals(PostWriterUser.getUserID())){
                             postItemEdit.setVisibility(View.VISIBLE);
                             postItemDelete.setVisibility(View.VISIBLE);
                         }
                         postUserName.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                singlePostFragmentDirections.ActionSinglePostFragmentToEditItemFragment actionToProfile =
-                                        singlePostFragmentDirections.actionSinglePostFragmentToEditItemFragment(post.getUserID());
+                                singlePostFragmentDirections.ActionSinglePostFragmentToProfileFragment actionToProfile =
+                                        singlePostFragmentDirections.actionSinglePostFragmentToProfileFragment(PostWriterUser.getUserID());
                                 Navigation.findNavController(v).navigate(actionToProfile);
                             }
                         });
 
-                        Currentpost=post;
-                        if (Currentpost.getPhotoUrl()!=null){
-                            Picasso.get().load(Currentpost.getPhotoUrl()).into(postItemImage);
+                        if (post.getPhotoUrl()!=null){
+                            Picasso.get().load(post.getPhotoUrl()).into(postItemImage);
                         }
                         postItemDelete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Model.instance.deletePost(Currentpost);
+                                Model.instance.deletePost(post);
+                                Navigation.findNavController(v).popBackStack();
                             }
                         });
                         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
@@ -109,13 +102,16 @@ public class singlePostFragment extends Fragment {
                         String  hours = String.valueOf(cal.get(Calendar.HOUR_OF_DAY));
                         String  minutes = String.valueOf(cal.get(Calendar.MINUTE));
                         postDate.setText(date+" "+hours+":"+minutes);
-                        postItemDescription.setText("Description: "+Currentpost.getDescription());
-                        postItemLocation.setText("Location: "+Currentpost.getLocation());
-                        postItemCondition.setText("Condition: "+Currentpost.getCondition());
+                        postItemDescription.setText("Description: "+post.getDescription());
+                        postItemLocation.setText("Address: "+post.getLocation());
+                        postItemCondition.setText("Condition: "+post.getCondition());
                     }
                 });
+
             }
         });
+
+
 
         postItemEdit.setOnClickListener(new View.OnClickListener() {
             @Override

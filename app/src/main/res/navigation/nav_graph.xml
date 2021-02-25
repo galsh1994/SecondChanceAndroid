@@ -20,14 +20,8 @@
             android:id="@+id/action_newsFeedFragment_self"
             app:destination="@id/newsFeedFragment" />
         <action
-            android:id="@+id/action_newsFeed_to_item_details"
-            app:destination="@id/ItemDetailsFragment" />
-        <action
             android:id="@+id/action_newsFeed_to_maps"
             app:destination="@id/mapsFragment" />
-        <action
-            android:id="@+id/action_newsFeedFragment_to_anotherProfileFragment"
-            app:destination="@id/anotherProfileFragment" />
         <action
             android:id="@+id/action_newsFeedFragment_to_singlePostFragment"
             app:destination="@id/singlePostFragment" />
@@ -35,7 +29,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.secondchance.profileFragment"
-        android:label="My Profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_addPostFragment"
@@ -46,19 +40,13 @@
         <action
             android:id="@+id/action_profileFragment_self"
             app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_profile_to_item_details"
-            app:destination="@id/ItemDetailsFragment" />
-        <action
-            android:id="@+id/action_profileFragment_pop"
-            app:popUpTo="@id/newsFeedFragment"
-            app:popUpToInclusive="false" />
         <argument
             android:name="userID"
             app:argType="string" />
         <action
             android:id="@+id/action_profile_to_editProfile"
-            app:destination="@id/editProfileFragment" />
+            app:destination="@id/editProfileFragment"
+            app:popUpTo="@id/newsFeedFragment" />
         <action
             android:id="@+id/action_profile_to_editItem"
             app:destination="@id/editItemFragment" />
@@ -66,8 +54,14 @@
             android:id="@+id/action_profileFragment_to_singlePostFragment"
             app:destination="@id/singlePostFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_singlePostFragment2"
-            app:destination="@id/singlePostFragment" />
+            android:id="@+id/action_profileFragment_to_indexFragment"
+            app:destination="@id/indexFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_newsFeedFragment2"
+            app:destination="@id/newsFeedFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPostFragment"
@@ -81,22 +75,10 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/ItemDetailsFragment"
-        android:name="com.example.secondchance.itemDetailsFragment"
-        android:label="fragment_item_details"
-        tools:layout="@layout/fragment_item_details" >
-        <argument
-            android:name="item_id"
-            app:argType="string" />
-        <argument
-            android:name="item_name"
-            app:argType="string" />
-    </fragment>
-    <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.secondchance.editProfileFragment"
-        android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" >
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile">
         <action
             android:id="@+id/action_editProfilePop"
             app:popUpToInclusive="false" />
@@ -110,8 +92,8 @@
     <fragment
         android:id="@+id/editItemFragment"
         android:name="com.example.secondchance.EditItemFragment"
-        android:label="fragment_edit_item"
-        tools:layout="@layout/fragment_edit_item" >
+        android:label="Edit Post"
+        tools:layout="@layout/fragment_edit_item">
         <argument
             android:name="post_id"
             app:argType="string" />
@@ -122,8 +104,8 @@
     <fragment
         android:id="@+id/indexFragment"
         android:name="com.example.secondchance.IndexFragment"
-        android:label="fragment_index"
-        tools:layout="@layout/fragment_index" >
+        android:label="@string/common_open_on_phone"
+        tools:layout="@layout/fragment_index">
         <action
             android:id="@+id/action_index_to_register"
             app:destination="@id/registerFragment" />
@@ -138,8 +120,8 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.secondchance.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        android:label="Register"
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_register_to_login"
             app:destination="@id/loginFragment" />
@@ -147,8 +129,8 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.secondchance.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_login_to_register"
             app:destination="@id/registerFragment" />
@@ -159,11 +141,8 @@
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.example.secondchance.MapsFragment"
-        android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" >
-        <action
-            android:id="@+id/action_maps_to_ItemDetails"
-            app:destination="@id/ItemDetailsFragment" />
+        android:label="Map Mode"
+        tools:layout="@layout/fragment_maps">
         <action
             android:id="@+id/action_mapsFragment_to_newsFeedFragment"
             app:destination="@id/newsFeedFragment" />
@@ -171,34 +150,25 @@
             android:id="@+id/action_mapsFragment_pop"
             app:popUpTo="@id/mapsFragment"
             app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/anotherProfileFragment"
-        android:name="com.example.secondchance.anotherProfileFragment"
-        android:label="fragment_another_profile"
-        tools:layout="@layout/fragment_another_profile" >
         <action
-            android:id="@+id/action_anotherProfileFragment_pop"
-            app:popUpTo="@id/anotherProfileFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_mapsFragment_to_singlePostFragment"
+            app:destination="@id/singlePostFragment" />
     </fragment>
     <fragment
         android:id="@+id/singlePostFragment"
         android:name="com.example.secondchance.singlePostFragment"
-        android:label="fragment_single_post"
-        tools:layout="@layout/fragment_single_post" >
+        android:label="Post View"
+        tools:layout="@layout/fragment_single_post">
         <argument
             android:name="PostId"
             app:argType="string" />
         <action
             android:id="@+id/action_singlePostFragment_to_profileFragment"
             app:destination="@id/profileFragment"
-            app:popUpTo="@id/profileFragment" />
+            app:popUpTo="@id/indexFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_singlePostFragment_to_editItemFragment"
-            app:destination="@id/editItemFragment" />
-        <action
-            android:id="@+id/action_singlePostFragment_to_editItemFragment2"
             app:destination="@id/editItemFragment"
             app:popUpTo="@id/newsFeedFragment" />
     </fragment>

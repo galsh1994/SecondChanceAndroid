@@ -29,7 +29,6 @@ public class Model {
     public interface Listener<T>{
         void onComplete(T result);
     }
-
     public interface refreshListener{
         public void onComplete();
     }
@@ -57,7 +56,6 @@ public class Model {
             }
         });
     }
-
     //////// user section /////////////////////////
 
     public interface getAllUsersListener extends Listener<List<User>>{}
@@ -76,8 +74,6 @@ public class Model {
     }
     public void getUser(String id, GetUserListener listener){
          modelFirebase.getUser(id,listener);
-       modelFirebase.getUser( id,  listener);
-
      }
 
     public interface addUserListener{
@@ -159,16 +155,8 @@ public class Model {
 
                 if (listener != null)
                     listener.onComplete(null);
-
-
             }
-
-
         });
-
-
-
-
     }
 
     public interface UploadUserImageListener extends Listener<String>{ }
@@ -176,7 +164,6 @@ public class Model {
     public void uploadUserImage(Bitmap imageBmp, String name, final UploadUserImageListener listener) {
         modelFirebase.uploadUserImage(imageBmp, name, listener);
     }
-
 
     /////////////////// post section ////////////////////////////
 
@@ -202,7 +189,6 @@ public class Model {
         if(postList==null) {
             postList=ModelSql.instance.getAllPosts();
              refreshAllPosts(null);
-
         }
         return postList;
     }
@@ -223,17 +209,13 @@ public class Model {
                     ModelSql.instance.addPost(p, null);
                     if (p.getLastUpdated() > lastU)
                         lastU = p.getLastUpdated();
-
                 }
-
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putLong("lastUpdated", lastU);
                 editor.commit();
 
                 if (listener != null)
                     listener.onComplete(result);
-
-
             }
         });
     }
@@ -271,28 +253,22 @@ public class Model {
                             lastD = p.getLastUpdated();
 
                     }
-
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putLong("lastDeleted", lastD);
                     editor.commit();
-
                     if (listener != null)
                         listener.onComplete(null);
-
-
                 }
-
-
             });
-
-
-
-
         }
 
 
+    public interface LatLongListener {
+        void onComplete(List<Double> latitudePoint,List<Double> longitudePoints,List<String> gameIDS);
+    }
 
-
-
-
+    public void getLatLongPoint(LatLongListener listener)
+    {
+        ModelFirebase.getLatLong(listener);
+    }
 }

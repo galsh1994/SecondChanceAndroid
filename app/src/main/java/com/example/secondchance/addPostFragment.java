@@ -18,22 +18,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
-import com.example.secondchance.Model.User;
+import com.squareup.picasso.Picasso;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
-public class addPostFragment extends Fragment {
+
+public class addPostFragment extends Fragment  {
 
     EditText description;
-    EditText location;
+    EditText city;
     EditText condition;
     Button savePost;
     Button cancelPost;
@@ -41,23 +45,57 @@ public class addPostFragment extends Fragment {
     ImageView PostPhoto;
     String userID;
     View view;
+    String postID;
+    double coordinatesLatitude;
+    double coordinatesLongitude;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_post, container, false);
-        userID = profileFragmentArgs.fromBundle(getArguments()).getUserID();
-
+        userID = addPostFragmentArgs.fromBundle(getArguments()).getUserID();
+        postID= String.valueOf(Math.random() * 10);
         description = view.findViewById(R.id.addPostDescription);
-        location = view.findViewById(R.id.addPostLocation);
+        city = view.findViewById(R.id.addPostLocation);
         condition = view.findViewById(R.id.addPostCondition);
         PostPhoto= view.findViewById(R.id.postPhoto);
         cancelPost =view.findViewById(R.id.cancel_post);
+
+        Spinner dropdown = view.findViewById(R.id.spinner1);
+        String[] items = new String[]{"Northern District","Haifa District", "Jerusalem District", "Central District","Southern District"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0: coordinatesLatitude= 33.082074259888685; coordinatesLongitude= 35.10665117350627;
+                        break;
+                    case 1: coordinatesLatitude= 32.79463018576074; coordinatesLongitude= 34.98707025581802;
+                        break;
+                    case 2: coordinatesLatitude= 31.765889791750478; coordinatesLongitude= 35.20830599424469;
+                        break;
+                    case 3: coordinatesLatitude= 32.13862263989835; coordinatesLongitude= 34.84179248500992;
+                        break;
+                    case 4: coordinatesLatitude= 30.62877503481801; coordinatesLongitude=  34.76909538027209;
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                coordinatesLatitude= 32.13862263989835; coordinatesLongitude= 34.84179248500992;
+            }
+        });
+
         cancelPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).popBackStack();
+                Navigation.findNavController(v).popBackStack();
             }
         });
         EditPostPhoto= view.findViewById(R.id.EditPostPhoto);
@@ -67,7 +105,7 @@ public class addPostFragment extends Fragment {
                 editImage();
             }
         });
-        savePost = view.findViewById(R.id.save_post);
+        savePost = view.findViewById(R.id.save);
         savePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,16 +120,19 @@ public class addPostFragment extends Fragment {
     private void saveChanges() {
 
         Post post = new Post();
-        post.setPostID(String.valueOf(Math.random() * 10));
+        post.setPostID(postID);
         post.setDescription(description.getText().toString());
-        post.setLocation(location.getText().toString());
+        post.setLocation(city.getText().toString());
         post.setCondition(condition.getText().toString());
         post.setUserID(userID);
+        post.setCoordinatesLat(coordinatesLatitude);
+        post.setCoordinatesLong(coordinatesLongitude);
+
 
         BitmapDrawable drawable = (BitmapDrawable) PostPhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
 
-        Model.instance.uploadPostImage(bitmap, post.getPostID(), new Model.UploadPostImageListener() {
+        Model.instance.uploadPostImage(bitmap, postID, new Model.UploadPostImageListener() {
             @Override
             public void onComplete(String url) {
                 if (url == null) {
@@ -108,6 +149,9 @@ public class addPostFragment extends Fragment {
                 }
             }
         });
+
+
+
 
 
     }
@@ -131,6 +175,7 @@ public class addPostFragment extends Fragment {
         });
         builder.show();
     }
+
 
 
     @Override

@@ -32,8 +32,8 @@ import java.util.List;
 
 
 public class LoginFragment extends Fragment {
-  
-   List<User> userList;
+
+    List<User> userList;
     boolean redirectToNewsFeed;
 
     @Override

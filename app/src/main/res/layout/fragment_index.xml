@@ -5,61 +5,38 @@
     android:id="@+id/index_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back4"
     tools:context=".IndexFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="65dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_from_index_btn" />
-
     <TextView
-        android:id="@+id/welcome_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/welcome_text2"
+        android:layout_width="295dp"
+        android:layout_height="72dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/quicksand"
         android:gravity="center"
-        android:text="Welcome To "
-        android:textSize="30sp"
+        android:text="Second Chance"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/welcome_text2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/quicksand"
-        android:gravity="center"
-        android:text="Second Chance!"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/log_in_from_index_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
 
     <Button
         android:id="@+id/log_in_from_index_btn"
         android:layout_width="240dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="250dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/quicksand"
         android:text="Log in"
+        android:background="@drawable/rounded_corners"
         android:textSize="24sp"
         app:backgroundTint="#92FF5722"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,10 +52,10 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/quicksand"
         android:text="Register"
+        android:background="@drawable/rounded_corners"
         android:textSize="24sp"
         app:backgroundTint="#92FF5722"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/log_in_from_index_btn" />
 

@@ -112,19 +112,19 @@ public class newsFeedFragment extends Fragment {
 
 
 
-       SwipeRefreshLayout swipeRefreshLayout=view.findViewById(R.id.newsFeedSwipe);
-       swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-           @Override
-           public void onRefresh() {
-               swipeRefreshLayout.setRefreshing(true);
-             Model.instance.refreshData(new Model.refreshListener() {
-                 @Override
-                 public void onComplete() {
-                     swipeRefreshLayout.setRefreshing(false);
-                 }
-             });
-           }
-       });
+        SwipeRefreshLayout swipeRefreshLayout=view.findViewById(R.id.newsFeedSwipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                Model.instance.refreshData(new Model.refreshListener() {
+                    @Override
+                    public void onComplete() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        });
         adapter.setOnItemClickListener(new postListAdapter.onItemClickListener() {
             @Override
             public void onClick(int position) {

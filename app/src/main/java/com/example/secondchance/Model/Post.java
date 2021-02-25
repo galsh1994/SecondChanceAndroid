@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
 
@@ -22,6 +24,9 @@ public class Post {
     private String location;
     private String condition;
     private Long lastUpdated;
+    private Double coordinatesLat;
+    private Double coordinatesLong;
+
 
 
     public Map<String,Object> toMap(){
@@ -32,6 +37,8 @@ public class Post {
         result.put("description",description);
         result.put("location",location);
         result.put("condition",condition);
+        result.put("coordinatesLat",coordinatesLat);
+        result.put("coordinatesLong",coordinatesLong);
         result.put("lastUpdated", FieldValue.serverTimestamp());
         return result;
     }
@@ -43,8 +50,11 @@ public class Post {
         description=(String)map.get("description");
         location=(String)map.get("location");
         condition=(String)map.get("condition");
+        coordinatesLat = (double)map.get("coordinatesLat");
+        coordinatesLong = (double)map.get("coordinatesLong");
         Timestamp ts=(Timestamp)map.get("lastUpdated");
         lastUpdated=ts.getSeconds();
+
     }
 
     @NonNull
@@ -103,4 +113,14 @@ public class Post {
     public void setCondition(String condition) {
         this.condition = condition;
     }
+
+    public Double getCoordinatesLat() { return coordinatesLat; }
+
+    public void setCoordinatesLat(Double coordinatesLat) { this.coordinatesLat = coordinatesLat; }
+
+    public Double getCoordinatesLong() { return coordinatesLong; }
+
+    public void setCoordinatesLong(Double coordinatesLong) { this.coordinatesLong = coordinatesLong; }
+
+
 }

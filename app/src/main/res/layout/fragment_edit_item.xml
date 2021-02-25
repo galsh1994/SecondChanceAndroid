@@ -5,6 +5,7 @@
     android:id="@+id/edit_propfile_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backupc"
     tools:context=".EditItemFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -19,36 +20,62 @@
         android:fontFamily="@font/quicksand"
         android:text="Edit My Post"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.235"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="65dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:src="@drawable/bin_"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/saveBtnEditPostPage"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="100dp"
         android:fontFamily="@font/quicksand"
         android:text="Save"
         android:textSize="24sp"
-        app:backgroundTint="#92FF5722"
+        app:backgroundTint="#61FF5722"
+        android:background="@drawable/rounded_corners"
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/cancel_edit_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="@font/quicksand"
+        android:text="Cancel"
+        app:backgroundTint="#61FF5722"
+        android:background="@drawable/rounded_corners"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/editDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
         android:hint="Description"
+        android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postPictureEditPage" />
 
@@ -56,46 +83,47 @@
         android:id="@+id/editTextLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="48dp"
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textPersonName"
-        android:hint="Location"
+        android:hint="Address"
+        android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
-
+        app:layout_constraintTop_toBottomOf="@+id/editTextCondition" />
 
 
     <EditText
         android:id="@+id/editTextCondition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="48dp"
         android:ems="10"
         android:fontFamily="@font/quicksand"
         android:inputType="textEmailAddress"
         android:hint="Condition"
+        android:textColorHint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
 
     <ImageButton
         android:id="@+id/editProfilePhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="158dp"
         android:layout_marginEnd="156dp"
+        android:layout_marginBottom="32dp"
         android:background="#00F4F3F3"
         android:src="@android:drawable/ic_menu_edit"
+        app:layout_constraintBottom_toTopOf="@+id/editDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/postPictureEditPage"
-        app:layout_constraintTop_toBottomOf="@+id/edit_post_text" />
+        app:layout_constraintStart_toEndOf="@+id/postPictureEditPage" />
 
     <ImageView
         android:id="@+id/postPictureEditPage"
-        android:layout_width="147dp"
-        android:layout_height="166dp"
+        android:layout_width="122dp"
+        android:layout_height="132dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="24dp"
         android:scrollbarTrackVertical="@drawable/photo_icon2"

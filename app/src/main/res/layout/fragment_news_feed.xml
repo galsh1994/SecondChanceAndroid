@@ -13,7 +13,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/lightback"
+
     tools:context=".newsFeedFragment">
 
 
@@ -26,9 +27,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
-        android:background="#FBFCFD"
         android:fontFamily="@font/quicksand"
-        android:text="News Feed"
+        android:text="What's New?"
         android:textColor="#07080C"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/logo"
@@ -39,14 +39,17 @@
 
     <Button
         android:id="@+id/addApost_newsFeed"
-        android:layout_width="92dp"
-        android:layout_height="73dp"
+        android:layout_width="128dp"
+        android:layout_height="71dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:background="#FDF7F7"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/white"
+        app:backgroundTint="@color/white"
+
         android:fontFamily="@font/quicksand"
         android:textColor="#07080C"
         android:textSize="24sp"
-        app:backgroundTint="@color/white"
         app:icon="@drawable/plus2"
         app:iconGravity="textEnd"
         app:iconPadding="0dp"
@@ -54,15 +57,18 @@
         app:iconTint="#615D5D"
         app:iconTintMode="add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/MessagesFrom_newsFeed"
-        app:layout_constraintStart_toEndOf="@+id/visitProfileFrom_newsFeed" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    //bottom nav ends here
+
 
     <Button
         android:id="@+id/visitProfileFrom_newsFeed"
-        android:layout_width="88dp"
-        android:layout_height="73dp"
+        android:layout_width="181dp"
+        android:layout_height="71dp"
         android:layout_marginBottom="24dp"
-        android:background="#FDF7F7"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/white"
         android:fontFamily="@font/quicksand"
         android:textColor="#07080C"
         android:textSize="18sp"
@@ -77,36 +83,14 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/homeFrom_newsFeed" />
 
-    //bottom nav ends here
-
-
-    <Button
-        android:id="@+id/MessagesFrom_newsFeed"
-        android:layout_width="93dp"
-        android:layout_height="73dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="#FDF7F7"
-        android:fontFamily="@font/quicksand"
-        android:textColor="#07080C"
-        android:textSize="18sp"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/inbox2"
-        app:iconGravity="textEnd"
-        app:iconSize="40dp"
-        app:iconTint="#656363"
-        app:iconTintMode="add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addApost_newsFeed" />
-
     <Button
         android:id="@+id/homeFrom_newsFeed"
-        android:layout_width="83dp"
-        android:layout_height="73dp"
+        android:layout_width="127dp"
+        android:layout_height="71dp"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="24dp"
-        android:background="@color/white"
+        android:background="@drawable/rounded_corners"
+        android:backgroundTint="@color/white"
         android:fontFamily="@font/quicksand"
         android:textColor="#07080C"
         android:textSize="18sp"
@@ -125,7 +109,7 @@
         android:layout_height="68dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/icon"
+        android:src="@drawable/bin_"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -134,10 +118,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="#A0A2C5"
+        android:layout_marginBottom="24dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/visitProfileFrom_newsFeed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -154,6 +138,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/quicksand"
         android:text="feed mode"
+        android:background="@drawable/rounded_corners"
         app:backgroundTint="#92FF5722"
         app:layout_constraintEnd_toStartOf="@+id/map_mode"
         app:layout_constraintHorizontal_chainStyle="packed"
@@ -168,6 +153,7 @@
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/quicksand"
         android:text="Map mode"
+        android:background="@drawable/rounded_corners"
         app:backgroundTint="#92FF5722"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/feed_mode"

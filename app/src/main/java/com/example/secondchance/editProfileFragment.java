@@ -50,6 +50,7 @@ public class editProfileFragment extends Fragment {
     ImageView profilePhoto;
     ImageButton editProfile;
     Button save;
+    Button cancel;
     String currentUserID="0";
     User currentUser;
 
@@ -70,9 +71,8 @@ public class editProfileFragment extends Fragment {
         profilePhoto= view.findViewById(R.id.profilePictureEditPage);
         editProfile= view.findViewById(R.id.editProfilePhoto);
         save = view.findViewById(R.id.saveBtnEditPage);
-
+        cancel = view.findViewById(R.id.cancel_post_profile);
         currentUserID= editProfileFragmentArgs.fromBundle(getArguments()).getUserId();
-
 
 
         Model.instance.getUser(currentUserID, new Model.GetUserListener() {
@@ -90,7 +90,12 @@ public class editProfileFragment extends Fragment {
             }
         });
 
-
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).popBackStack();
+            }
+        });
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
