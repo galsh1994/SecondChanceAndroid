@@ -31,12 +31,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     int LOCATION_REQUEST_CODE = 10001;
     NavController navController;
     FusedLocationProviderClient fusedLocationProviderClient;
+    double longLoc;
+    double latLoc;
+
 
 
     @Override
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.mainactivity_navhost);
         NavigationUI.setupActionBarWithNavController(this, navController);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+
     }
 
     @Override
@@ -92,9 +98,12 @@ public class MainActivity extends AppCompatActivity {
                 if (location!=null)
                 {
 
-                    Log.d("TAG","onSuccess"+location.toString());
-                    Log.d("TAG","onSuccess"+location.getLongitude());
-                    Log.d("TAG","onSuccess"+location.getLatitude());
+                    Log.d("TAG","onSuccess in main st"+location.toString());
+                    Log.d("TAG","onSuccess in main long"+location.getLongitude());
+                    Log.d("TAG","onSuccess in main lat"+location.getLatitude());
+                    longLoc = location.getLongitude();
+                    latLoc = location.getLatitude();
+
 
                 }
                 else
@@ -108,25 +117,35 @@ public class MainActivity extends AppCompatActivity {
         locationTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-            Log.e("Tag","OnFail"+e.getLocalizedMessage());
+                Log.e("Tag","OnFail"+e.getLocalizedMessage());
             }
         });
 
 
     }
 
+    public Double getLongLoc ()
+    {
+        return longLoc;
+    }
+
+    public Double getLatLoc ()
+    {
+        return latLoc;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-         if (requestCode == LOCATION_REQUEST_CODE) {
-             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-             {
-                 getLastLocation();
-             }
-             else {
+        if (requestCode == LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                getLastLocation();
+            }
+            else {
 
-             }
-         }
+            }
+        }
     }
 
     @Override

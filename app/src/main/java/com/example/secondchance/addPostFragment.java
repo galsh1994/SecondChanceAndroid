@@ -1,5 +1,6 @@
 package com.example.secondchance;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -48,7 +49,9 @@ public class addPostFragment extends Fragment  {
     String postID;
     double coordinatesLatitude;
     double coordinatesLongitude;
-
+    double liveLat=0.0;
+    double liveLong=0.0;
+    private static final String TAG = "addPostFragment";
 
 
     @Override
@@ -62,36 +65,60 @@ public class addPostFragment extends Fragment  {
         condition = view.findViewById(R.id.addPostCondition);
         PostPhoto= view.findViewById(R.id.postPhoto);
         cancelPost =view.findViewById(R.id.cancel_post);
+        MainActivity activity = (MainActivity) getActivity();
+        liveLat = activity.getLatLoc();
+        liveLong = activity.getLongLoc();
 
         Spinner dropdown = view.findViewById(R.id.spinner1);
+
         String[] items = new String[]{"Northern District","Haifa District", "Jerusalem District", "Central District","Southern District"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapter);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0: coordinatesLatitude= 33.082074259888685; coordinatesLongitude= 35.10665117350627;
-                        break;
-                    case 1: coordinatesLatitude= 32.79463018576074; coordinatesLongitude= 34.98707025581802;
-                        break;
-                    case 2: coordinatesLatitude= 31.765889791750478; coordinatesLongitude= 35.20830599424469;
-                        break;
-                    case 3: coordinatesLatitude= 32.13862263989835; coordinatesLongitude= 34.84179248500992;
-                        break;
-                    case 4: coordinatesLatitude= 30.62877503481801; coordinatesLongitude=  34.76909538027209;
-                        break;
+        if (liveLat!=0.0 && liveLong!=0.0) {
+            coordinatesLatitude = liveLat;
+            coordinatesLongitude = liveLong;
+            dropdown.setVisibility(View.INVISIBLE);
+        }
+        else {
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, items);
+            dropdown.setAdapter(adapter);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    switch (position) {
+                        case 0:
+                            coordinatesLatitude = 33.082074259888685;
+                            coordinatesLongitude = 35.10665117350627;
+                            break;
+                        case 1:
+                            coordinatesLatitude = 32.79463018576074;
+                            coordinatesLongitude = 34.98707025581802;
+                            break;
+                        case 2:
+                            coordinatesLatitude = 31.765889791750478;
+                            coordinatesLongitude = 35.20830599424469;
+                            break;
+                        case 3:
+                            coordinatesLatitude = 32.13862263989835;
+                            coordinatesLongitude = 34.84179248500992;
+                            break;
+                        case 4:
+                            coordinatesLatitude = 30.62877503481801;
+                            coordinatesLongitude = 34.76909538027209;
+                            break;
+                    }
+
                 }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                coordinatesLatitude= 32.13862263989835; coordinatesLongitude= 34.84179248500992;
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    coordinatesLatitude = 32.13862263989835;
+                    coordinatesLongitude = 34.84179248500992;
+                }
+            });
 
+        }
         cancelPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +139,7 @@ public class addPostFragment extends Fragment  {
                 saveChanges();
             }
         });
+
 
 
         return view;
