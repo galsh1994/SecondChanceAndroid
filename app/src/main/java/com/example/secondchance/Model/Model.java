@@ -45,6 +45,7 @@ public class Model {
                                 updateDeletedUsers(new UpdateDeletedUsersListener() {
                                     @Override
                                     public void onComplete(String result) {
+                                        if(listener!=null)
                                         listener.onComplete();
 
                                     }

@@ -108,11 +108,17 @@ public class editProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 saveChanges();
-                Model.instance.refreshAllUsers(null);
+                Model.instance.refreshData(new Model.refreshListener() {
+                    @Override
+                    public void onComplete() {
+                        //TODO pop back to news feed
 
-                //TODO pop back to news feed
+                        Navigation.findNavController(save).popBackStack();
 
-                Navigation.findNavController(save).popBackStack();            }
+                    }
+                });
+
+                          }
 
             });
 

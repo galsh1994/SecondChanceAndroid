@@ -22,6 +22,7 @@ import com.example.secondchance.Model.User;
 public class IndexFragment extends Fragment {
 
     String currentUserID;
+    View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,15 +34,9 @@ public class IndexFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_index, container, false);
+        view = inflater.inflate(R.layout.fragment_index, container, false);
 
-        SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
-        currentUserID=sp.getString("currentUserID","0");
 
-        if(!currentUserID.equals("0")){
-
-            //TODO navigate to news feed
-        }
 
         Button GoToLogIn = view.findViewById(R.id.log_in_from_index_btn);
         GoToLogIn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_index_to_login));
@@ -58,4 +53,20 @@ public class IndexFragment extends Fragment {
         inflater.inflate(R.menu.index_menu,menu);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+        currentUserID=sp.getString("currentUserID","0");
+
+        if(!currentUserID.equals("0")){
+
+            //TODO navigate to news feed
+
+            Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_newsFeedFragment);
+        }
+
+
     }
+}

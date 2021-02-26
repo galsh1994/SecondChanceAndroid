@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -197,6 +198,20 @@ public class profileFragment extends Fragment {
                 profileFragmentDirections.ActionProfileFragmentToAddPostFragment actionAdd =
                         profileFragmentDirections.actionProfileFragmentToAddPostFragment(LoggedUserID);
                 Navigation.findNavController(v).navigate(actionAdd);
+            }
+        });
+
+        SwipeRefreshLayout swipeRefreshLayout=view.findViewById(R.id.profileSwipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                Model.instance.refreshData(new Model.refreshListener() {
+                    @Override
+                    public void onComplete() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
             }
         });
 

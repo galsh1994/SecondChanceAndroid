@@ -95,9 +95,16 @@ public class EditItemFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 saveChanges();
-                Model.instance.refreshAllPosts(null);
+                Model.instance.refreshData(new Model.refreshListener() {
+                    @Override
+                    public void onComplete() {
 
-                Navigation.findNavController(save).popBackStack();
+                        Navigation.findNavController(save).popBackStack();
+
+                    }
+                });
+
+
             }
         });
 
