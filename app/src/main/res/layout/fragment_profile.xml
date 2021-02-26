@@ -4,120 +4,147 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#74F6F9FA"
+    android:background="@drawable/lightback"
     tools:context=".newsFeedFragment">
 
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageButton
-        android:id="@+id/whatAppBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/whatsapp_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_email" />
-
-    <TextView
-        android:id="@+id/textView2"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:background="#FBFCFD"
-        android:fontFamily="@font/quicksand"
-        android:text="Profile"
-        android:textColor="#07080C"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/logo"
+        android:layout_height="230dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    //bottom nav
+        app:layout_constraintTop_toBottomOf="@+id/profile_phone">
 
-    <Button
-        android:id="@+id/addApost_profile"
-        android:layout_width="92dp"
-        android:layout_height="73dp"
-        android:layout_marginBottom="24dp"
-        android:background="#FDF7F7"
-        android:fontFamily="@font/quicksand"
-        android:textColor="#07080C"
-        android:textSize="24sp"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/plus2"
-        app:iconGravity="textEnd"
-        app:iconPadding="0dp"
-        app:iconSize="40dp"
-        app:iconTint="#615D5D"
-        app:iconTintMode="add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/messagesFrom_profile"
-        app:layout_constraintStart_toEndOf="@+id/visitProfileFrom_profile" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profile_post_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/visitProfileFrom_profile"
-        android:layout_width="83dp"
-        android:layout_height="73dp"
-        android:layout_marginBottom="24dp"
-        android:background="#FDF7F7"
-        android:fontFamily="@font/quicksand"
-        android:textColor="#F4C3A1"
-        android:textSize="18sp"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/profile2"
-        app:iconGravity="textEnd"
-        app:iconSize="40dp"
-        app:iconTint="#F4C3A1"
-        app:iconTintMode="add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addApost_profile"
-        app:layout_constraintStart_toEndOf="@+id/homeFrom_profile" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/messagesFrom_profile"
-        android:layout_width="93dp"
-        android:layout_height="73dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="#FDF7F7"
-        android:fontFamily="@font/quicksand"
-        android:textColor="#07080C"
-        android:textSize="18sp"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/inbox2"
-        app:iconGravity="textEnd"
-        app:iconSize="40dp"
-        app:iconTint="#656363"
-        app:iconTintMode="add"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="405dp"
+        android:layout_height="101dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/rounded_corners"
+
+        android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addApost_profile" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/homeFrom_profile"
-        android:layout_width="83dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@color/white"
-        android:fontFamily="@font/quicksand"
-        android:textColor="#07080C"
-        android:textSize="18sp"
-        app:backgroundTint="@color/white"
-        app:icon="@drawable/home2"
-        app:iconGravity="textEnd"
-        app:iconSize="40dp"
-        app:iconTint="#656363"
-        app:iconTintMode="add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/visitProfileFrom_profile"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageButton
+            android:id="@+id/map_mode"
+            android:layout_width="71dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/quicksand"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/greylo2"
+            android:textColor="#07080C"
+            android:textSize="18sp"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/location"
+            app:iconGravity="textEnd"
+            app:iconSize="40dp"
+            app:iconTint="#E91E63"
+            app:iconTintMode="add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    //bottom nav ends here
+
+        <Button
+            android:id="@+id/visitProfileFrom_profile"
+            android:layout_width="71dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/quicksand"
+            android:textColor="#07080C"
+            android:textSize="18sp"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/profile2"
+            app:iconGravity="textEnd"
+            app:iconSize="40dp"
+            app:iconTint="#F4C3A1"
+            app:iconTintMode="add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/homeFrom_profile"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/addApost_profile"
+            android:layout_width="71dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="16dp"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/quicksand"
+            android:textColor="#07080C"
+            android:textSize="24sp"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/plus2"
+            app:iconGravity="textEnd"
+            app:iconPadding="0dp"
+            app:iconSize="40dp"
+            app:iconTint="#615D5D"
+            app:iconTintMode="add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/map_mode"
+            app:layout_constraintStart_toEndOf="@+id/visitProfileFrom_profile"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/homeFrom_profile"
+            android:layout_width="71dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_corners"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/quicksand"
+            android:textColor="#07080C"
+            android:textSize="18sp"
+            app:backgroundTint="@color/white"
+            app:icon="@drawable/home2"
+            app:iconGravity="textEnd"
+            app:iconSize="40dp"
+            app:iconTint="#656363"
+            app:iconTintMode="add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <ImageView
         android:id="@+id/logo"
@@ -125,86 +152,91 @@
         android:layout_height="68dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:src="@drawable/icon"
+        android:src="@drawable/bin_"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/profile_user_img"
-        android:layout_width="165dp"
-        android:layout_height="144dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:src="@drawable/profile2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_FullName" />
-
     <TextView
         android:id="@+id/profile_email"
-        android:layout_width="201dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/quicksand"
         android:text="Email"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_user_img" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_FullName" />
+
+    <TextView
+        android:id="@+id/profile_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/quicksand"
+        android:text="Phone Number"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_email" />
 
     <TextView
         android:id="@+id/profile_FullName"
-        android:layout_width="201dp"
+        android:layout_width="wrap_content"
         android:layout_height="43dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/quicksand"
-        android:text="full name"
-        android:textSize="24sp"
+        android:text="Full Name"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_user_img" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/profile_post_list"
-        android:layout_width="359dp"
-        android:layout_height="131dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="#CCF1A1"
-        app:layout_constraintBottom_toTopOf="@+id/visitProfileFrom_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+    <ImageButton
+        android:id="@+id/whatAppBtn"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:drawable="@drawable/whatsapp_icon"
+        android:drawablePadding="30dp"
+        android:fontFamily="@font/quicksand"
+        android:padding="4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/whatsapp_icon"
+        android:textColor="#D50C0C0C"
+        app:icon="@drawable/whatsapp_icon"
+        app:layout_constraintStart_toEndOf="@+id/profile_phone"
+        app:layout_constraintTop_toTopOf="@+id/profile_phone" />
+
+    <ImageView
+        android:id="@+id/profile_user_img"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corners"
+        android:src="@drawable/profile2"
+        app:layout_constraintEnd_toEndOf="@+id/logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/whatAppBtn" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/edit_details_on_profile"
-        android:layout_width="38dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="100dp"
-        android:background="@color/white"
-        app:backgroundTint="@color/white"
-        app:icon="@android:drawable/ic_menu_edit"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rounded_corners"
+        android:fontFamily="@font/quicksand"
+        android:text="Edit"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/quantum_bluegrey400"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/profile_user_img"
-        app:layout_constraintTop_toBottomOf="@+id/profile_FullName" />
-
-    <Button
-        android:id="@+id/delet_account_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Delete Account"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        app:layout_constraintBottom_toBottomOf="@+id/profile_user_img"
+        app:layout_constraintEnd_toStartOf="@+id/profile_user_img"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

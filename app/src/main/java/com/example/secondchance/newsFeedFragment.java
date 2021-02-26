@@ -85,8 +85,8 @@ public class newsFeedFragment extends Fragment {
         addAPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                newsFeedFragmentDirections.ActionNewsFeedFragmentToAddPostFragment actionAdd = newsFeedFragmentDirections.actionNewsFeedFragmentToAddPostFragment(currentUserID);
+                newsFeedFragmentDirections.ActionNewsFeedFragmentToAddPostFragment actionAdd =
+                        newsFeedFragmentDirections.actionNewsFeedFragmentToAddPostFragment(currentUserID);
                 Navigation.findNavController(view).navigate(actionAdd);
             }
         });
@@ -96,7 +96,8 @@ public class newsFeedFragment extends Fragment {
         visitProfile_newsfeedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newsFeedFragmentDirections.ActionNewsFeedFragmentToProfileFragment actionProfile = newsFeedFragmentDirections.actionNewsFeedFragmentToProfileFragment(currentUserID);
+                newsFeedFragmentDirections.ActionNewsFeedFragmentToProfileFragment actionProfile =
+                        newsFeedFragmentDirections.actionNewsFeedFragmentToProfileFragment(currentUserID);
                 Navigation.findNavController(view).navigate(actionProfile);
             }
         });
@@ -109,8 +110,6 @@ public class newsFeedFragment extends Fragment {
         //Redirect to map mode
         ImageButton mapMode = view.findViewById(R.id.map_mode);
         mapMode.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newsFeed_to_maps));
-
-
 
 
         SwipeRefreshLayout swipeRefreshLayout=view.findViewById(R.id.newsFeedSwipe);

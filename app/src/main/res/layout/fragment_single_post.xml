@@ -51,15 +51,15 @@
             android:gravity="left"
             android:text="TextView"
             android:textColor="#0E0B0B"
-            app:backgroundTint="#FFFFFF"
+            app:backgroundTint="#BCF1D3A8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/single_post_user_img"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/single_post_date"
-            android:layout_width="238dp"
-            android:layout_height="17dp"
+            android:layout_width="228dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
@@ -130,9 +130,11 @@
 
         <Button
             android:id="@+id/whatAppBtn"
-            android:layout_width="412dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
             android:drawableRight="@drawable/whatsapp_icon"
             android:drawablePadding="5dp"
             android:fontFamily="@font/quicksand"
@@ -140,6 +142,7 @@
             android:scaleType="centerInside"
             android:text="Contact Owner via WhatsApp"
             android:textColor="#D50C0C0C"
+            android:textSize="12dp"
             app:backgroundTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -147,11 +150,12 @@
 
         <Button
             android:id="@+id/moveToProfile"
-            android:layout_width="395dp"
+            android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:fontFamily="@font/quicksand"
             android:text="Visit Owner's Profile"
             android:textColor="#D50C0C0C"
+            android:textSize="12dp"
             app:backgroundTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,8 @@
 package com.example.secondchance;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -40,11 +42,14 @@ public class profileFragment extends Fragment {
     PostListViewModel postListViewModel;
     TextView fullName;
     TextView email;
+    TextView phone;
     ImageView profilePhoto;
     User currentUser;
-    Button deleteAccountBtn;
+    //Button deleteAccountBtn;
+    Button editProfile;
+    ImageButton mapMode;
     ImageButton whatAppBtn;
-
+    String LoggedUserID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,12 +60,18 @@ public class profileFragment extends Fragment {
         profilePhoto= view.findViewById(R.id.profile_user_img);
         fullName= view.findViewById(R.id.profile_FullName);
         email= view.findViewById(R.id.profile_email);
-        deleteAccountBtn=view.findViewById(R.id.delet_account_btn);
+        phone= view.findViewById(R.id.profile_phone);
+        //deleteAccountBtn=view.findViewById(R.id.delet_account_btn);
         whatAppBtn = view.findViewById(R.id.whatAppBtn);
+        mapMode = view.findViewById(R.id.map_mode);
+        whatAppBtn.setVisibility(View.INVISIBLE);
+        editProfile= view.findViewById(R.id.edit_details_on_profile);
+        editProfile.setVisibility(View.INVISIBLE);
 
-
-        String userID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
-        Log.d("TAG","user id is:"+userID);
+        String ProfileUserID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
+        Log.d("TAG","user id is:"+ProfileUserID);
+        SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+        LoggedUserID=sp.getString("currentUserID","0");
 
         userListViewModel = new ViewModelProvider(this).get(UserListViewModel.class);
         postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
@@ -71,33 +82,51 @@ public class profileFragment extends Fragment {
         LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
         postList.setLayoutManager(layoutmaneger);
 
-        Model.instance.getUser(userID, new Model.GetUserListener() {
+        Model.instance.getUser(ProfileUserID, new Model.GetUserListener() {
             @Override
             public void onComplete(User user) {
                 if (user.getPhotoUrl()!=null){
                     Picasso.get().load(user.getPhotoUrl()).into(profilePhoto);
                 }
+                if (ProfileUserID==LoggedUserID)
+                {
+                    editProfile.setVisibility(View.VISIBLE);
+                    editProfile.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            profileFragmentDirections.ActionProfileToEditProfile actionEdit =
+                                    profileFragmentDirections.actionProfileToEditProfile(ProfileUserID);
+                            Navigation.findNavController(v).navigate(actionEdit);
+                        }
+                    });
+                }
+                else{
+                    whatAppBtn.setVisibility(View.VISIBLE);
+                    whatAppBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String url = "https://api.whatsapp.com/send?phone="+user.getPhone();
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(url));
+                            startActivity(i);
+
+                        }
+                    });
+                }
                 fullName.setText(user.getFirstName()+" "+user.getLastName());
                 email.setText(user.getEmail());
+                phone.setText(user.getPhone());
                 currentUser=user;
-                whatAppBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String url = "https://api.whatsapp.com/send?phone="+user.getPhone();
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(url));
-                        startActivity(i);
 
-                    }
-                });
+                /*
                 deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Model.instance.deleteUser(currentUser);
                     }
-                });
+                });*/
 
-                postListAdapter adapter = new postListAdapter(postListViewModel.getUserPosts(userID),userListViewModel.getUserList());
+                postListAdapter adapter = new postListAdapter(postListViewModel.getUserPosts(ProfileUserID),userListViewModel.getUserList());
                 postList.setAdapter(adapter);
 
                 adapter.setOnItemClickListener(new postListAdapter.onItemClickListener() {
@@ -105,8 +134,8 @@ public class profileFragment extends Fragment {
                     public void onClick(int position) {
                         //TODO navigate to single post fragment
 
-                        int size= postListViewModel.getUserPosts(userID).getValue().size();
-                        String postId = postListViewModel.getUserPosts(userID).getValue().get(size-position-1).getPostID() ;
+                        int size= postListViewModel.getUserPosts(ProfileUserID).getValue().size();
+                        String postId = postListViewModel.getUserPosts(ProfileUserID).getValue().get(size-position-1).getPostID() ;
                         profileFragmentDirections.ActionProfileFragmentToSinglePostFragment actionProfileFragmentToSinglePostFragment=
                         profileFragmentDirections.actionProfileFragmentToSinglePostFragment(postId);
                         Navigation.findNavController(view).navigate(actionProfileFragmentToSinglePostFragment);
@@ -124,7 +153,7 @@ public class profileFragment extends Fragment {
                 });
 
 
-                postListViewModel.getUserPosts(userID).observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
+                postListViewModel.getUserPosts(ProfileUserID).observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
                     @Override
                     public void onChanged(List<Post> posts) {
                         adapter.notifyDataSetChanged();
@@ -150,29 +179,24 @@ public class profileFragment extends Fragment {
         newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_newsFeedFragment));
 
         Button profileToself= view.findViewById(R.id.visitProfileFrom_profile);
-        profileToself.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_self));
-
-
-
-
-
-
-        Button editProfileBtn= view.findViewById(R.id.edit_details_on_profile);
-        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+        profileToself.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profileFragmentDirections.ActionProfileToEditProfile actionEdit = profileFragmentDirections.actionProfileToEditProfile(currentUser.getUserID());
-            Navigation.findNavController(v).navigate(actionEdit);
+                profileFragmentDirections.ActionProfileFragmentSelf actionProfileToSelf =
+                        profileFragmentDirections.actionProfileFragmentSelf(LoggedUserID);
+                Navigation.findNavController(v).navigate(actionProfileToSelf);
             }
         });
 
+        mapMode.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_mapsFragment));
 
         Button addAPostProfileBtn= view.findViewById(R.id.addApost_profile);
         addAPostProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profileFragmentDirections.ActionProfileFragmentToAddPostFragment actionAdd = profileFragmentDirections.actionProfileFragmentToAddPostFragment(currentUser.getUserID());
-                Navigation.findNavController(view).navigate(actionAdd);
+                profileFragmentDirections.ActionProfileFragmentToAddPostFragment actionAdd =
+                        profileFragmentDirections.actionProfileFragmentToAddPostFragment(LoggedUserID);
+                Navigation.findNavController(v).navigate(actionAdd);
             }
         });
 
