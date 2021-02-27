@@ -3,6 +3,7 @@ package com.example.secondchance;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -51,6 +52,10 @@ public class profileFragment extends Fragment {
     ImageButton mapMode;
     ImageButton whatAppBtn;
     String LoggedUserID;
+    Button addAPostProfileBtn;
+    Button profileToself;
+    Button newsFeedFromProfile;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,14 +70,18 @@ public class profileFragment extends Fragment {
         //deleteAccountBtn=view.findViewById(R.id.delet_account_btn);
         whatAppBtn = view.findViewById(R.id.whatAppBtn);
         mapMode = view.findViewById(R.id.map_mode);
-        whatAppBtn.setVisibility(View.INVISIBLE);
+        newsFeedFromProfile= view.findViewById(R.id.homeFrom_profile);
+        profileToself= view.findViewById(R.id.visitProfileFrom_profile);
+        addAPostProfileBtn= view.findViewById(R.id.addApost_profile);
         editProfile= view.findViewById(R.id.edit_details_on_profile);
+        whatAppBtn.setVisibility(View.INVISIBLE);
         editProfile.setVisibility(View.INVISIBLE);
 
         String ProfileUserID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
         Log.d("TAG","user id is:"+ProfileUserID);
         SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         LoggedUserID=sp.getString("currentUserID","0");
+        Log.d("TAG","logged user id is:"+LoggedUserID);
 
         userListViewModel = new ViewModelProvider(this).get(UserListViewModel.class);
         postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
@@ -89,7 +98,7 @@ public class profileFragment extends Fragment {
                 if (user.getPhotoUrl()!=null){
                     Picasso.get().load(user.getPhotoUrl()).into(profilePhoto);
                 }
-                if (ProfileUserID==LoggedUserID)
+                if (ProfileUserID.equals(LoggedUserID))
                 {
                     editProfile.setVisibility(View.VISIBLE);
                     editProfile.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +109,7 @@ public class profileFragment extends Fragment {
                             Navigation.findNavController(v).navigate(actionEdit);
                         }
                     });
+                    profileToself.setBackgroundColor(getResources().getColor(R.color.quantum_deeporange100));
                 }
                 else{
                     whatAppBtn.setVisibility(View.VISIBLE);
@@ -113,6 +123,8 @@ public class profileFragment extends Fragment {
 
                         }
                     });
+                    profileToself.setBackgroundColor(getResources().getColor(R.color.quantum_grey700));
+
                 }
                 fullName.setText(user.getFirstName()+" "+user.getLastName());
                 email.setText(user.getEmail());
@@ -176,10 +188,9 @@ public class profileFragment extends Fragment {
 
 
 
-        Button newsFeedFromProfile= view.findViewById(R.id.homeFrom_profile);
+
         newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_newsFeedFragment));
 
-        Button profileToself= view.findViewById(R.id.visitProfileFrom_profile);
         profileToself.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,7 +202,6 @@ public class profileFragment extends Fragment {
 
         mapMode.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_mapsFragment));
 
-        Button addAPostProfileBtn= view.findViewById(R.id.addApost_profile);
         addAPostProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

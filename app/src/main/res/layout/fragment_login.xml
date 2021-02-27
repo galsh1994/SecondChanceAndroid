@@ -51,6 +51,7 @@
         android:fontFamily="@font/quicksand"
         android:text="Don't have an account yet? Sign in!"
         android:textSize="20dp"
+        android:isScrollContainer="false"
         app:layout_constraintBottom_toTopOf="@+id/save_and_login_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -79,6 +80,7 @@
         android:fontFamily="@font/quicksand"
         android:text="Log in"
         android:textSize="30dp"
+        android:isScrollContainer="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomebackText" />

@@ -41,6 +41,7 @@
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/quicksand"
         android:text="Save"
+        android:isScrollContainer="false"
         android:textSize="20sp"
         app:backgroundTint="#61FF5722"
 
@@ -56,6 +57,7 @@
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/quicksand"
         android:text="Cancel"
+        android:isScrollContainer="false"
         android:textSize="20sp"
         app:backgroundTint="#61FF5722"
         app:layout_constraintBottom_toBottomOf="parent"

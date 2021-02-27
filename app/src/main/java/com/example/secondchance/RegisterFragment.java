@@ -47,7 +47,7 @@ public class RegisterFragment extends Fragment {
     EditText registerLastName;
     EditText registerEmail;
     EditText registerPassword;
-    ImageButton registerEditProfilePhoto;
+    Button registerEditProfilePhoto;
     ImageView registerProfilePhoto;
     Button saveRegister;
     EditText registerPhone;
