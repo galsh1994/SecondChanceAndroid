@@ -175,30 +175,7 @@ public class profileFragment extends Fragment {
             }
         });
 
-        //post list
-
-//        postList=view.findViewById(R.id.profile_post_list);
-//        postList.hasFixedSize();
-//
-//        LinearLayoutManager layoutmaneger = new LinearLayoutManager(this.getContext());
-//        postList.setLayoutManager(layoutmaneger);
-//
-//        postListAdapter adapter = new postListAdapter();
-//        postList.setAdapter(adapter);
-
-
-
-
         newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_newsFeedFragment));
-
-        profileToself.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                profileFragmentDirections.ActionProfileFragmentSelf actionProfileToSelf =
-                        profileFragmentDirections.actionProfileFragmentSelf(LoggedUserID);
-                Navigation.findNavController(v).navigate(actionProfileToSelf);
-            }
-        });
 
         mapMode.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_mapsFragment));
 

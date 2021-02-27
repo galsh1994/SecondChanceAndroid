@@ -33,7 +33,6 @@ public class newsFeedFragment extends Fragment {
     PostListViewModel postListViewModel;
     String currentUserID="0";
     ImageButton visitProfile;
-    Button newsFeedToSelf;
     ImageButton mapMode;
     Button addAPostBtn;
 
@@ -53,7 +52,6 @@ public class newsFeedFragment extends Fragment {
         currentUserID=sp.getString("currentUserID","0");
 
         visitProfile= view.findViewById(R.id.visitProfileFrom_newsFeed);
-        newsFeedToSelf= view.findViewById(R.id.homeFrom_newsFeed);
         mapMode = view.findViewById(R.id.map_mode);
         addAPostBtn= view.findViewById(R.id.addApost_newsFeed);
 
@@ -105,12 +103,6 @@ public class newsFeedFragment extends Fragment {
                 Navigation.findNavController(view).navigate(actionProfile);
             }
         });
-
-
-        //Redirect to News feed
-
-
-        newsFeedToSelf.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newsFeedFragment_self));
 
         //Redirect to map mode
         mapMode.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_newsFeed_to_maps));

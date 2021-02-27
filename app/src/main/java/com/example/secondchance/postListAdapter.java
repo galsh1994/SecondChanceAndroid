@@ -55,6 +55,16 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
                 if (PostWriterUser.getPhotoUrl() != null) {
                     Picasso.get().load(PostWriterUser.getPhotoUrl()).into(holder.postUserImage);
                 }
+                if (currentUserID.equals(PostWriterUser.getUserID())) {
+                    holder.postUserName.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            newsFeedFragmentDirections.ActionNewsFeedFragmentToProfileFragment actionToUsersProfile =
+                                    newsFeedFragmentDirections.actionNewsFeedFragmentToProfileFragment(post.getUserID());
+                            Navigation.findNavController(v).navigate(actionToUsersProfile);
+                        }
+                    });
+                }
             }
         });
         // set username in the holder
@@ -84,20 +94,7 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         holder.position=position;
 
 
-        holder.postUserName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newsFeedFragmentDirections.ActionNewsFeedFragmentToProfileFragment actionToUsersProfile =
-                        newsFeedFragmentDirections.actionNewsFeedFragmentToProfileFragment(post.getUserID());
-                Navigation.findNavController(v).navigate(actionToUsersProfile);
-            }
-        });
-
-
-
-
     }
-
 
     @NonNull
     @Override
