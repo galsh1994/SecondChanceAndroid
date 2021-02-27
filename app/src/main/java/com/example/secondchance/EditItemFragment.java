@@ -30,6 +30,8 @@ import com.example.secondchance.Model.Post;
 import com.example.secondchance.Model.User;
 import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
+
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
@@ -165,6 +167,8 @@ public class EditItemFragment extends Fragment {
         builder.show();
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != RESULT_CANCELED) {
@@ -177,18 +181,14 @@ public class EditItemFragment extends Fragment {
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage =  data.getData();
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        if (selectedImage != null) {
-                            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                                    filePathColumn, null, null, null);
-                            if (cursor != null) {
-                                cursor.moveToFirst();
-                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                                String picturePath = cursor.getString(columnIndex);
-                                postPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                cursor.close();
-                            }
+                        try {
+                            final Uri imageUri = data.getData();
+                            final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                            postPhoto.setImageBitmap(selectedImage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
                         }
                     }
                     break;

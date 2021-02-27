@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.User;
 
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -168,6 +169,7 @@ public class RegisterFragment extends Fragment {
         builder.show();
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != RESULT_CANCELED) {
@@ -180,24 +182,21 @@ public class RegisterFragment extends Fragment {
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage =  data.getData();
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        if (selectedImage != null) {
-                            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                                    filePathColumn, null, null, null);
-                            if (cursor != null) {
-                                cursor.moveToFirst();
-                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                                String picturePath = cursor.getString(columnIndex);
-                                registerProfilePhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                cursor.close();
-                            }
+                        try {
+                            final Uri imageUri = data.getData();
+                            final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                            registerProfilePhoto.setImageBitmap(selectedImage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
                         }
                     }
                     break;
             }
         }
     }
+
     private void displayFailedError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Operation Failed");
