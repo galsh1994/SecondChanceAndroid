@@ -55,7 +55,7 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
                 if (PostWriterUser.getPhotoUrl() != null) {
                     Picasso.get().load(PostWriterUser.getPhotoUrl()).into(holder.postUserImage);
                 }
-                if (currentUserID.equals(PostWriterUser.getUserID())) {
+                if (userNameClickable) {
                     holder.postUserName.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
