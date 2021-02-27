@@ -54,7 +54,7 @@ public class profileFragment extends Fragment {
     Button addAPostProfileBtn;
     ImageButton profileToself;
     Button newsFeedFromProfile;
-
+    String ProfileUserID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,7 +75,7 @@ public class profileFragment extends Fragment {
         whatAppBtn.setVisibility(View.INVISIBLE);
         editProfile.setVisibility(View.INVISIBLE);
 
-        String ProfileUserID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
+        ProfileUserID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
         Log.d("TAG","user id is:"+ProfileUserID);
         SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         LoggedUserID=sp.getString("currentUserID","0");
@@ -194,12 +194,17 @@ public class profileFragment extends Fragment {
                     @Override
                     public void onComplete() {
                         swipeRefreshLayout.setRefreshing(false);
+                        Model.instance.getUser(ProfileUserID, new Model.GetUserListener() {
+                            @Override
+                            public void onComplete(User user) {
+                                fullName.setText(user.getFirstName()+" "+user.getLastName());
+                                email.setText(user.getEmail());
+                            }
+                        });
                     }
                 });
             }
         });
-
-
         return view;
     }
 }

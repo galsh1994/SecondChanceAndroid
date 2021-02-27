@@ -198,7 +198,6 @@ public class editProfileFragment extends Fragment {
                             profilePhoto.setImageBitmap(selectedImage);
                         } catch (Exception e) {
                             e.printStackTrace();
-
                         }
                     }
                     break;
