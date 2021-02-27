@@ -47,7 +47,7 @@
             android:fontFamily="@font/quicksand"
             android:padding="10dp"
             android:scaleType="centerInside"
-            android:src="@drawable/greylo2"
+            android:src="@drawable/barlocation"
             android:textColor="#07080C"
             android:textSize="18sp"
             app:backgroundTint="@color/white"
@@ -61,7 +61,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <Button
+        <ImageButton
             android:id="@+id/visitProfileFrom_newsFeed"
             android:layout_width="71dp"
             android:layout_height="71dp"
@@ -71,12 +71,15 @@
             android:background="@drawable/rounded_corners"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/quicksand"
+            android:padding="14dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/othersprofile"
             android:textColor="#07080C"
             android:textSize="18sp"
             app:backgroundTint="@color/white"
-            app:icon="@drawable/profile2"
+            app:icon="@drawable/othersprofile"
             app:iconGravity="textEnd"
-            app:iconSize="40dp"
+            app:iconSize="20dp"
             app:iconTint="@color/quantum_grey700"
             app:iconTintMode="add"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -9,7 +9,8 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
+        android:id="@+id/constraintLayout4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@color/white"
@@ -21,13 +22,15 @@
             android:id="@+id/addPostCondition"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:ems="10"
             android:fontFamily="@font/quicksand"
             android:hint="Condition"
             android:inputType="textPersonName"
             android:textColorHint="@color/black"
             android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addPostDescription" />
 
@@ -35,14 +38,16 @@
             android:id="@+id/addPostDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
             android:ems="10"
             android:fontFamily="@font/quicksand"
             android:hint="Description"
             android:inputType="textPersonName"
             android:textColorHint="@color/black"
             android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postPhoto" />
 
@@ -50,9 +55,13 @@
             android:id="@+id/spinner1"
             android:layout_width="199dp"
             android:layout_height="56dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="16dp"
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addPostLocation" />
 
@@ -83,13 +92,15 @@
             android:id="@+id/addPostLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:ems="10"
             android:fontFamily="@font/quicksand"
             android:hint="Address"
             android:inputType="textPersonName"
             android:textColorHint="@color/black"
             android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addPostCondition" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -98,28 +109,27 @@
         android:id="@+id/cancel_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="48dp"
-        android:layout_marginBottom="100dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/quicksand"
-        android:text="Cancel"
         android:isScrollContainer="false"
-
+        android:text="Cancel"
         android:textSize="20dp"
         app:backgroundTint="#61FF5722"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/quicksand"
         android:text="Add A Post"
         android:textColor="#07080C"
         android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -128,16 +138,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/quicksand"
-        android:text="Save"
         android:isScrollContainer="false"
+        android:text="Save"
         android:textSize="20sp"
-        app:backgroundTint="#61FF5722"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:backgroundTint="#61FF5722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
 
     <ImageView
         android:id="@+id/logo"

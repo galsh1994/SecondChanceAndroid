@@ -53,7 +53,7 @@ public class profileFragment extends Fragment {
     ImageButton whatAppBtn;
     String LoggedUserID;
     Button addAPostProfileBtn;
-    Button profileToself;
+    ImageButton profileToself;
     Button newsFeedFromProfile;
 
 
@@ -109,7 +109,8 @@ public class profileFragment extends Fragment {
                             Navigation.findNavController(v).navigate(actionEdit);
                         }
                     });
-                    //profileToself.setBackgroundColor(getResources().getColor(R.color.quantum_deeporange100));
+
+                    profileToself.setImageDrawable(getResources().getDrawable(R.drawable.selfprofile));
                 }
                 else{
                     whatAppBtn.setVisibility(View.VISIBLE);
@@ -123,7 +124,6 @@ public class profileFragment extends Fragment {
 
                         }
                     });
-                    //profileToself.setBackgroundColor(getResources().getColor(R.color.quantum_grey700));
 
                 }
                 fullName.setText(user.getFirstName()+" "+user.getLastName());
