@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.commit();
 
                     //TODO navigate or pop back to index fragment
-                    NavigationUI.onNavDestinationSelected(item,navController);
+                    navController.popBackStack();
                 }
             });
 
