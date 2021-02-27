@@ -109,7 +109,7 @@ public class profileFragment extends Fragment {
                             Navigation.findNavController(v).navigate(actionEdit);
                         }
                     });
-                    profileToself.setBackgroundColor(getResources().getColor(R.color.quantum_deeporange100));
+                    //profileToself.setBackgroundColor(getResources().getColor(R.color.quantum_deeporange100));
                 }
                 else{
                     whatAppBtn.setVisibility(View.VISIBLE);
@@ -123,7 +123,7 @@ public class profileFragment extends Fragment {
 
                         }
                     });
-                    profileToself.setBackgroundColor(getResources().getColor(R.color.quantum_grey700));
+                    //profileToself.setBackgroundColor(getResources().getColor(R.color.quantum_grey700));
 
                 }
                 fullName.setText(user.getFirstName()+" "+user.getLastName());
