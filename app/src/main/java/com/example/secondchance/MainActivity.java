@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        if (item.getItemId() == R.id.delete_account){
+        if (item.getItemId() == R.id.registerFragment){
             AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
 
             // set the message to display
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
                     editor.commit();
 
-                     navController.popBackStack();
+                    NavigationUI.onNavDestinationSelected(item,navController);
 
                 }
             });
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        if (item.getItemId() == R.id.logout_btn){
+        if (item.getItemId() == R.id.indexFragment){
             AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
 
             // set the message to display
@@ -228,8 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
                     editor.commit();
 
-                    //TODO navigate or pop back to index fragment
-                    navController.popBackStack();
+                       NavigationUI.onNavDestinationSelected(item,navController);
                 }
             });
 
