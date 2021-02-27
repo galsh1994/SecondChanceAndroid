@@ -171,7 +171,7 @@ public class addPostFragment extends Fragment  {
                         @Override
                         public void onComplete() {
                             Model.instance.refreshAllPosts(null);
-                            Navigation.findNavController(savePost).popBackStack();
+                            Navigation.findNavController(view).popBackStack();
                         }
                     });
                 }
