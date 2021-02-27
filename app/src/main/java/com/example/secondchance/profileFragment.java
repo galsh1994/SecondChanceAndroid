@@ -44,11 +44,10 @@ public class profileFragment extends Fragment {
     PostListViewModel postListViewModel;
     TextView fullName;
     TextView email;
-    TextView phone;
     ImageView profilePhoto;
     User currentUser;
     //Button deleteAccountBtn;
-    Button editProfile;
+    ImageButton editProfile;
     ImageButton mapMode;
     ImageButton whatAppBtn;
     String LoggedUserID;
@@ -66,7 +65,6 @@ public class profileFragment extends Fragment {
         profilePhoto= view.findViewById(R.id.profile_user_img);
         fullName= view.findViewById(R.id.profile_FullName);
         email= view.findViewById(R.id.profile_email);
-        phone= view.findViewById(R.id.profile_phone);
         //deleteAccountBtn=view.findViewById(R.id.delet_account_btn);
         whatAppBtn = view.findViewById(R.id.whatAppBtn);
         mapMode = view.findViewById(R.id.map_mode);
@@ -128,7 +126,6 @@ public class profileFragment extends Fragment {
                 }
                 fullName.setText(user.getFirstName()+" "+user.getLastName());
                 email.setText(user.getEmail());
-                phone.setText(user.getPhone());
                 currentUser=user;
 
                 /*

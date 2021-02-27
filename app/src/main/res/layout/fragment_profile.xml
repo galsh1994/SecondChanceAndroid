@@ -22,13 +22,11 @@
         android:id="@+id/constraintLayout3"
         android:layout_width="0dp"
         android:layout_height="230dp"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_phone">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profile_post_list"
@@ -181,18 +179,6 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_FullName" />
 
     <TextView
-        android:id="@+id/profile_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/quicksand"
-        android:text="Phone Number"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_email" />
-
-    <TextView
         android:id="@+id/profile_FullName"
         android:layout_width="wrap_content"
         android:layout_height="43dp"
@@ -209,7 +195,7 @@
         android:id="@+id/whatAppBtn"
         android:layout_width="45dp"
         android:layout_height="35dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
         android:drawable="@drawable/whatsapp_icon"
         android:drawablePadding="30dp"
         android:fontFamily="@font/quicksand"
@@ -218,8 +204,9 @@
         android:src="@drawable/whatsapp_icon"
         android:textColor="#D50C0C0C"
         app:icon="@drawable/whatsapp_icon"
-        app:layout_constraintStart_toEndOf="@+id/profile_phone"
-        app:layout_constraintTop_toTopOf="@+id/profile_phone" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_email" />
 
     <ImageView
         android:id="@+id/profile_user_img"
@@ -232,22 +219,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/edit_details_on_profile"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded_corners"
+        android:layout_width="37dp"
+        android:layout_height="42dp"
         android:fontFamily="@font/quicksand"
-        android:text="Edit"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/quantum_grey600"
+        android:scaleType="centerInside"
+        android:src="@drawable/pencil2"
+        android:textSize="10sp"
         app:iconGravity="textStart"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/profile_user_img"
-        app:layout_constraintEnd_toStartOf="@+id/profile_user_img"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/profile_user_img" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
