@@ -31,6 +31,8 @@ import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
 import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
+
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
@@ -172,7 +174,7 @@ public class addPostFragment extends Fragment  {
                         public void onComplete() {
                             Model.instance.refreshAllPosts(null);
                             Navigation.findNavController(savePost).popBackStack();
-                        }
+                         }
                     });
                 }
             }
@@ -208,7 +210,7 @@ public class addPostFragment extends Fragment  {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != RESULT_CANCELED) {
+        if(resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
@@ -218,24 +220,51 @@ public class addPostFragment extends Fragment  {
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage = data.getData();
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        if (selectedImage != null) {
-                            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                                    filePathColumn, null, null, null);
-                            if (cursor != null) {
-                                cursor.moveToFirst();
-                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                                String picturePath = cursor.getString(columnIndex);
-                                PostPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                cursor.close();
-                            }
+                        try {
+                            final Uri imageUri = data.getData();
+                            final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                            PostPhoto.setImageBitmap(selectedImage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
                         }
                     }
                     break;
             }
         }
     }
+
+    //@Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (resultCode != RESULT_CANCELED) {
+//            switch (requestCode) {
+//                case 0:
+//                    if (resultCode == RESULT_OK && data != null) {
+//                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+//                        PostPhoto.setImageBitmap(selectedImage);
+//                    }
+//                    break;
+//                case 1:
+//                    if (resultCode == RESULT_OK && data != null) {
+//                        Uri selectedImage = data.getData();
+//                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//                        if (selectedImage != null) {
+//                            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+//                                    filePathColumn, null, null, null);
+//                            if (cursor != null) {
+//                                cursor.moveToFirst();
+//                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                                String picturePath = cursor.getString(columnIndex);
+//                                PostPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+//                                cursor.close();
+//                            }
+//                        }
+//                    }
+//                    break;
+//            }
+//        }
+//    }
     private void displayFailedError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Operation Failed");

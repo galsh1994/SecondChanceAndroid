@@ -73,7 +73,7 @@
         <argument android:name="userID" />
         <action
             android:id="@+id/action_addPostFragment_pop"
-            app:popUpTo="@id/addPostFragment"
+            app:popUpTo="@id/newsFeedFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

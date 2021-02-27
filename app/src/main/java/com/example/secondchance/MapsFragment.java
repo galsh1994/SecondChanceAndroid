@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -55,6 +57,12 @@ public class MapsFragment extends Fragment {
                 supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(GoogleMap googleMap) {
+                        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(31.4117257,35.0818155));
+                        CameraUpdate zoom= CameraUpdateFactory.zoomTo(7);
+
+                        googleMap.moveCamera(center);
+                        googleMap.animateCamera(zoom);
+
                         for(int i = 0; i < longPoints.size(); i++) {
                             LatLng location = new LatLng(latPoints.get(i),longPoints.get(i));
                             MarkerOptions markerOptions = new MarkerOptions();

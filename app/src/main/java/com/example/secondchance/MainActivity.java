@@ -10,10 +10,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -22,9 +20,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 
-import com.example.secondchance.Model.ModelFirebase;
+import com.example.secondchance.Model.Model;
+import com.example.secondchance.Model.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -155,7 +153,60 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        if (item.getItemId() == R.id.menu_logout){
+        if (item.getItemId() == R.id.delete_account){
+            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+
+            // set the message to display
+            alertbox.setMessage("Are you sure you want to delete your account?");
+
+            // add a neutral button to the alert box and assign a click listener
+            alertbox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                // click listener on the alert box
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // the button was clicked
+                    SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+                    String currentUserID = sp.getString("currentUserID", "0");
+                    Log.d("TAG","The current user id is:"+currentUserID);
+                    Model.instance.getUser(currentUserID, new Model.GetUserListener() {
+                        @Override
+                        public void onComplete(User user) {
+                            Log.d("TAG","The current user in user is:"+user);
+                            Log.d("TAG","The current user id in user is:"+user.getUserID());
+                            Model.instance.deleteUser(user);
+
+                        }
+                    });
+                     SharedPreferences.Editor editor=sp.edit();
+                    editor.putString("currentUserID","0");
+                    editor.putString("currentUserFirstName","0");
+                    editor.putString("currentUserLastName","0");
+                    editor.putString("currentUserEmail","0");
+                    editor.putString("currentUserPhotoUrl","0");
+
+                    editor.commit();
+
+                     navController.popBackStack();
+
+                }
+            });
+
+            alertbox.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                // click listener on the alert box
+                public void onClick(DialogInterface arg0, int arg1) {
+                    arg0.dismiss();
+
+                }
+            });
+
+
+            // show it
+            alertbox.show();
+            return true;
+        }
+
+        if (item.getItemId() == R.id.logout_btn){
             AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
 
             // set the message to display
@@ -178,8 +229,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.commit();
 
                     //TODO navigate or pop back to index fragment
-                navController.popBackStack();
-
+                    NavigationUI.onNavDestinationSelected(item,navController);
                 }
             });
 
@@ -187,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // click listener on the alert box
                 public void onClick(DialogInterface arg0, int arg1) {
+                    arg0.dismiss();
 
                 }
             });
