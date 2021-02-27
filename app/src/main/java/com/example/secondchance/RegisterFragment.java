@@ -19,7 +19,6 @@ import androidx.navigation.Navigation;
 import android.provider.MediaStore;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +32,7 @@ import android.widget.TextView;
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.User;
 
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -61,95 +61,14 @@ public class RegisterFragment extends Fragment {
         View view=  inflater.inflate(R.layout.fragment_register, container, false);
 
         //catch all buttons
-
         saveRegister = view.findViewById(R.id.register_btn);
        registerFirstName = view.findViewById(R.id.registerFirstName);
-       registerFirstName.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-           }
-
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-           }
-
-           @Override
-           public void afterTextChanged(Editable s) {
-               Validation.hasText(registerFirstName);
-
-           }
-       });
        registerLastName= view.findViewById(R.id.registerLastName);
-       registerLastName.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-           }
-
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-           }
-
-           @Override
-           public void afterTextChanged(Editable s) {
-Validation.hasText(registerLastName);
-           }
-       });
        registerEmail= view.findViewById(R.id.registerEmail);
-       registerEmail.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-           }
-
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-           }
-
-           @Override
-           public void afterTextChanged(Editable s) {
-Validation.isEmailAddress(registerEmail,true);
-           }
-       });
        registerProfilePhoto= view.findViewById(R.id.registerProfilePhoto);
        registerEditProfilePhoto= view.findViewById(R.id.registerEditProfilePhoto);
        registerPassword= view.findViewById(R.id.registerPassword);
-       registerPassword.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-           }
-
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-           }
-
-           @Override
-           public void afterTextChanged(Editable s) {
-Validation.isPassword(registerPassword,true);
-           }
-       });
        registerPhone = view.findViewById(R.id.registerPhone);
-       registerPhone.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-           }
-
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-           }
-
-           @Override
-           public void afterTextChanged(Editable s) {
-Validation.isPhoneNumber(registerPhone,true);
-           }
-       });
        message=view.findViewById(R.id.register_message_text);
        message.setVisibility(view.INVISIBLE);
 
@@ -250,6 +169,7 @@ Validation.isPhoneNumber(registerPhone,true);
         builder.show();
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != RESULT_CANCELED) {
@@ -262,25 +182,21 @@ Validation.isPhoneNumber(registerPhone,true);
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage =  data.getData();
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        if (selectedImage != null) {
-                            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                                    filePathColumn, null, null, null);
-                            if (cursor != null) {
-                                cursor.moveToFirst();
-                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                                String picturePath = cursor.getString(columnIndex);
-                                 registerProfilePhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                        try {
+                            final Uri imageUri = data.getData();
+                            final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                            registerProfilePhoto.setImageBitmap(selectedImage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
 
-                                cursor.close();
-                            }
                         }
                     }
                     break;
             }
         }
     }
+
     private void displayFailedError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Operation Failed");

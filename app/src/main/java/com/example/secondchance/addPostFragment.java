@@ -173,16 +173,12 @@ public class addPostFragment extends Fragment  {
                         @Override
                         public void onComplete() {
                             Model.instance.refreshAllPosts(null);
-                             Navigation.findNavController(savePost).popBackStack();
+                            Navigation.findNavController(savePost).popBackStack();
                         }
                     });
                 }
             }
         });
-
-
-
-
 
     }
     private void editImage() {
@@ -205,7 +201,6 @@ public class addPostFragment extends Fragment  {
         });
         builder.show();
     }
-
 
 
     @Override
@@ -235,36 +230,6 @@ public class addPostFragment extends Fragment  {
         }
     }
 
-    //@Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (resultCode != RESULT_CANCELED) {
-//            switch (requestCode) {
-//                case 0:
-//                    if (resultCode == RESULT_OK && data != null) {
-//                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-//                        PostPhoto.setImageBitmap(selectedImage);
-//                    }
-//                    break;
-//                case 1:
-//                    if (resultCode == RESULT_OK && data != null) {
-//                        Uri selectedImage = data.getData();
-//                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//                        if (selectedImage != null) {
-//                            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-//                                    filePathColumn, null, null, null);
-//                            if (cursor != null) {
-//                                cursor.moveToFirst();
-//                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                                String picturePath = cursor.getString(columnIndex);
-//                                PostPhoto.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-//                                cursor.close();
-//                            }
-//                        }
-//                    }
-//                    break;
-//            }
-//        }
-//    }
     private void displayFailedError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Operation Failed");
