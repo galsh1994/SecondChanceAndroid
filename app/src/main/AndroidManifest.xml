@@ -10,15 +10,22 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
 
     <application
         android:name = ".MyApplicaion"
         android:allowBackup="true"
+        android:installLocation="preferExternal"
+        android:windowSoftInputMode="adjustPan"
         android:icon="@mipmap/ic_launcher"
         android:label="Second Chance"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.SecondChance">
 
 

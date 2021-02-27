@@ -19,6 +19,7 @@ import androidx.navigation.Navigation;
 import android.provider.MediaStore;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,17 +63,95 @@ public class RegisterFragment extends Fragment {
 
         //catch all buttons
         saveRegister = view.findViewById(R.id.register_btn);
-       registerFirstName = view.findViewById(R.id.registerFirstName);
-       registerLastName= view.findViewById(R.id.registerLastName);
-       registerEmail= view.findViewById(R.id.registerEmail);
-       registerProfilePhoto= view.findViewById(R.id.registerProfilePhoto);
-       registerEditProfilePhoto= view.findViewById(R.id.registerEditProfilePhoto);
-       registerPassword= view.findViewById(R.id.registerPassword);
-       registerPhone = view.findViewById(R.id.registerPhone);
-       message=view.findViewById(R.id.register_message_text);
-       message.setVisibility(view.INVISIBLE);
+        registerFirstName = view.findViewById(R.id.registerFirstName);
+        registerFirstName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(registerFirstName);
+
+            }
+        });
+        registerLastName= view.findViewById(R.id.registerLastName);
+        registerLastName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(registerLastName);
+            }
+        });
+        registerEmail= view.findViewById(R.id.registerEmail);
+        registerEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.isEmailAddress(registerEmail,true);
+            }
+        });
+        registerProfilePhoto= view.findViewById(R.id.registerProfilePhoto);
+        registerEditProfilePhoto= view.findViewById(R.id.registerEditProfilePhoto);
+        registerPassword= view.findViewById(R.id.registerPassword);
+        registerPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.isPassword(registerPassword,true);
+            }
+        });
+        registerPhone = view.findViewById(R.id.registerPhone);
+        registerPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.isPhoneNumber(registerPhone,true);
+            }
+        });
+        message=view.findViewById(R.id.register_message_text);
+        message.setVisibility(view.INVISIBLE);
 
        // get user list
 
