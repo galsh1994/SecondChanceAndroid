@@ -5,12 +5,12 @@
 
 
     <item
-        android:id="@+id/delete_account"
+        android:id="@+id/registerFragment"
         android:icon="@drawable/delete_account_icon"
         android:title="delete_account"
         app:showAsAction="always" />
     <item
-        android:id="@+id/logout_btn"
+        android:id="@+id/indexFragment"
         android:icon="@drawable/logout_icon"
         android:title="logout"
         app:showAsAction="always" />
