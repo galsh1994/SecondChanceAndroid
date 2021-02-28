@@ -9,6 +9,8 @@ import androidx.navigation.Navigation;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -39,6 +41,11 @@ public class MapsFragment extends Fragment {
 
     SupportMapFragment supportMapFragment;
     GoogleMap googleMap;
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.non_buttons_menu,menu);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,

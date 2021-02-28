@@ -5,9 +5,11 @@ import java.util.regex.Pattern;
 
 public class Validation {
 
-    private static final String EMAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)(\\.[A-Za-z]{2,})$";
-    private static final String PHONE_REGEX = "\\d{10}";
-    private static final String PASSWORD_REGEX = "\\d{4}";
+    private static final String EMAIL_REGEX = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$";
+    private static final String PASSWORD_REGEX = "\\d{4,}";
+    private static final String PHONE_REGEX = "^[0][5]\\d{8}$";
+
+
 
 
     // Error Messages
@@ -61,4 +63,15 @@ public class Validation {
 
         return true;
     }
+
+    public static boolean checkAllfields(String fn,String ln,String email, String pass,String phone)
+    {
+        if(fn.length()>0&&ln.length()>0&&email.length()>0&&pass.length()>=4&&phone.length()==10){
+        return true;
+        }
+        return false;
+
+    }
+
+
 }

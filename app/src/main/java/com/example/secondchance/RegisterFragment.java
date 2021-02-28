@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -19,8 +20,11 @@ import androidx.navigation.Navigation;
 import android.provider.MediaStore;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,7 +47,7 @@ public class RegisterFragment extends Fragment {
 
     List<User> userList;
     Boolean saveUser;
-
+    Boolean checkAllFields = false;
     EditText registerFirstName;
     EditText registerLastName;
     EditText registerEmail;
@@ -53,7 +57,14 @@ public class RegisterFragment extends Fragment {
     Button saveRegister;
     EditText registerPhone;
     TextView message;
- 
+    TextView fieldsMSG;
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.non_buttons_menu,menu);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,17 +72,83 @@ public class RegisterFragment extends Fragment {
         View view=  inflater.inflate(R.layout.fragment_register, container, false);
 
         //catch all buttons
-        saveRegister = view.findViewById(R.id.register_btn);
-       registerFirstName = view.findViewById(R.id.registerFirstName);
-       registerLastName= view.findViewById(R.id.registerLastName);
-       registerEmail= view.findViewById(R.id.registerEmail);
-       registerProfilePhoto= view.findViewById(R.id.registerProfilePhoto);
-       registerEditProfilePhoto= view.findViewById(R.id.registerEditProfilePhoto);
-       registerPassword= view.findViewById(R.id.registerPassword);
-       registerPhone = view.findViewById(R.id.registerPhone);
-       message=view.findViewById(R.id.register_message_text);
-       message.setVisibility(view.INVISIBLE);
+         saveRegister = view.findViewById(R.id.register_btn);
+        registerFirstName = view.findViewById(R.id.registerFirstName);
+        registerFirstName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+             }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(registerFirstName);
+            }
+        });
+        registerLastName= view.findViewById(R.id.registerLastName);
+        registerLastName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+             }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(registerLastName);
+            }
+        });
+        registerEmail= view.findViewById(R.id.registerEmail);
+        registerEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+             }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.isEmailAddress(registerEmail,true);
+            }
+        });
+        registerProfilePhoto= view.findViewById(R.id.registerProfilePhoto);
+        registerEditProfilePhoto= view.findViewById(R.id.registerEditProfilePhoto);
+        registerPassword= view.findViewById(R.id.registerPassword);
+        registerPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+             }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.isPassword(registerPassword,true);
+            }
+        });
+        registerPhone = view.findViewById(R.id.registerPhone);
+        registerPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+             }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.isPhoneNumber(registerPhone,true);
+            }
+        });
+        message=view.findViewById(R.id.register_message_text);
+        message.setVisibility(view.INVISIBLE);
+        fieldsMSG=view.findViewById(R.id.requiredDetails_register);
+        fieldsMSG.setVisibility(view.INVISIBLE);
 
 
        // get user list
@@ -100,6 +177,12 @@ public class RegisterFragment extends Fragment {
             public void onClick(View v) {
 
                 saveUser=true;
+                checkAllFields=Validation.checkAllfields(registerFirstName.getText().toString(),registerLastName.getText().toString(),registerEmail.getText().toString(),registerPassword.getText().toString(),registerPhone.getText().toString());
+
+                if(!checkAllFields)
+                {
+                    fieldsMSG.setVisibility(view.VISIBLE);
+                }
 
                 for (User user:userList) {
                     if(user.getEmail().equals(registerEmail.getText().toString())){
@@ -108,9 +191,8 @@ public class RegisterFragment extends Fragment {
                         break;
                     }
                 }
-                if(saveUser)
+                 if(saveUser&&checkAllFields)
                 saveChanges();
-
             }
         });
 

@@ -2,7 +2,6 @@ package com.example.secondchance;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.icu.lang.UScript;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +12,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,8 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.secondchance.Model.Model;
-import com.example.secondchance.Model.Post;
 import com.example.secondchance.Model.User;
 
 import java.util.LinkedList;
@@ -45,7 +41,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.login_menu,menu);
+        inflater.inflate(R.menu.non_buttons_menu,menu);
     }
 
     @Override
