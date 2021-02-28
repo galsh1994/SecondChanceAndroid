@@ -89,8 +89,8 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         Log.d("k","p"+post.getPostID());
         //set rest of the fields
         holder.postItemDescription.setText("Description: "+post.getDescription());
-        holder.postItemLocation.setText("Address: "+post.getLocation());
         holder.postItemCondition.setText("Condition: "+post.getCondition());
+        holder.postItemCity.setText("City: "+post.getCity());
         holder.position=position;
 
 

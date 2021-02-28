@@ -1,10 +1,7 @@
 package com.example.secondchance;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,7 +12,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +23,6 @@ import android.widget.ImageView;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
-import com.example.secondchance.Model.User;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
@@ -38,7 +33,7 @@ import static android.app.Activity.RESULT_OK;
 public class EditItemFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     EditText Description;
-    EditText Location;
+    EditText City;
     EditText Condition;
     ImageView postPhoto;
     ImageButton editPhoto;
@@ -56,7 +51,7 @@ public class EditItemFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_edit_item, container, false);
         save = view.findViewById(R.id.saveBtnEditPostPage);
         Description=view.findViewById(R.id.editDescription); ;
-        Location= view.findViewById(R.id.editTextLocation);
+        City= view.findViewById(R.id.editTextCity);
         Condition= view.findViewById(R.id.editTextCondition);;
         postPhoto=view.findViewById(R.id.postPictureEditPage);
         editPhoto= view.findViewById(R.id.editProfilePhoto);;
@@ -72,7 +67,7 @@ public class EditItemFragment extends Fragment {
                     Picasso.get().load(post.getPhotoUrl()).into(postPhoto);
                 }
                 Description.setText(post.getDescription()); ;
-                Location.setText(post.getLocation());
+                City.setText(post.getCity());
                 Condition.setText(post.getCondition());;
                 postLat= post.getCoordinatesLat();
                 postLong=post.getCoordinatesLong();
@@ -119,7 +114,7 @@ public class EditItemFragment extends Fragment {
         post.setPostID(currentPostID);
         post.setCondition(Condition.getText().toString());
         post.setDescription(Description.getText().toString());
-        post.setLocation(Location.getText().toString());
+        post.setCity(City.getText().toString());
         post.setUserID(currentPost.getUserID());
         post.setCoordinatesLong(postLong);
         post.setCoordinatesLat(postLat);

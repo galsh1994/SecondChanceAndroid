@@ -21,7 +21,7 @@ public class Post {
     private String userID;
     private String photoUrl;
     private String description;
-    private String location;
+    private String city;
     private String condition;
     private Long lastUpdated;
     private Double coordinatesLat;
@@ -35,7 +35,7 @@ public class Post {
         result.put("userID",userID);
         result.put("photoUrl",photoUrl);
         result.put("description",description);
-        result.put("location",location);
+        result.put("city",city);
         result.put("condition",condition);
         result.put("coordinatesLat",coordinatesLat);
         result.put("coordinatesLong",coordinatesLong);
@@ -48,7 +48,7 @@ public class Post {
         userID=(String)map.get("userID");
         photoUrl=(String)map.get("photoUrl");
         description=(String)map.get("description");
-        location=(String)map.get("location");
+        city=(String)map.get("city");
         condition=(String)map.get("condition");
         coordinatesLat = (double)map.get("coordinatesLat");
         coordinatesLong = (double)map.get("coordinatesLong");
@@ -90,12 +90,12 @@ public class Post {
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCity() {
+        return city;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Long getLastUpdated() {

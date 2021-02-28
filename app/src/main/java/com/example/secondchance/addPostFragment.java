@@ -1,9 +1,7 @@
 package com.example.secondchance;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,8 +12,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +25,6 @@ import android.widget.Spinner;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
-import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 
@@ -63,7 +58,7 @@ public class addPostFragment extends Fragment  {
         userID = addPostFragmentArgs.fromBundle(getArguments()).getUserID();
         postID= String.valueOf(Math.random() * 10);
         description = view.findViewById(R.id.addPostDescription);
-        city = view.findViewById(R.id.addPostLocation);
+        city = view.findViewById(R.id.addPostCity);
         condition = view.findViewById(R.id.addPostCondition);
         PostPhoto= view.findViewById(R.id.postPhoto);
         cancelPost =view.findViewById(R.id.cancel_post);
@@ -152,7 +147,7 @@ public class addPostFragment extends Fragment  {
         Post post = new Post();
         post.setPostID(postID);
         post.setDescription(description.getText().toString());
-        post.setLocation(city.getText().toString());
+        post.setCity(city.getText().toString());
         post.setCondition(condition.getText().toString());
         post.setUserID(userID);
         post.setCoordinatesLat(coordinatesLatitude);

@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,7 @@ public class singlePostFragment extends Fragment {
 
     Button postUserName;
     TextView postDate;
-    TextView postItemLocation;
+    TextView postItemCity;
     TextView postItemCondition;
     TextView postItemDescription;
     ImageView postUserImage;
@@ -56,7 +55,7 @@ public class singlePostFragment extends Fragment {
         postDate=view.findViewById(R.id.single_post_date);
         postItemImage=view.findViewById(R.id.single_post_item_img);
         postItemDescription=view.findViewById(R.id.single_post_item_description);
-        postItemLocation=view.findViewById(R.id.single_post_item_location);
+        postItemCity=view.findViewById(R.id.single_post_item_city);
         postItemCondition=view.findViewById(R.id.single_post_item_condotion);
         postItemDelete = view.findViewById(R.id.delete_single_Post_btn);
         postItemEdit = view.findViewById(R.id.edit_single_Post_btn);
@@ -129,7 +128,7 @@ public class singlePostFragment extends Fragment {
                         String  minutes = String.valueOf(cal.get(Calendar.MINUTE));
                         postDate.setText(date+" "+hours+":"+minutes);
                         postItemDescription.setText("Description: "+post.getDescription());
-                        postItemLocation.setText("Address: "+post.getLocation());
+                        postItemCity.setText("Address: "+post.getCity());
                         postItemCondition.setText("Condition: "+post.getCondition());
                     }
                 });
