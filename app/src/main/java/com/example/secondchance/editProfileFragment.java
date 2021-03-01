@@ -13,9 +13,14 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.secondchance.Model.AppLocalDb;
 import com.example.secondchance.Model.Model;
@@ -35,6 +41,8 @@ import com.google.firebase.firestore.FieldValue;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -44,6 +52,9 @@ public class editProfileFragment extends Fragment {
 
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    List<User> userList;
+    Boolean userWasSaved;
+    Boolean checkAllFields = false;
     EditText firstName;
     EditText lastName;
     EditText email;
@@ -55,6 +66,8 @@ public class editProfileFragment extends Fragment {
     Button cancel;
     String currentUserID="0";
     User currentUser;
+    TextView message;
+    TextView fieldsMSG;
 
 
 
@@ -74,9 +87,13 @@ public class editProfileFragment extends Fragment {
         editProfile= view.findViewById(R.id.editProfilePhoto);
         save = view.findViewById(R.id.saveBtnEditPage);
         cancel = view.findViewById(R.id.cancel_post_profile);
+        message=view.findViewById(R.id.edit_profile_message_text);
+        message.setVisibility(view.INVISIBLE);
+        fieldsMSG=view.findViewById(R.id.requiredDetails_editProfile);
+        fieldsMSG.setVisibility(View.INVISIBLE);
         currentUserID= editProfileFragmentArgs.fromBundle(getArguments()).getUserId();
 
-
+        //show the details of the post before update
         Model.instance.getUser(currentUserID, new Model.GetUserListener() {
             @Override
             public void onComplete(User user) {
@@ -86,12 +103,56 @@ public class editProfileFragment extends Fragment {
                 firstName.setText(user.getFirstName());
                 lastName.setText(user.getLastName());
                 email.setText(user.getEmail());
-                phoneNumber.setText(user.getPhone());
+                phoneNumber.setText("0"+user.getPhone().substring(3));
                 password.setText(user.getPassword());
                 currentUser=user;
             }
         });
-
+        //validation for the updated fields
+        firstName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(firstName);
+            }
+        });
+        lastName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                Validation.hasText(lastName);
+            }
+        });
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.isEmailAddress(email,true); }
+        });
+        phoneNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.isPhoneNumber(phoneNumber,true); }
+        });
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.isPassword(password,true); }
+        });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,25 +166,52 @@ public class editProfileFragment extends Fragment {
                 editImage();
             }
         });
+        UserListViewModel userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
+        LiveData<List<User>> users =userListViewModel.getUserList();
+        userList=new LinkedList<>();
+        users.observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+                for (User user:users) {
+                    userList.add(user);
+                }
+            }
+        });
+
 
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                saveChanges();
-                Model.instance.refreshData(new Model.refreshListener() {
-                    @Override
-                    public void onComplete() {
-                        //TODO pop back to news feed
+                userWasSaved = true;
+                checkAllFields = Validation.checkAllFieldsForUser(
+                        firstName.getText().toString(),
+                        lastName.getText().toString(),
+                        email.getText().toString(),
+                        password.getText().toString(),
+                        phoneNumber.getText().toString());
+                if (!checkAllFields) {
+                    fieldsMSG.setVisibility(view.VISIBLE);
+                }
 
-                        Navigation.findNavController(save).popBackStack();
-
+                for (User user : userList) {
+                    if (user.getEmail().equals(email.getText().toString())&& !user.getUserID().equals(currentUserID)) {
+                        message.setVisibility(view.VISIBLE);
+                        userWasSaved = false;
+                        break;
                     }
-                });
+                }
+                if (userWasSaved && checkAllFields) {
+                    saveChanges();
+                    Model.instance.refreshData(new Model.refreshListener() {
+                        @Override
+                        public void onComplete() {
+                            Navigation.findNavController(save).popBackStack();
 
-                          }
-
+                        }
+                    });
+                }
+            }
             });
-
         return view;
     }
 
@@ -133,8 +221,9 @@ public class editProfileFragment extends Fragment {
         user.setFirstName(firstName.getText().toString());
         user.setLastName(lastName.getText().toString());
         user.setEmail(email.getText().toString());
-        user.setPhone(phoneNumber.getText().toString());
+        user.setPhone("972"+(phoneNumber.getText().toString()).substring(1));
         user.setPassword(password.getText().toString());
+
 
         BitmapDrawable drawable = (BitmapDrawable)profilePhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

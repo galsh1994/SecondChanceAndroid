@@ -2,7 +2,6 @@ package com.example.secondchance;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,8 +16,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.provider.MediaStore;
-import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -46,7 +43,7 @@ import static android.app.Activity.RESULT_OK;
 public class RegisterFragment extends Fragment {
 
     List<User> userList;
-    Boolean saveUser;
+    Boolean userWasSaved;
     Boolean checkAllFields = false;
     EditText registerFirstName;
     EditText registerLastName;
@@ -76,78 +73,53 @@ public class RegisterFragment extends Fragment {
         registerFirstName = view.findViewById(R.id.registerFirstName);
         registerFirstName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-             }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
             @Override
-            public void afterTextChanged(Editable s) {
-                Validation.hasText(registerFirstName);
-            }
+            public void afterTextChanged(Editable s) { Validation.hasText(registerFirstName); }
         });
         registerLastName= view.findViewById(R.id.registerLastName);
         registerLastName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-             }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
             @Override
-            public void afterTextChanged(Editable s) {
-                Validation.hasText(registerLastName);
-            }
+            public void afterTextChanged(Editable s) { Validation.hasText(registerLastName); }
         });
         registerEmail= view.findViewById(R.id.registerEmail);
         registerEmail.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-             }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
             @Override
-            public void afterTextChanged(Editable s) {
-                Validation.isEmailAddress(registerEmail,true);
-            }
+            public void afterTextChanged(Editable s) { Validation.isEmailAddress(registerEmail,true); }
         });
         registerProfilePhoto= view.findViewById(R.id.registerProfilePhoto);
         registerEditProfilePhoto= view.findViewById(R.id.registerEditProfilePhoto);
         registerPassword= view.findViewById(R.id.registerPassword);
         registerPassword.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-             }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
             @Override
-            public void afterTextChanged(Editable s) {
-                Validation.isPassword(registerPassword,true);
-            }
+            public void afterTextChanged(Editable s) { Validation.isPassword(registerPassword,true); }
         });
         registerPhone = view.findViewById(R.id.registerPhone);
         registerPhone.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-             }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
             @Override
-            public void afterTextChanged(Editable s) {
-                Validation.isPhoneNumber(registerPhone,true);
-            }
+            public void afterTextChanged(Editable s) { Validation.isPhoneNumber(registerPhone,true); }
         });
         message=view.findViewById(R.id.register_message_text);
         message.setVisibility(view.INVISIBLE);
-        fieldsMSG=view.findViewById(R.id.requiredDetails_register);
+        fieldsMSG=view.findViewById(R.id.requiredDetails_editProfile);
         fieldsMSG.setVisibility(view.INVISIBLE);
 
 
@@ -175,23 +147,20 @@ public class RegisterFragment extends Fragment {
         saveRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                saveUser=true;
-                checkAllFields=Validation.checkAllfields(registerFirstName.getText().toString(),registerLastName.getText().toString(),registerEmail.getText().toString(),registerPassword.getText().toString(),registerPhone.getText().toString());
+                userWasSaved =true;
+                checkAllFields=Validation.checkAllFieldsForUser(registerFirstName.getText().toString(),registerLastName.getText().toString(),registerEmail.getText().toString(),registerPassword.getText().toString(),registerPhone.getText().toString());
 
                 if(!checkAllFields)
-                {
-                    fieldsMSG.setVisibility(view.VISIBLE);
-                }
+                { fieldsMSG.setVisibility(view.VISIBLE); }
 
                 for (User user:userList) {
                     if(user.getEmail().equals(registerEmail.getText().toString())){
                         message.setVisibility(view.VISIBLE);
-                        saveUser=false;
+                        userWasSaved =false;
                         break;
                     }
                 }
-                 if(saveUser&&checkAllFields)
+                 if(userWasSaved &&checkAllFields)
                 saveChanges();
             }
         });
@@ -206,6 +175,7 @@ public class RegisterFragment extends Fragment {
         user.setLastName(registerLastName.getText().toString());
         user.setEmail(registerEmail.getText().toString());
         user.setPassword(registerPassword.getText().toString());
+
         user.setPhone("972"+(registerPhone.getText().toString()).substring(1));
         Log.d("TAG","MSG"+user.getPhone());
 
@@ -250,7 +220,6 @@ public class RegisterFragment extends Fragment {
         });
         builder.show();
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

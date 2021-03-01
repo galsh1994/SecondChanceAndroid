@@ -12,6 +12,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,9 +56,27 @@ public class LoginFragment extends Fragment {
 
 
         EditText email=view.findViewById(R.id.login_email_edit_text);
+
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.isEmailAddress(email,true); }
+        });
         EditText password=view.findViewById(R.id.login_password_edit_text);
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.isPassword(password,true); }
+        });
         TextView loginMessage=view.findViewById(R.id.login_message);
         loginMessage.setVisibility(view.INVISIBLE);
+
 
         UserListViewModel userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
         LiveData<List<User>> users =userListViewModel.getUserList();
@@ -124,14 +144,8 @@ public class LoginFragment extends Fragment {
 
             }
         });
-
         TextView GoToRegister = view.findViewById(R.id.go_to_register_from_login);
         GoToRegister.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_login_to_register));
-
-
-
-
-
         return view;
     }
 }

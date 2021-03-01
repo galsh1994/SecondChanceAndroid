@@ -72,7 +72,7 @@ public class ModelFirebase {
     }
 
 
-    public void updateUser(User user, Model.addUserListener listener) {
+    public void updateUser(User user,final Model.UpdateUserListener listener) {
         FirebaseFirestore db=FirebaseFirestore.getInstance();
         db.collection("users").document(user.getUserID()).set(user.toMap());
     }
@@ -185,7 +185,7 @@ public class ModelFirebase {
         });
     }
 
-    public void updatePost(Post post, Model.addPostListener listener) {
+    public void updatePost(Post post, Model.UpdatePostListener listener) {
         FirebaseFirestore db=FirebaseFirestore.getInstance();
         db.collection("posts").document(post.getPostID()).set(post.toMap());
     }

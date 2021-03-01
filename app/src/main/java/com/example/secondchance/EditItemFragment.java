@@ -12,7 +12,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
@@ -32,6 +34,9 @@ import static android.app.Activity.RESULT_OK;
 
 public class EditItemFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    Boolean postWasUpdated;
+    Boolean checkAllFields = false;
+    TextView fieldsMSG;
     EditText Description;
     EditText City;
     EditText Condition;
@@ -50,19 +55,19 @@ public class EditItemFragment extends Fragment {
 
         View view= inflater.inflate(R.layout.fragment_edit_item, container, false);
         save = view.findViewById(R.id.saveBtnEditPostPage);
-        Description=view.findViewById(R.id.editDescription); ;
+        Description=view.findViewById(R.id.editDescription);
         City= view.findViewById(R.id.editTextCity);
-        Condition= view.findViewById(R.id.editTextCondition);;
+        Condition= view.findViewById(R.id.editTextCondition);
         postPhoto=view.findViewById(R.id.postPictureEditPage);
-        editPhoto= view.findViewById(R.id.editProfilePhoto);;
+        editPhoto= view.findViewById(R.id.editProfilePhoto);
+        fieldsMSG=  view.findViewById(R.id.requiredDetails_editProfile);
+        fieldsMSG.setVisibility(View.INVISIBLE);
         cancel = view.findViewById(R.id.cancel_edit_post);
         currentPostID= EditItemFragmentArgs.fromBundle(getArguments()).getPostId();
-        Log.d("postID: ",currentPostID);
+        //show details before update
         Model.instance.getPost(currentPostID, new Model.GetPostListener() {
             @Override
             public void onComplete(Post post) {
-                Log.d("postcond: ",post.getCondition());
-
                 if (post.getPhotoUrl()!=null){
                     Picasso.get().load(post.getPhotoUrl()).into(postPhoto);
                 }
@@ -74,6 +79,32 @@ public class EditItemFragment extends Fragment {
                 currentPost=post;
             }
         });
+        //validation for the updated fields
+        Description.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.hasText(Description); }
+        });
+        City.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.hasText(City); }
+        });
+        Condition.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.hasText(Condition); }
+        });
+
 
         editPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,20 +122,25 @@ public class EditItemFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                saveChanges();
-                Model.instance.refreshData(new Model.refreshListener() {
-                    @Override
-                    public void onComplete() {
+                postWasUpdated =true;
+                checkAllFields=Validation.checkAllFieldsForPost(
+                        Description.getText().toString(),
+                        City.getText().toString(),
+                        Condition.getText().toString());
 
-                        Navigation.findNavController(save).popBackStack();
-
-                    }
-                });
-
-
+                if(!checkAllFields) {
+                    fieldsMSG.setVisibility(view.VISIBLE); }
+                if(postWasUpdated &&checkAllFields) {
+                    saveChanges();
+                    Model.instance.refreshData(new Model.refreshListener() {
+                        @Override
+                        public void onComplete() {
+                            Navigation.findNavController(save).popBackStack();
+                        }
+                    });
+                }
             }
         });
-
         return view;
     }
 

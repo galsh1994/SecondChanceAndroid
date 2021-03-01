@@ -10,8 +10,13 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +27,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
 
 import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -34,6 +42,10 @@ import static android.app.Activity.RESULT_OK;
 
 public class addPostFragment extends Fragment  {
 
+    List<Post> postList;
+    Boolean postWasSaved;
+    Boolean checkAllFields = false;
+    TextView fieldsMSG;
     EditText description;
     EditText city;
     EditText condition;
@@ -57,11 +69,49 @@ public class addPostFragment extends Fragment  {
         view = inflater.inflate(R.layout.fragment_add_post, container, false);
         userID = addPostFragmentArgs.fromBundle(getArguments()).getUserID();
         postID= String.valueOf(Math.random() * 10);
+        fieldsMSG= view.findViewById(R.id.requiredDetails_editProfile);
+        fieldsMSG.setVisibility(view.INVISIBLE);
+
         description = view.findViewById(R.id.addPostDescription);
+        //validation
+        description.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.hasText(description); }
+        });
         city = view.findViewById(R.id.addPostCity);
+        //validation
+
+        city.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.hasText(city); }
+        });
         condition = view.findViewById(R.id.addPostCondition);
+        //validation
+        condition.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) { Validation.hasText(condition); }
+        });
         PostPhoto= view.findViewById(R.id.postPhoto);
         cancelPost =view.findViewById(R.id.cancel_post);
+        cancelPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).popBackStack();
+            }
+        });
+        //Getting Live Location
         MainActivity activity = (MainActivity) getActivity();
         liveLat = activity.getLatLoc();
         liveLong = activity.getLongLoc();
@@ -85,43 +135,24 @@ public class addPostFragment extends Fragment  {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     switch (position) {
                         case 0:
-                            coordinatesLatitude = 33.082074259888685;
-                            coordinatesLongitude = 35.10665117350627;
-                            break;
+                            coordinatesLatitude = 33.082074259888685; coordinatesLongitude = 35.10665117350627; break;
                         case 1:
-                            coordinatesLatitude = 32.79463018576074;
-                            coordinatesLongitude = 34.98707025581802;
-                            break;
+                            coordinatesLatitude = 32.79463018576074;coordinatesLongitude = 34.98707025581802; break;
                         case 2:
-                            coordinatesLatitude = 31.765889791750478;
-                            coordinatesLongitude = 35.20830599424469;
-                            break;
+                            coordinatesLatitude = 31.765889791750478;coordinatesLongitude = 35.20830599424469; break;
                         case 3:
-                            coordinatesLatitude = 32.13862263989835;
-                            coordinatesLongitude = 34.84179248500992;
-                            break;
+                            coordinatesLatitude = 32.13862263989835;coordinatesLongitude = 34.84179248500992; break;
                         case 4:
-                            coordinatesLatitude = 30.62877503481801;
-                            coordinatesLongitude = 34.76909538027209;
-                            break;
+                            coordinatesLatitude = 30.62877503481801;coordinatesLongitude = 34.76909538027209; break;
                     }
-
                 }
-
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-                    coordinatesLatitude = 32.13862263989835;
-                    coordinatesLongitude = 34.84179248500992;
+                    coordinatesLatitude = 32.13862263989835;coordinatesLongitude = 34.84179248500992;
                 }
             });
-
         }
-        cancelPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).popBackStack();
-            }
-        });
+
         EditPostPhoto= view.findViewById(R.id.EditPostPhoto);
         EditPostPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,12 +164,32 @@ public class addPostFragment extends Fragment  {
         savePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveChanges();
+                postWasSaved =true;
+                checkAllFields=Validation.checkAllFieldsForPost(
+                        description.getText().toString(),
+                        city.getText().toString(),
+                        condition.getText().toString());
+
+                if(!checkAllFields) {
+                    fieldsMSG.setVisibility(view.VISIBLE); }
+                if(postWasSaved &&checkAllFields){
+                    saveChanges();}
             }
+
         });
 
-
-
+        //Get post lost
+        PostListViewModel postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
+        LiveData<List<Post>> posts =postListViewModel.getPostList();
+        postList=new LinkedList<>();
+        posts.observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
+            @Override
+            public void onChanged(List<Post> posts) {
+                for (Post post:posts) {
+                    postList.add(post);
+                }
+            }
+        });
         return view;
     }
 

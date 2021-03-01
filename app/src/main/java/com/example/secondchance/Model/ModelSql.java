@@ -33,8 +33,6 @@ public class ModelSql {
         MyAsyncTask task = new MyAsyncTask();
         task.execute();
 
-
-
     }
 
 

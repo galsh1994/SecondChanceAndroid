@@ -1,5 +1,7 @@
 package com.example.secondchance;
 
+import android.text.Editable;
+import android.text.SpannableStringBuilder;
 import android.widget.EditText;
 import java.util.regex.Pattern;
 
@@ -9,14 +11,11 @@ public class Validation {
     private static final String PASSWORD_REGEX = "\\d{4,}";
     private static final String PHONE_REGEX = "^[0][5]\\d{8}$";
 
-
-
-
     // Error Messages
-    private static final String REQUIRED_MSG = "required";
-    private static final String EMAIL_MSG = "invalid email";
-    private static final String PHONE_MSG = "invalid phone number";
-    private static final String PASSWORD_MSG = "too short password";
+    private static final String REQUIRED_MSG = "Required";
+    private static final String EMAIL_MSG = "Invalid email";
+    private static final String PHONE_MSG = "Invalid phone number";
+    private static final String PASSWORD_MSG = "Password is too short";
 
 
     public static boolean isEmailAddress(EditText editText, boolean required) {
@@ -64,10 +63,19 @@ public class Validation {
         return true;
     }
 
-    public static boolean checkAllfields(String fn,String ln,String email, String pass,String phone)
+    public static boolean checkAllFieldsForUser(String fn,String ln,String email, String pass,String phone)
     {
-        if(fn.length()>0&&ln.length()>0&&email.length()>0&&pass.length()>=4&&phone.length()==10){
+
+        if (fn.length()>0&&ln.length()>0&&email.length()>0&&pass.length()>=4&&phone.length()==10){
         return true;
+        }
+        return false;
+
+    }
+    public static boolean checkAllFieldsForPost(String description,String city,String condition)
+    {
+        if(description.length()>0&&city.length()>0&&condition.length()>0){
+            return true;
         }
         return false;
 

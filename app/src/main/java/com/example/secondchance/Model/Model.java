@@ -86,7 +86,7 @@ public class Model {
     }
 
     public interface UpdateUserListener extends addUserListener{}
-    public void updateUser(final User user, final addUserListener listener){
+    public void updateUser(final User user, final UpdateUserListener listener){
         modelFirebase.updateUser(user,listener);
     }
 

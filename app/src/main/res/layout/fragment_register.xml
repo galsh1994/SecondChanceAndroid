@@ -130,12 +130,13 @@
             app:layout_constraintTop_toBottomOf="@+id/registerLastName" />
 
         <TextView
-            android:id="@+id/requiredDetails_register"
+            android:id="@+id/requiredDetails_editProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="7dp"
-            android:text="fields are missing"
+            android:fontFamily="@font/quicksand"
+            android:text="Fields are missing"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registerPhone" />
     </androidx.constraintlayout.widget.ConstraintLayout>
