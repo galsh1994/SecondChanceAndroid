@@ -196,7 +196,7 @@ public class addPostFragment extends Fragment  {
         Post post = new Post();
         post.setPostID(postID);
         post.setDescription(description.getText().toString());
-        post.setCity(Address);
+        post.setAddress(Address);
         post.setCondition(condition.getText().toString());
         post.setUserID(userID);
         post.setCoordinatesLat(coordinatesLatitude);

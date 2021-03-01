@@ -128,7 +128,7 @@ public class singlePostFragment extends Fragment {
                         String  minutes = String.valueOf(cal.get(Calendar.MINUTE));
                         postDate.setText(date+" "+hours+":"+minutes);
                         postItemDescription.setText("Description: "+post.getDescription());
-                        postItemCity.setText("Address: "+post.getCity());
+                        postItemCity.setText("Address: "+post.getAddress());
                         postItemCondition.setText("Condition: "+post.getCondition());
                     }
                 });

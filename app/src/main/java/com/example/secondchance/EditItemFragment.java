@@ -43,6 +43,7 @@ public class EditItemFragment extends Fragment {
     ImageButton editPhoto;
     Button save;
     Button cancel;
+    String address;
     String currentPostID="0";
     Double postLat=0.0,postLong=0.0;
     Post currentPost;
@@ -69,8 +70,9 @@ public class EditItemFragment extends Fragment {
                 if (post.getPhotoUrl()!=null){
                     Picasso.get().load(post.getPhotoUrl()).into(postPhoto);
                 }
-                Description.setText(post.getDescription()); ;
-                Condition.setText(post.getCondition());;
+                Description.setText(post.getDescription());
+                Condition.setText(post.getCondition());
+                address=post.getAddress();
                 postLat= post.getCoordinatesLat();
                 postLong=post.getCoordinatesLong();
                 currentPost=post;
@@ -140,6 +142,7 @@ public class EditItemFragment extends Fragment {
         post.setCondition(Condition.getText().toString());
         post.setDescription(Description.getText().toString());
         post.setUserID(currentPost.getUserID());
+        post.setAddress(address);
         post.setCoordinatesLong(postLong);
         post.setCoordinatesLat(postLat);
 
