@@ -72,9 +72,9 @@ public class Validation {
         return false;
 
     }
-    public static boolean checkAllFieldsForPost(String description,String city,String condition)
+    public static boolean checkAllFieldsForPost(String description,String condition)
     {
-        if(description.length()>0&&city.length()>0&&condition.length()>0){
+        if(description.length()>0&&condition.length()>0){
             return true;
         }
         return false;

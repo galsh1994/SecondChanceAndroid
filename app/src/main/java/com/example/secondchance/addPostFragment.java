@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,7 +18,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +36,12 @@ import android.widget.TextView;
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -47,7 +54,6 @@ public class addPostFragment extends Fragment  {
     Boolean checkAllFields = false;
     TextView fieldsMSG;
     EditText description;
-    EditText city;
     EditText condition;
     Button savePost;
     Button cancelPost;
@@ -56,6 +62,7 @@ public class addPostFragment extends Fragment  {
     String userID;
     View view;
     String postID;
+    String Address;
     double coordinatesLatitude;
     double coordinatesLongitude;
     double liveLat=0.0;
@@ -82,17 +89,8 @@ public class addPostFragment extends Fragment  {
             @Override
             public void afterTextChanged(Editable s) { Validation.hasText(description); }
         });
-        city = view.findViewById(R.id.addPostCity);
         //validation
 
-        city.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) { Validation.hasText(city); }
-        });
         condition = view.findViewById(R.id.addPostCondition);
         //validation
         condition.addTextChangedListener(new TextWatcher() {
@@ -123,6 +121,7 @@ public class addPostFragment extends Fragment  {
         if (liveLat!=0.0 && liveLong!=0.0) {
             coordinatesLatitude = liveLat;
             coordinatesLongitude = liveLong;
+            Address = convertLocationToAddress(coordinatesLongitude,coordinatesLatitude);
             dropdown.setVisibility(View.INVISIBLE);
         }
         else {
@@ -167,7 +166,6 @@ public class addPostFragment extends Fragment  {
                 postWasSaved =true;
                 checkAllFields=Validation.checkAllFieldsForPost(
                         description.getText().toString(),
-                        city.getText().toString(),
                         condition.getText().toString());
 
                 if(!checkAllFields) {
@@ -198,7 +196,7 @@ public class addPostFragment extends Fragment  {
         Post post = new Post();
         post.setPostID(postID);
         post.setDescription(description.getText().toString());
-        post.setCity(city.getText().toString());
+        post.setCity(Address);
         post.setCondition(condition.getText().toString());
         post.setUserID(userID);
         post.setCoordinatesLat(coordinatesLatitude);
@@ -287,6 +285,56 @@ public class addPostFragment extends Fragment  {
             }
         });
         builder.show();
+    }
+    private String convertLocationToAddress(double locationLong, double locationLat) {
+        String addressText;
+        String errorMessage = "";
+
+        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+
+        List<Address> addresses = null;
+
+        try {
+            addresses = geocoder.getFromLocation(
+                    locationLat,
+                    locationLong,
+                    1
+            );
+        } catch (IOException ioException) {
+            // Network or other I/O issues
+            errorMessage = "network_service_error";
+            Log.e(TAG, errorMessage, ioException);
+        } catch (IllegalArgumentException illegalArgumentException) {
+            // Invalid long / lat
+            errorMessage = "invalid_long_lat";
+            Log.e(TAG, errorMessage + ". " +
+                    "Latitude = " + locationLat +
+                    ", Longitude = " +
+                    locationLong, illegalArgumentException);
+        }
+
+        // No address was found
+        if (addresses == null || addresses.size() == 0) {
+            if (errorMessage.isEmpty()) {
+                errorMessage = "no_address_found";
+                Log.e(TAG, errorMessage);
+            }
+            addressText = errorMessage;
+
+        } else {
+            Address address = addresses.get(0);
+            ArrayList<String> addressFragments = new ArrayList<>();
+
+            // Fetch the address lines, join them, and return to thread
+            for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+                addressFragments.add(address.getAddressLine(i));
+            }
+            addressText =
+                    TextUtils.join(System.getProperty("line.separator"),
+                            addressFragments);
+        }
+
+        return addressText;
     }
 
 }

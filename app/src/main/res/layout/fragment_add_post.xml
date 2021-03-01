@@ -30,6 +30,7 @@
             android:inputType="textPersonName"
             android:textColorHint="@color/black"
             android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/spinner1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addPostDescription" />
@@ -59,9 +60,9 @@
             android:layout_marginEnd="35dp"
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addPostCity" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/requiredDetails_editProfile"
@@ -99,21 +100,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/photo_icon2" />
 
-        <EditText
-            android:id="@+id/addPostCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:ems="10"
-            android:fontFamily="@font/quicksand"
-            android:hint="City"
-            android:inputType="textPersonName"
-            android:textColorHint="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addPostCondition" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

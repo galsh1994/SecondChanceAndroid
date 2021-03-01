@@ -38,7 +38,6 @@ public class EditItemFragment extends Fragment {
     Boolean checkAllFields = false;
     TextView fieldsMSG;
     EditText Description;
-    EditText City;
     EditText Condition;
     ImageView postPhoto;
     ImageButton editPhoto;
@@ -56,7 +55,6 @@ public class EditItemFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_edit_item, container, false);
         save = view.findViewById(R.id.saveBtnEditPostPage);
         Description=view.findViewById(R.id.editDescription);
-        City= view.findViewById(R.id.editTextCity);
         Condition= view.findViewById(R.id.editTextCondition);
         postPhoto=view.findViewById(R.id.postPictureEditPage);
         editPhoto= view.findViewById(R.id.editProfilePhoto);
@@ -72,7 +70,6 @@ public class EditItemFragment extends Fragment {
                     Picasso.get().load(post.getPhotoUrl()).into(postPhoto);
                 }
                 Description.setText(post.getDescription()); ;
-                City.setText(post.getCity());
                 Condition.setText(post.getCondition());;
                 postLat= post.getCoordinatesLat();
                 postLong=post.getCoordinatesLong();
@@ -88,14 +85,7 @@ public class EditItemFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) { Validation.hasText(Description); }
         });
-        City.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) { Validation.hasText(City); }
-        });
+
         Condition.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -125,7 +115,6 @@ public class EditItemFragment extends Fragment {
                 postWasUpdated =true;
                 checkAllFields=Validation.checkAllFieldsForPost(
                         Description.getText().toString(),
-                        City.getText().toString(),
                         Condition.getText().toString());
 
                 if(!checkAllFields) {
@@ -150,7 +139,6 @@ public class EditItemFragment extends Fragment {
         post.setPostID(currentPostID);
         post.setCondition(Condition.getText().toString());
         post.setDescription(Description.getText().toString());
-        post.setCity(City.getText().toString());
         post.setUserID(currentPost.getUserID());
         post.setCoordinatesLong(postLong);
         post.setCoordinatesLat(postLat);
