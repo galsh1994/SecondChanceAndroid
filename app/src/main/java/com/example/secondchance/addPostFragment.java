@@ -121,7 +121,6 @@ public class addPostFragment extends Fragment  {
         if (liveLat!=0.0 && liveLong!=0.0) {
             coordinatesLatitude = liveLat;
             coordinatesLongitude = liveLong;
-            Address = convertLocationToAddress(coordinatesLongitude,coordinatesLatitude);
             dropdown.setVisibility(View.INVISIBLE);
         }
         else {
@@ -151,6 +150,7 @@ public class addPostFragment extends Fragment  {
                 }
             });
         }
+        Address = convertLocationToAddress(coordinatesLongitude,coordinatesLatitude);
 
         EditPostPhoto= view.findViewById(R.id.EditPostPhoto);
         EditPostPhoto.setOnClickListener(new View.OnClickListener() {
