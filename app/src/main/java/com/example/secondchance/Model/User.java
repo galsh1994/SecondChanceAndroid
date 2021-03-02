@@ -47,7 +47,9 @@ public class User {
         email=(String)map.get("email");
         photoUrl=(String)map.get("photoUrl");
         Timestamp ts=(Timestamp)map.get("lastUpdated");
-        lastUpdated=ts.getSeconds();
+        if(ts==null)
+            ts = Timestamp.now();
+        lastUpdated = ts.getSeconds();
         phone=(String)map.get("phone");
 
 
