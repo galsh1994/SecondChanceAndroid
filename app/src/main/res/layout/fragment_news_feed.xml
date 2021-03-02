@@ -40,6 +40,7 @@
             android:id="@+id/map_mode"
             android:layout_width="71dp"
             android:layout_height="71dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
@@ -58,6 +59,7 @@
             app:iconTintMode="add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addApost_newsFeed"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -65,8 +67,9 @@
             android:id="@+id/visitProfileFrom_newsFeed"
             android:layout_width="71dp"
             android:layout_height="71dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/rounded_corners"
             android:backgroundTint="@color/white"
@@ -83,6 +86,7 @@
             app:iconTint="@color/quantum_grey700"
             app:iconTintMode="add"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addApost_newsFeed"
             app:layout_constraintStart_toEndOf="@+id/homeFrom_newsFeed"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,10 +94,10 @@
             android:id="@+id/addApost_newsFeed"
             android:layout_width="71dp"
             android:layout_height="71dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
 
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/rounded_corners"
             android:backgroundTint="@color/white"
@@ -118,6 +122,7 @@
             android:layout_height="71dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/rounded_corners"
             android:backgroundTint="@color/white"
@@ -131,6 +136,7 @@
             app:iconTint="@color/quantum_deeporange100"
             app:iconTintMode="add"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/visitProfileFrom_newsFeed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
