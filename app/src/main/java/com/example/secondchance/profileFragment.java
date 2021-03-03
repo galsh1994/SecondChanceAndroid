@@ -199,6 +199,10 @@ public class profileFragment extends Fragment {
                             public void onComplete(User user) {
                                 fullName.setText(user.getFirstName()+" "+user.getLastName());
                                 email.setText(user.getEmail());
+                                if (user.getPhotoUrl()!=null){
+                                    Picasso.get().load(user.getPhotoUrl()).into(profilePhoto);
+                                }
+
                             }
                         });
                     }

@@ -127,13 +127,15 @@ public class RegisterFragment extends Fragment {
 
         UserListViewModel userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
         LiveData<List<User>> users =userListViewModel.getUserList();
-        userList=new LinkedList<>();
+
         users.observe(getViewLifecycleOwner(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
+                userList=new LinkedList<>();
                 for (User user:users) {
                     userList.add(user);
                 }
+                Model.instance.refreshData(null);
             }
         });
 
