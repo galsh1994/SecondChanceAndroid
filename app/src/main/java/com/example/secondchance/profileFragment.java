@@ -46,7 +46,6 @@ public class profileFragment extends Fragment {
     TextView email;
     ImageView profilePhoto;
     User currentUser;
-    //Button deleteAccountBtn;
     ImageButton editProfile;
     ImageButton mapMode;
     ImageButton whatAppBtn;
@@ -128,13 +127,6 @@ public class profileFragment extends Fragment {
                 email.setText(user.getEmail());
                 currentUser=user;
 
-                /*
-                deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Model.instance.deleteUser(currentUser);
-                    }
-                });*/
 
                 postListAdapter adapter = new postListAdapter(postListViewModel.getUserPosts(ProfileUserID),userListViewModel.getUserList());
                 postList.setAdapter(adapter);

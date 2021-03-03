@@ -95,19 +95,12 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(Location location) {
                 if (location!=null)
                 {
-
-                    Log.d("TAG","onSuccess in main st"+location.toString());
-                    Log.d("TAG","onSuccess in main long"+location.getLongitude());
-                    Log.d("TAG","onSuccess in main lat"+location.getLatitude());
                     longLoc = location.getLongitude();
                     latLoc = location.getLatitude();
-
-
                 }
                 else
                 {
                     Log.d("TAG","onSuccess: Location was null...");
-
                 }
 
             }
@@ -140,9 +133,6 @@ public class MainActivity extends AppCompatActivity {
             {
                 getLastLocation();
             }
-            else {
-
-            }
         }
     }
 
@@ -167,12 +157,9 @@ public class MainActivity extends AppCompatActivity {
                     // the button was clicked
                     SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
                     String currentUserID = sp.getString("currentUserID", "0");
-                    Log.d("TAG","The current user id is:"+currentUserID);
-                    Model.instance.getUser(currentUserID, new Model.GetUserListener() {
+                     Model.instance.getUser(currentUserID, new Model.GetUserListener() {
                         @Override
                         public void onComplete(User user) {
-                            Log.d("TAG","The current user in user is:"+user);
-                            Log.d("TAG","The current user id in user is:"+user.getUserID());
                             Model.instance.deleteUser(user);
 
                         }
@@ -183,9 +170,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("currentUserLastName","0");
                     editor.putString("currentUserEmail","0");
                     editor.putString("currentUserPhotoUrl","0");
-
                     editor.commit();
-
                     NavigationUI.onNavDestinationSelected(item,navController);
 
                 }
@@ -248,6 +233,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return NavigationUI.onNavDestinationSelected(item,navController);
-        //return super.onOptionsItemSelected(item);
     }
 }
