@@ -57,6 +57,27 @@ public class Model {
             }
         });
     }
+
+
+    ///////// Authentication section  /////////////////////////
+
+    public interface SuccessListener{
+        void onComplete(boolean flag);
+    }
+    public interface idSaverListener{
+        void onComplete(boolean flag,String id);
+    }
+    public void registerAuthFB(User user,String password,idSaverListener listener) {
+        modelFirebase.registerAuthFB(user,password,listener);
+    }
+
+    public void logInAuth(String email,String password, idSaverListener listener) {
+        modelFirebase.logInAuth(email,password,listener);
+    }
+    public void resetPass(String email, SuccessListener listener) {
+        modelFirebase.resetPass(email,listener);
+    }
+
     //////// user section /////////////////////////
 
     public interface getAllUsersListener extends Listener<List<User>>{}

@@ -140,6 +140,9 @@
         <action
             android:id="@+id/action_login_to_newsFeed"
             app:destination="@id/newsFeedFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
@@ -174,5 +177,14 @@
             android:id="@+id/action_singlePostFragment_to_editItemFragment"
             app:destination="@id/editItemFragment"
             app:popUpTo="@id/newsFeedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.example.secondchance.forgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password" >
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_indexFragment"
+            app:destination="@id/indexFragment" />
     </fragment>
 </navigation>

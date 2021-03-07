@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,6 +29,60 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ModelFirebase {
+
+    public FirebaseAuth mAuth= FirebaseAuth.getInstance();
+
+
+    public void registerAuthFB (User user,String password,Model.idSaverListener listener){
+        mAuth.createUserWithEmailAndPassword(user.getEmail(), password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                         if (task.isSuccessful()) {
+                            listener.onComplete(true,mAuth.getCurrentUser().getUid());
+                            user.setUserID(mAuth.getCurrentUser().getUid());
+                            Model.instance.addUser(user, new Model.addUserListener() {
+                                @Override
+                                public void onComplete() {
+                                    Model.instance.refreshAllUsers(null);
+                                }
+
+                            });
+                        }
+                        else {
+                            listener.onComplete(false,null);
+                        }
+                    }
+                });
+    }
+
+
+    public void logInAuth (String email, String password, Model.idSaverListener listener){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            listener.onComplete(true,mAuth.getCurrentUser().getUid());
+                        } else {
+                            listener.onComplete(false,null);
+                        }
+                    }
+                });
+    }
+
+    public void resetPass(String email, Model.SuccessListener listener){
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                      listener.onComplete(true);
+                } else {
+                      listener.onComplete(false);
+                }
+            }
+        });
+    }
 
 
 

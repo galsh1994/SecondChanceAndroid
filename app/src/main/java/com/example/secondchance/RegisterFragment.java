@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -29,9 +30,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.User;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -42,6 +45,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class RegisterFragment extends Fragment {
 
+    private FirebaseAuth mAuth;
     List<User> userList;
     Boolean userWasSaved;
     Boolean checkAllFields = false;
@@ -55,6 +59,12 @@ public class RegisterFragment extends Fragment {
     EditText registerPhone;
     TextView message;
     TextView fieldsMSG;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -177,9 +187,7 @@ public class RegisterFragment extends Fragment {
         user.setLastName(registerLastName.getText().toString());
         user.setEmail(registerEmail.getText().toString());
         user.setPassword(registerPassword.getText().toString());
-
         user.setPhone("972"+(registerPhone.getText().toString()).substring(1));
-        Log.d("TAG","MSG"+user.getPhone());
 
         BitmapDrawable drawable = (BitmapDrawable)registerProfilePhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
@@ -191,13 +199,27 @@ public class RegisterFragment extends Fragment {
                      displayFailedError();
                 }else{
                     user.setPhotoUrl(url);
-                    Model.instance.addUser(user, new Model.addUserListener() {
+
+                    Model.instance.registerAuthFB(user, user.getPassword(), new Model.idSaverListener() {
                         @Override
-                        public void onComplete() {
-                           Model.instance.refreshAllUsers(null);
-                            Navigation.findNavController(saveRegister).popBackStack();
-                        }
+                        public void onComplete(boolean flag,String id) {
+                            if (flag) {
+                                Navigation.findNavController(saveRegister).popBackStack();
+                            }
+                            else
+                            {
+                                Toast.makeText(getActivity(), "Your register failed", Toast.LENGTH_SHORT).show();
+                             }
+                            }
                     });
+
+//                    Model.instance.addUser(user, new Model.addUserListener() {
+//                        @Override
+//                        public void onComplete() {
+//                           Model.instance.refreshAllUsers(null);
+//                            Navigation.findNavController(saveRegister).popBackStack();
+//                        }
+//                    });
                 }
             }
         });

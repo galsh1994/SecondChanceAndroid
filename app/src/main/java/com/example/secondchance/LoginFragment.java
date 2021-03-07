@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.User;
 
 import java.util.LinkedList;
@@ -31,8 +32,12 @@ import java.util.List;
 
 public class LoginFragment extends Fragment {
 
-    List<User> userList;
-    boolean redirectToNewsFeed;
+    TextView forgotPassword;
+    Button logInBtn;
+    EditText email;
+    EditText password;
+    TextView loginMessage;
+    TextView GoToRegister;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,12 +56,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_login, container, false);
-
-
-
-
-        EditText email=view.findViewById(R.id.login_email_edit_text);
-
+        email=view.findViewById(R.id.login_email_edit_text);
         email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -65,7 +65,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) { Validation.isEmailAddress(email,true); }
         });
-        EditText password=view.findViewById(R.id.login_password_edit_text);
+        password=view.findViewById(R.id.login_password_edit_text);
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -74,78 +74,44 @@ public class LoginFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) { Validation.isPassword(password,true); }
         });
-        TextView loginMessage=view.findViewById(R.id.login_message);
+        loginMessage=view.findViewById(R.id.login_message);
         loginMessage.setVisibility(view.INVISIBLE);
-
-
-        UserListViewModel userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
-        LiveData<List<User>> users =userListViewModel.getUserList();
-        userList=new LinkedList<>();
-        users.observe(getViewLifecycleOwner(), new Observer<List<User>>() {
-            @Override
-            public void onChanged(List<User> users) {
-                for (User user:users) {
-                    userList.add(user);
-                }
-            }
-        });
-
-
-        Button LogInCheck = view.findViewById(R.id.save_and_login_btn);
-        LogInCheck.setOnClickListener(new View.OnClickListener() {
+        forgotPassword=view.findViewById(R.id.forget_password);
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-                redirectToNewsFeed=false;
-                SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor=sp.edit();
-
-
-                for (User user:userList) {
-
-                    if(email.getText().toString().equals(user.getEmail())) {
-                        if (password.getText().toString().equals(user.getPassword())) {
-                            redirectToNewsFeed=true;
-                            editor.putString("currentUserID",user.getUserID());
-                            editor.putString("currentUserFirstName",user.getFirstName());
-                            editor.putString("currentUserLastName",user.getLastName());
-                            editor.putString("currentUserEmail",user.getEmail());
-                            editor.putString("currentUserPhotoUrl",user.getPhotoUrl());
-
-                            editor.commit();
-                            break;
-
-                        }
-                        else {
-                            loginMessage.setText("wrong password");
-                            break;
-
-                        }
-
-                    }
-                    else {
-                        loginMessage.setText("Invalid email");
-
-
-                    }
-
-
-                }
-
-                loginMessage.setVisibility(view.VISIBLE);
-
-
-                if(redirectToNewsFeed) {
-                    loginMessage.setVisibility(view.INVISIBLE);
-                    Navigation.findNavController(v).navigate(R.id.action_login_to_newsFeed);
-                }
-
+                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_forgetPasswordFragment);
             }
         });
-        TextView GoToRegister = view.findViewById(R.id.go_to_register_from_login);
+        GoToRegister = view.findViewById(R.id.go_to_register_from_login);
         GoToRegister.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_login_to_register));
+
+        logInBtn = view.findViewById(R.id.save_and_login_btn);
+        logInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String emailS = email.getText().toString();
+                String passwordS = password.getText().toString();
+                SharedPreferences sp = MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                Model.instance.logInAuth(emailS,passwordS, new Model.idSaverListener() {
+                    @Override
+                    public void onComplete(boolean flag, String id) {
+                        if (flag) {
+                            editor.putString("currentUserID",id);
+                            editor.commit();
+                            loginMessage.setVisibility(view.INVISIBLE);
+                            Navigation.findNavController(view).navigate(R.id.action_login_to_newsFeed);
+                        } else {
+                            loginMessage.setVisibility(view.VISIBLE);
+                            loginMessage.setText("failed to log in");
+                        }
+                    }
+
+
+                });
+            }
+        });
         return view;
     }
 }

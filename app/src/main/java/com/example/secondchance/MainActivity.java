@@ -23,11 +23,14 @@ import android.view.MenuItem;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.User;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,17 +43,19 @@ public class MainActivity extends AppCompatActivity {
     double latLoc;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        navController = Navigation.findNavController(this, R.id.mainactivity_navhost);
+         navController = Navigation.findNavController(this, R.id.mainactivity_navhost);
         NavigationUI.setupActionBarWithNavController(this, navController);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-
+// Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("23687283302-7tmgpjgj4s6dbvc12qm35sr0ltpgdo67.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
     }
 
     @Override
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getLastLocation();
         } else {
@@ -71,15 +77,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+
     private void askLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                /// ask the user for permission
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
-
-            }
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST_CODE);
 
         }
     }
@@ -166,10 +169,6 @@ public class MainActivity extends AppCompatActivity {
                     });
                      SharedPreferences.Editor editor=sp.edit();
                     editor.putString("currentUserID","0");
-                    editor.putString("currentUserFirstName","0");
-                    editor.putString("currentUserLastName","0");
-                    editor.putString("currentUserEmail","0");
-                    editor.putString("currentUserPhotoUrl","0");
                     editor.commit();
                     NavigationUI.onNavDestinationSelected(item,navController);
 
@@ -206,14 +205,9 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor=sp.edit();
                     editor.putString("currentUserID","0");
-                    editor.putString("currentUserFirstName","0");
-                    editor.putString("currentUserLastName","0");
-                    editor.putString("currentUserEmail","0");
-                    editor.putString("currentUserPhotoUrl","0");
-
                     editor.commit();
-
-                       NavigationUI.onNavDestinationSelected(item,navController);
+                    FirebaseAuth.getInstance().signOut();
+                    NavigationUI.onNavDestinationSelected(item,navController);
                 }
             });
 
