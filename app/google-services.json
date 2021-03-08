@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "23687283302-7adndthp997uos16tf06kvbg4mgds22q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.secondchance",
+            "certificate_hash": "fad34d366e9faff413483426843b6e0dbd1af78b"
+          }
+        },
+        {
           "client_id": "23687283302-u70qsr45ttjid4rvdefbii1tvv7scau1.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "23687283302-u70qsr45ttjid4rvdefbii1tvv7scau1.apps.googleusercontent.com",
+              "client_id": "23687283302-7tmgpjgj4s6dbvc12qm35sr0ltpgdo67.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

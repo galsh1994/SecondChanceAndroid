@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,8 @@ public class EditItemFragment extends Fragment {
     Button save;
     Button cancel;
     String address;
+    String tempPostID;
+    String oldPostImageID;
     String currentPostID="0";
     Double postLat=0.0,postLong=0.0;
     Post currentPost;
@@ -76,6 +79,7 @@ public class EditItemFragment extends Fragment {
                 postLat= post.getCoordinatesLat();
                 postLong=post.getCoordinatesLong();
                 currentPost=post;
+                oldPostImageID= post.getCondition()+post.getDescription();
             }
         });
         //validation for the updated fields
@@ -122,13 +126,8 @@ public class EditItemFragment extends Fragment {
                 if(!checkAllFields) {
                     fieldsMSG.setVisibility(view.VISIBLE); }
                 if(postWasUpdated &&checkAllFields) {
+                    Model.instance.deletePostPhoto(oldPostImageID, null);
                     saveChanges();
-                    Model.instance.refreshData(new Model.refreshListener() {
-                        @Override
-                        public void onComplete() {
-                            Navigation.findNavController(save).popBackStack();
-                        }
-                    });
                 }
             }
         });
@@ -138,7 +137,8 @@ public class EditItemFragment extends Fragment {
 
     private void saveChanges() {
         Post post = new Post();
-        post.setPostID(currentPostID);
+        tempPostID = Condition.getText().toString()+Description.getText().toString();
+        post.setPostID(tempPostID);
         post.setCondition(Condition.getText().toString());
         post.setDescription(Description.getText().toString());
         post.setUserID(currentPost.getUserID());
@@ -146,11 +146,10 @@ public class EditItemFragment extends Fragment {
         post.setCoordinatesLong(postLong);
         post.setCoordinatesLat(postLat);
 
-
         BitmapDrawable drawable = (BitmapDrawable)postPhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
 
-        Model.instance.uploadPostImage(bitmap, post.getPostID(), new Model.UploadPostImageListener() {
+        Model.instance.uploadPostImage(bitmap, tempPostID, new Model.UploadPostImageListener() {
             @Override
             public void onComplete(String url) {
                 if (url == null){
@@ -160,10 +159,11 @@ public class EditItemFragment extends Fragment {
                     Model.instance.updatePost(post, new Model.UpdatePostListener() {
                         @Override
                         public void onComplete() {
-                            Model.instance.refreshAllPosts(null);
-                            Navigation.findNavController(save).popBackStack();
+                            Model.instance.refreshData(null);
                         }
                     });
+                    Navigation.findNavController(save).popBackStack();
+
                 }
             }
         });

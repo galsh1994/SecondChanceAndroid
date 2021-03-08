@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -98,10 +99,17 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(boolean flag, String id) {
                         if (flag) {
-                            editor.putString("currentUserID",id);
-                            editor.commit();
-                            loginMessage.setVisibility(view.INVISIBLE);
-                            Navigation.findNavController(view).navigate(R.id.action_login_to_newsFeed);
+                                Model.instance.getUserByEmail(emailS, new Model.GetUserListener() {
+                                    @Override
+                                    public void onComplete(User user) {
+                                        Log.d("idIs",user.getUserID());
+                                        editor.putString("currentUserID",user.getUserID());
+                                        editor.commit();
+                                        loginMessage.setVisibility(view.INVISIBLE);
+                                        Navigation.findNavController(view).navigate(R.id.action_login_to_newsFeed);
+                                    }
+                                });
+
                         } else {
                             loginMessage.setVisibility(view.VISIBLE);
                             loginMessage.setText("failed to log in");

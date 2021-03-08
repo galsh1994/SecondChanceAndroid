@@ -1,5 +1,6 @@
 package com.example.secondchance;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -55,18 +56,17 @@ public class IndexFragment extends Fragment {
 
     @Override
     public void onStart() {
+
         super.onStart();
 
         SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
-        currentUserID=sp.getString("currentUserID","0");
+            currentUserID = sp.getString("currentUserID", "0");
+            if (!currentUserID.equals("0")) {
 
-        if(!currentUserID.equals("0")){
+                //TODO navigate to news feed
 
-            //TODO navigate to news feed
-
-            Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_newsFeedFragment);
-        }
-
+                Navigation.findNavController(view).navigate(R.id.action_indexFragment_to_newsFeedFragment);
+            }
 
     }
 }

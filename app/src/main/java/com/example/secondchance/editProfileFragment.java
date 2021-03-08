@@ -201,14 +201,8 @@ public class editProfileFragment extends Fragment {
                     }
                 }
                 if (userWasSaved && checkAllFields) {
+                    Model.instance.deletePostPhoto(email.getText().toString(), null);
                     saveChanges();
-                    Model.instance.refreshData(new Model.refreshListener() {
-                        @Override
-                        public void onComplete() {
-                            Navigation.findNavController(save).popBackStack();
-
-                        }
-                    });
                 }
             }
             });
@@ -239,9 +233,10 @@ public class editProfileFragment extends Fragment {
                         @Override
                         public void onComplete() {
                             Model.instance.refreshAllUsers(null);
-                            Navigation.findNavController(save).popBackStack();
                         }
                     });
+                    Navigation.findNavController(save).popBackStack();
+
                 }
             }
         });

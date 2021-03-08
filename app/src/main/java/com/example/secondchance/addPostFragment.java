@@ -38,6 +38,7 @@ import com.example.secondchance.Model.Post;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class addPostFragment extends Fragment  {
     ImageView PostPhoto;
     String userID;
     View view;
-    String postID;
+    String tempPostID;
     String Address;
     double coordinatesLatitude;
     double coordinatesLongitude;
@@ -75,7 +76,6 @@ public class addPostFragment extends Fragment  {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_post, container, false);
         userID = addPostFragmentArgs.fromBundle(getArguments()).getUserID();
-        postID= String.valueOf(Math.random() * 10);
         fieldsMSG= view.findViewById(R.id.requiredDetails_editProfile);
         fieldsMSG.setVisibility(view.INVISIBLE);
 
@@ -194,7 +194,9 @@ public class addPostFragment extends Fragment  {
     private void saveChanges() {
 
         Post post = new Post();
-        post.setPostID(postID);
+
+        tempPostID = condition.getText().toString()+description.getText().toString();
+        post.setPostID(tempPostID);
         post.setDescription(description.getText().toString());
         post.setAddress(Address);
         post.setCondition(condition.getText().toString());
@@ -206,7 +208,7 @@ public class addPostFragment extends Fragment  {
         BitmapDrawable drawable = (BitmapDrawable) PostPhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
 
-        Model.instance.uploadPostImage(bitmap, postID, new Model.UploadPostImageListener() {
+        Model.instance.uploadPostImage(bitmap, tempPostID, new Model.UploadPostImageListener() {
             @Override
             public void onComplete(String url) {
                 if (url == null) {

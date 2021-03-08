@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class Validation {
 
     private static final String EMAIL_REGEX = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$";
-    private static final String PASSWORD_REGEX = "\\d{4,}";
+    private static final String PASSWORD_REGEX = "\\d{6,}";
     private static final String PHONE_REGEX = "^[0][5]\\d{8}$";
 
     // Error Messages

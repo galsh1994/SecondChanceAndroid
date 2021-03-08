@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.secondchance.MyApplicaion;
 
-@Database(entities = {User.class,Post.class}, version = 8)
+@Database(entities = {User.class,Post.class}, version = 10)
     abstract class AppLocalDbRepository extends RoomDatabase {
         public abstract UserDao userDao();
         public abstract PostDao postDao();
@@ -15,7 +15,7 @@ import com.example.secondchance.MyApplicaion;
         static public AppLocalDbRepository db =
                 Room.databaseBuilder(MyApplicaion.context,
                         AppLocalDbRepository.class,
-                        "ContextDb20.db")
+                        "ContextDb25.db")
                         .fallbackToDestructiveMigration()
                         .build();
     };

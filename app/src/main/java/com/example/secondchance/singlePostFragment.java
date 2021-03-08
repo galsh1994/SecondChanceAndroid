@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class singlePostFragment extends Fragment {
     ImageButton postItemEdit;
     Button whatAppBtn;
     Button VisitProfile;
+    String postPhotoID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +50,7 @@ public class singlePostFragment extends Fragment {
 
         SharedPreferences sp = MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         String currentUserID = sp.getString("currentUserID", "0");
+        Log.d("currUserIsfromshared",currentUserID);
 
         whatAppBtn = view.findViewById(R.id.whatAppBtn);
         postUserImage=view.findViewById(R.id.single_post_user_img);
@@ -78,6 +81,7 @@ public class singlePostFragment extends Fragment {
                             Picasso.get().load(PostWriterUser.getPhotoUrl()).into(postUserImage);
                         }
                         if (currentUserID.equals(PostWriterUser.getUserID())){
+
                             postItemEdit.setVisibility(View.VISIBLE);
                             postItemDelete.setVisibility(View.VISIBLE);
                         }
@@ -114,13 +118,7 @@ public class singlePostFragment extends Fragment {
                         if (post.getPhotoUrl()!=null){
                             Picasso.get().load(post.getPhotoUrl()).into(postItemImage);
                         }
-                        postItemDelete.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Model.instance.deletePost(post);
-                                Navigation.findNavController(v).popBackStack();
-                            }
-                        });
+
                         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
                         cal.setTimeInMillis(post.getLastUpdated() * 1000);
                         String date = DateFormat.format("dd-MM-yyyy", cal).toString();
@@ -130,6 +128,21 @@ public class singlePostFragment extends Fragment {
                         postItemDescription.setText("Description: "+post.getDescription());
                         postItemCity.setText("Address: "+post.getAddress());
                         postItemCondition.setText("Condition: "+post.getCondition());
+                        postPhotoID= post.getCondition()+post.getDescription();
+                        postItemDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Model.instance.deletePost(post);
+                                Model.instance.refreshData(new Model.refreshListener() {
+                                    @Override
+                                    public void onComplete() {
+                                        Navigation.findNavController(postItemDelete).popBackStack();
+                                    }
+                                });
+                                    Model.instance.deletePostPhoto(postPhotoID, null);
+
+                            }
+                        });
                     }
                 });
 
