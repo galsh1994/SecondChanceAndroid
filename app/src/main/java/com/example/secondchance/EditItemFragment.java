@@ -137,14 +137,16 @@ public class EditItemFragment extends Fragment {
 
     private void saveChanges() {
         Post post = new Post();
-        tempPostID = Condition.getText().toString()+Description.getText().toString();
-        post.setPostID(tempPostID);
+        post.setPostID(currentPost.getPostID());
+        Log.d("id:",currentPost.getPostID());
         post.setCondition(Condition.getText().toString());
         post.setDescription(Description.getText().toString());
         post.setUserID(currentPost.getUserID());
         post.setAddress(address);
         post.setCoordinatesLong(postLong);
         post.setCoordinatesLat(postLat);
+        tempPostID = Condition.getText().toString()+Description.getText().toString();
+        Log.d("tempush:",tempPostID);
 
         BitmapDrawable drawable = (BitmapDrawable)postPhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

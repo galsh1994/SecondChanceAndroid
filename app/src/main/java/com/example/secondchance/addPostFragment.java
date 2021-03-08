@@ -106,7 +106,7 @@ public class addPostFragment extends Fragment  {
         cancelPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).popBackStack();
+                Navigation.findNavController(cancelPost).popBackStack();
             }
         });
         //Getting Live Location
@@ -220,8 +220,10 @@ public class addPostFragment extends Fragment  {
                         public void onComplete() {
                             Model.instance.refreshAllPosts(null);
                             Navigation.findNavController(savePost).popBackStack();
+
                         }
                     });
+
                 }
             }
         });
