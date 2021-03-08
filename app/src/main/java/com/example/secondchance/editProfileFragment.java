@@ -201,7 +201,7 @@ public class editProfileFragment extends Fragment {
                     }
                 }
                 if (userWasSaved && checkAllFields) {
-                    Model.instance.deletePostPhoto(email.getText().toString(), null);
+                    Model.instance.deleteUserPhoto(email.getText().toString(), null);
                     saveChanges();
                 }
             }

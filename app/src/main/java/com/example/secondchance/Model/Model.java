@@ -354,9 +354,7 @@ public class Model {
         modelFirebase.deleteUserPhoto(name, listener);
 
     }
-    public interface photoExistsListener {
-        public void onComplete();
-    }
+
 
 
 }

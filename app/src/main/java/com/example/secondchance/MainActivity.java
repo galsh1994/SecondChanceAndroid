@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(User user) {
                             Model.instance.deleteUser(user);
-                            Model.instance.deletePostPhoto(user.getEmail(), null);
+                            Model.instance.deleteUserPhoto(user.getEmail(), null);
 
                         }
                     });
