@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.secondchance.Model.Model;
@@ -41,7 +42,7 @@ public class singlePostFragment extends Fragment {
     Button whatAppBtn;
     Button VisitProfile;
     String postPhotoID;
-
+    ProgressBar PB_singlePost;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,7 +52,8 @@ public class singlePostFragment extends Fragment {
         SharedPreferences sp = MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         String currentUserID = sp.getString("currentUserID", "0");
         Log.d("currUserIsfromshared",currentUserID);
-
+        PB_singlePost = view.findViewById(R.id.PB_singlePost);
+        PB_singlePost.setVisibility(View.VISIBLE);
         whatAppBtn = view.findViewById(R.id.whatAppBtn);
         postUserImage=view.findViewById(R.id.single_post_user_img);
         postUserName=view.findViewById(R.id.single_post_user_name);
@@ -72,10 +74,10 @@ public class singlePostFragment extends Fragment {
         Model.instance.getPost(postID, new Model.GetPostListener() {
             @Override
             public void onComplete(Post post) {
-
                 Model.instance.getUser(post.getUserID(), new Model.GetUserListener() {
                     @Override
                     public void onComplete(User PostWriterUser) {
+                        PB_singlePost.setVisibility(View.INVISIBLE);
                         postUserName.setText(PostWriterUser.getFirstName()+" "+PostWriterUser.getLastName());
                         if (PostWriterUser.getPhotoUrl() != null) {
                             Picasso.get().load(PostWriterUser.getPhotoUrl()).into(postUserImage);
@@ -100,8 +102,10 @@ public class singlePostFragment extends Fragment {
                         whatAppBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String url = "https://api.whatsapp.com/send?phone="+PostWriterUser.getPhone();
-                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                String msg = "Hello, I'm interested in your item";
+                                String num = PostWriterUser.getPhone();
+                                String url = "https://api.whatsapp.com/send?phone="+num+"&text="+msg;
+                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 i.setData(Uri.parse(url));
                                 startActivity(i);
                             }
@@ -124,6 +128,10 @@ public class singlePostFragment extends Fragment {
                         String date = DateFormat.format("dd-MM-yyyy", cal).toString();
                         String  hours = String.valueOf(cal.get(Calendar.HOUR_OF_DAY));
                         String  minutes = String.valueOf(cal.get(Calendar.MINUTE));
+                        if(minutes.length()==1)
+                        {
+                            minutes = "0"+minutes;
+                        }
                         postDate.setText(date+" "+hours+":"+minutes);
                         postItemDescription.setText("Description: "+post.getDescription());
                         postItemCity.setText("Address: "+post.getAddress());

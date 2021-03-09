@@ -84,6 +84,10 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
         String date = DateFormat.format("dd-MM-yyyy", cal).toString();
         String  hours = String.valueOf(cal.get(Calendar.HOUR_OF_DAY));
         String  minutes = String.valueOf(cal.get(Calendar.MINUTE));
+        if(minutes.length()==1)
+        {
+            minutes = "0"+minutes;
+        }
         holder.postDate.setText(date+" "+hours+":"+minutes);
 
         Log.d("k","p"+post.getPostID());

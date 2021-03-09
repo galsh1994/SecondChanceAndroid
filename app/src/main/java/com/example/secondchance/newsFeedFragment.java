@@ -19,11 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
 import com.example.secondchance.Model.User;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -36,9 +36,7 @@ public class newsFeedFragment extends Fragment {
     ImageButton visitProfile;
     ImageButton mapMode;
     Button addAPostBtn;
-    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-
+    ProgressBar PB_newsFeed;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,11 +45,13 @@ public class newsFeedFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_news_feed, container, false);
 
         Model.instance.refreshData(null);
-        postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
+
+         postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
         userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
         SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         currentUserID=sp.getString("currentUserID","0");
-
+        PB_newsFeed = view.findViewById(R.id.PB_newsFeed);
+        PB_newsFeed.setVisibility(View.VISIBLE);
         visitProfile= view.findViewById(R.id.visitProfileFrom_newsFeed);
         mapMode = view.findViewById(R.id.map_mode);
         addAPostBtn= view.findViewById(R.id.addApost_newsFeed);
@@ -80,6 +80,7 @@ public class newsFeedFragment extends Fragment {
         userListViewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
+                PB_newsFeed.setVisibility(View.INVISIBLE);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -127,8 +128,7 @@ public class newsFeedFragment extends Fragment {
             public void onClick(int position) {
                 int size= postListViewModel.getPostList().getValue().size();
                 String postId = postListViewModel.getPostList().getValue().get(size-position-1).getPostID() ;
-                Log.d("dd",postId);
-                newsFeedFragmentDirections.ActionNewsFeedFragmentToSinglePostFragment actionToSinglePost =
+                 newsFeedFragmentDirections.ActionNewsFeedFragmentToSinglePostFragment actionToSinglePost =
                         newsFeedFragmentDirections.actionNewsFeedFragmentToSinglePostFragment(postId);
 
                 Navigation.findNavController(view).navigate(actionToSinglePost);

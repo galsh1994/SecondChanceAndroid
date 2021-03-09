@@ -30,6 +30,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -61,6 +62,7 @@ public class addPostFragment extends Fragment  {
     ImageButton EditPostPhoto;
     ImageView PostPhoto;
     String userID;
+    ProgressBar PB_AddAPost;
     View view;
     String tempPostID;
     String Address;
@@ -75,6 +77,8 @@ public class addPostFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_add_post, container, false);
+        PB_AddAPost = view.findViewById(R.id.PB_AddAPost);
+        PB_AddAPost.setVisibility(View.INVISIBLE);
         userID = addPostFragmentArgs.fromBundle(getArguments()).getUserID();
         fieldsMSG= view.findViewById(R.id.requiredDetails_editProfile);
         fieldsMSG.setVisibility(view.INVISIBLE);
@@ -163,6 +167,7 @@ public class addPostFragment extends Fragment  {
         savePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PB_AddAPost.setVisibility(View.VISIBLE);
                 postWasSaved =true;
                 checkAllFields=Validation.checkAllFieldsForPost(
                         description.getText().toString(),

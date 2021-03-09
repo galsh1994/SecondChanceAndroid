@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.secondchance.Model.Model;
@@ -40,6 +41,7 @@ public class EditItemFragment extends Fragment {
     TextView fieldsMSG;
     EditText Description;
     EditText Condition;
+    ProgressBar PB_EditItem;
     ImageView postPhoto;
     ImageButton editPhoto;
     Button save;
@@ -57,6 +59,8 @@ public class EditItemFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view= inflater.inflate(R.layout.fragment_edit_item, container, false);
+        PB_EditItem = view.findViewById(R.id.PB_EditItem);
+        PB_EditItem.setVisibility(View.INVISIBLE);
         save = view.findViewById(R.id.saveBtnEditPostPage);
         Description=view.findViewById(R.id.editDescription);
         Condition= view.findViewById(R.id.editTextCondition);
@@ -118,6 +122,7 @@ public class EditItemFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                PB_EditItem.setVisibility(View.VISIBLE);
                 postWasUpdated =true;
                 checkAllFields=Validation.checkAllFieldsForPost(
                         Description.getText().toString(),
@@ -146,7 +151,6 @@ public class EditItemFragment extends Fragment {
         post.setCoordinatesLong(postLong);
         post.setCoordinatesLat(postLat);
         tempPostID = Condition.getText().toString()+Description.getText().toString();
-        Log.d("tempush:",tempPostID);
 
         BitmapDrawable drawable = (BitmapDrawable)postPhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

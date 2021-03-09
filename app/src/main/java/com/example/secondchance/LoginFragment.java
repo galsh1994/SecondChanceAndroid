@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.secondchance.Model.Model;
@@ -39,7 +40,7 @@ public class LoginFragment extends Fragment {
     EditText password;
     TextView loginMessage;
     TextView GoToRegister;
-
+    ProgressBar PB_login;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,8 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_login, container, false);
+        PB_login = view.findViewById(R.id.PB_login);
+        PB_login.setVisibility(View.INVISIBLE);
         email=view.findViewById(R.id.login_email_edit_text);
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -91,6 +94,7 @@ public class LoginFragment extends Fragment {
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PB_login.setVisibility(View.VISIBLE);
                 String emailS = email.getText().toString();
                 String passwordS = password.getText().toString();
                 SharedPreferences sp = MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
