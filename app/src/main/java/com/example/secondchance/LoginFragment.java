@@ -116,6 +116,8 @@ public class LoginFragment extends Fragment {
 
                         } else {
                             loginMessage.setVisibility(view.VISIBLE);
+                            PB_login.setVisibility(View.INVISIBLE);
+
                             loginMessage.setText("failed to log in");
                         }
                     }

@@ -213,6 +213,8 @@ public class RegisterFragment extends Fragment {
                             }
                             else
                             {
+                                PB_register.setVisibility(View.INVISIBLE);
+
                                 Toast.makeText(getActivity(), "Your register failed", Toast.LENGTH_SHORT).show();
                              }
                             }
