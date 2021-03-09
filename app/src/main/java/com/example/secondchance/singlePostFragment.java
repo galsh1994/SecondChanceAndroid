@@ -139,8 +139,6 @@ public class singlePostFragment extends Fragment {
                                         Navigation.findNavController(postItemDelete).popBackStack();
                                     }
                                 });
-                                    Model.instance.deletePostPhoto(postPhotoID, null);
-
                             }
                         });
                     }

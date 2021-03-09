@@ -164,8 +164,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(User user) {
                             Model.instance.deleteUser(user);
-                            Model.instance.deleteUserPhoto(user.getEmail(), null);
-
                         }
                     });
                      SharedPreferences.Editor editor=sp.edit();

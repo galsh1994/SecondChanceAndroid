@@ -163,6 +163,8 @@ public class ModelFirebase {
     }
 
     public void deleteUser(User user, final Model.DeleteListener listener) {
+
+        deleteUserPhoto(user.getEmail(),null);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(user.getUserID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -179,7 +181,30 @@ public class ModelFirebase {
 
             }
         });
+        CollectionReference posts = db.collection("posts");
+        Query query = posts.whereEqualTo("userID", user.getUserID());
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        posts.document(document.getId()).delete();
+                    }
+                } else {
+                    Log.d("msg", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+        mAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful())
+                    Log.d("delete","success");
+                else
+                    Log.d("delete","fail");
 
+            }
+        });
     }
 
 
@@ -326,6 +351,8 @@ public class ModelFirebase {
 
 
     public void deletePost(Post post, Model.DeleteListener listener) {
+        String postStorageName= post.getCondition()+post.getDescription();
+        deletePostPhoto(postStorageName,null);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("posts").document(post.getPostID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -431,7 +458,7 @@ public class ModelFirebase {
     }
 
     public void deleteUserPhoto(String userID, Model.DeleteUserPhotoListener deleteUserPhotoListener) {
-        final StorageReference imagesRef = storage.getReference().child("Users images").child(userID);
+        final StorageReference imagesRef = storage.getReference().child("User images").child(userID);
         imagesRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {

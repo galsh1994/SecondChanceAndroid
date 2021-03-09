@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
 import com.example.secondchance.Model.User;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -35,6 +36,8 @@ public class newsFeedFragment extends Fragment {
     ImageButton visitProfile;
     ImageButton mapMode;
     Button addAPostBtn;
+    public FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
 
 
     @Override
@@ -44,8 +47,6 @@ public class newsFeedFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_news_feed, container, false);
 
         Model.instance.refreshData(null);
-
-
         postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
         userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
         SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);

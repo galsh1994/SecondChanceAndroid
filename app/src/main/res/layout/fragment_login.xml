@@ -33,6 +33,7 @@
         android:layout_width="162dp"
         android:layout_height="52dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_corners"
         android:fontFamily="@font/quicksand"
@@ -47,14 +48,14 @@
         android:id="@+id/go_to_register_from_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/quicksand"
         android:isScrollContainer="false"
         android:text="Don't have an account yet? Sign in!"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/login_message" />
+        app:layout_constraintTop_toBottomOf="@+id/forget_password" />
 
     <TextView
         android:id="@+id/welcomebackText"
@@ -118,12 +119,11 @@
         android:layout_width="198dp"
         android:layout_height="30dp"
         android:layout_marginTop="21dp"
+        android:fontFamily="@font/quicksand"
         android:text="Forgot password?"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/go_to_register_from_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_message"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/login_message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -59,7 +59,6 @@ public class editProfileFragment extends Fragment {
     EditText lastName;
     EditText email;
     EditText phoneNumber;
-    EditText password;
     ImageView profilePhoto;
     ImageButton editProfile;
     Button save;
@@ -82,7 +81,6 @@ public class editProfileFragment extends Fragment {
         lastName= view.findViewById(R.id.editTextLastName);
         email= view.findViewById(R.id.editTextEmail);
         phoneNumber= view.findViewById(R.id.editTextPhone);
-        password= view.findViewById(R.id.editTextPassword);
         profilePhoto= view.findViewById(R.id.profilePictureEditPage);
         editProfile= view.findViewById(R.id.editProfilePhoto);
         save = view.findViewById(R.id.saveBtnEditPage);
@@ -104,7 +102,6 @@ public class editProfileFragment extends Fragment {
                 lastName.setText(user.getLastName());
                 email.setText(user.getEmail());
                 phoneNumber.setText("0"+user.getPhone().substring(3));
-                password.setText(user.getPassword());
                 currentUser=user;
             }
         });
@@ -145,14 +142,7 @@ public class editProfileFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) { Validation.isPhoneNumber(phoneNumber,true); }
         });
-        password.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) { Validation.isPassword(password,true); }
-        });
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +177,7 @@ public class editProfileFragment extends Fragment {
                         firstName.getText().toString(),
                         lastName.getText().toString(),
                         email.getText().toString(),
-                        password.getText().toString(),
+                        currentUser.getPassword(),
                         phoneNumber.getText().toString());
                 if (!checkAllFields) {
                     fieldsMSG.setVisibility(view.VISIBLE);
@@ -216,8 +206,7 @@ public class editProfileFragment extends Fragment {
         user.setLastName(lastName.getText().toString());
         user.setEmail(email.getText().toString());
         user.setPhone("972"+(phoneNumber.getText().toString()).substring(1));
-        user.setPassword(password.getText().toString());
-
+        user.setPassword(currentUser.getPassword());
 
         BitmapDrawable drawable = (BitmapDrawable)profilePhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
