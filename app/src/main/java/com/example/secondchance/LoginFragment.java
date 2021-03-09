@@ -106,8 +106,7 @@ public class LoginFragment extends Fragment {
                                 Model.instance.getUserByEmail(emailS, new Model.GetUserListener() {
                                     @Override
                                     public void onComplete(User user) {
-                                        Log.d("idIs",user.getUserID());
-                                        editor.putString("currentUserID",user.getUserID());
+                                         editor.putString("currentUserID",user.getUserID());
                                         editor.commit();
                                         loginMessage.setVisibility(view.INVISIBLE);
                                         Navigation.findNavController(view).navigate(R.id.action_login_to_newsFeed);

@@ -77,10 +77,8 @@ public class profileFragment extends Fragment {
         editProfile.setVisibility(View.INVISIBLE);
 
         ProfileUserID= profileFragmentArgs.fromBundle(getArguments()).getUserID();
-        Log.d("TAG","user id is:"+ProfileUserID);
-        SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
+         SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         LoggedUserID=sp.getString("currentUserID","0");
-        Log.d("TAG","logged user id is:"+LoggedUserID);
 
         userListViewModel = new ViewModelProvider(this).get(UserListViewModel.class);
         postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);

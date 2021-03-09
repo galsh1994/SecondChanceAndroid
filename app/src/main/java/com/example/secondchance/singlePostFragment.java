@@ -51,8 +51,7 @@ public class singlePostFragment extends Fragment {
 
         SharedPreferences sp = MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         String currentUserID = sp.getString("currentUserID", "0");
-        Log.d("currUserIsfromshared",currentUserID);
-        PB_singlePost = view.findViewById(R.id.PB_singlePost);
+         PB_singlePost = view.findViewById(R.id.PB_singlePost);
         PB_singlePost.setVisibility(View.VISIBLE);
         whatAppBtn = view.findViewById(R.id.whatAppBtn);
         postUserImage=view.findViewById(R.id.single_post_user_img);

@@ -72,9 +72,7 @@ public class Model {
     }
 
     public void registerAuthFB(User user, String password, idSaverListener listener) {
-        Log.d("j", "p" + password);
-        Log.d("j", "p" + user.getUserID());
-        Log.d("j", "p" + listener.toString());
+
 
 
         modelFirebase.registerAuthFB(user, password, listener);

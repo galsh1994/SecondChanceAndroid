@@ -81,12 +81,10 @@ public class MapsFragment extends Fragment {
                                 public boolean onMarkerClick(Marker marker) {
                                     double lat = marker.getPosition().latitude;
                                     double longitude = marker.getPosition().longitude;
-                                    Log.d("map","lat"+lat +" long:"+longitude);
 
                                     for(int i = 0; i < postIDList.size(); i++) {
                                         if(latPoints.get(i) == lat && longPoints.get(i) == longitude) {
-                                            Log.d("map","pp"+postIDList.get(i));
-                                            Model.instance.getPost(postIDList.get(i), new Model.GetPostListener() {
+                                             Model.instance.getPost(postIDList.get(i), new Model.GetPostListener() {
                                                 @Override
                                                 public void onComplete(Post post) {
                                                     MapsFragmentDirections.ActionMapsFragmentToSinglePostFragment actionToPost=

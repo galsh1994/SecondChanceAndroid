@@ -48,19 +48,16 @@ public class ModelFirebase {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             listener.onComplete(true, mAuth.getCurrentUser().getUid());
-                            Log.d("fb", "p" + user.getUserID());
-                            Model.instance.addUser(user, new Model.addUserListener() {
+                             Model.instance.addUser(user, new Model.addUserListener() {
                                 @Override
                                 public void onComplete() {
-                                    Log.d("fb", "p" + mAuth.getCurrentUser().getUid());
-                                    Model.instance.refreshAllUsers(null);
+                                     Model.instance.refreshAllUsers(null);
                                 }
 
                             });
                         } else {
                             if (!task.getException().equals(null)) {
-                                Log.d("pp", "o" + task.getException().getMessage());
-                            }
+                             }
                             listener.onComplete(false, null);
                         }
                     }
@@ -398,7 +395,6 @@ public class ModelFirebase {
                         post.fromMap(querySnapshot.getData());
                         latitudePoints.add(post.getCoordinatesLat());
                         longitudePoints.add(post.getCoordinatesLong());
-                        Log.d("from modelFB= ", post.getCoordinatesLat().toString() + post.getCoordinatesLong().toString());
                         postID.add(post.getPostID());
                     }
                 }

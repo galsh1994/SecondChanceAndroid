@@ -46,7 +46,7 @@ public class newsFeedFragment extends Fragment {
 
         Model.instance.refreshData(null);
 
-         postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
+        postListViewModel=new ViewModelProvider(this).get(PostListViewModel.class);
         userListViewModel=new ViewModelProvider(this).get(UserListViewModel.class);
         SharedPreferences sp= MyApplicaion.context.getSharedPreferences("Users", Context.MODE_PRIVATE);
         currentUserID=sp.getString("currentUserID","0");
@@ -72,6 +72,7 @@ public class newsFeedFragment extends Fragment {
         postListViewModel.getPostList().observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
             @Override
             public void onChanged(List<Post> posts) {
+                PB_newsFeed.setVisibility(View.INVISIBLE);
                 adapter.notifyDataSetChanged();
 
             }
@@ -80,7 +81,6 @@ public class newsFeedFragment extends Fragment {
         userListViewModel.getUserList().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
-                PB_newsFeed.setVisibility(View.INVISIBLE);
                 adapter.notifyDataSetChanged();
             }
         });

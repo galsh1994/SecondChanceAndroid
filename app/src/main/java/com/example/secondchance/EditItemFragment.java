@@ -143,7 +143,6 @@ public class EditItemFragment extends Fragment {
     private void saveChanges() {
         Post post = new Post();
         post.setPostID(currentPost.getPostID());
-        Log.d("id:",currentPost.getPostID());
         post.setCondition(Condition.getText().toString());
         post.setDescription(Description.getText().toString());
         post.setUserID(currentPost.getUserID());
