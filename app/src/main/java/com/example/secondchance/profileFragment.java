@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.secondchance.Model.Model;
@@ -38,7 +39,7 @@ public class profileFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
-
+    ProgressBar PB_Profile;
     RecyclerView postList;
     UserListViewModel userListViewModel;
     PostListViewModel postListViewModel;
@@ -61,10 +62,11 @@ public class profileFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_profile, container, false);
+        PB_Profile = view.findViewById(R.id.PB_Profile);
+        PB_Profile.setVisibility(View.VISIBLE);
         profilePhoto= view.findViewById(R.id.profile_user_img);
         fullName= view.findViewById(R.id.profile_FullName);
         email= view.findViewById(R.id.profile_email);
-        //deleteAccountBtn=view.findViewById(R.id.delet_account_btn);
         whatAppBtn = view.findViewById(R.id.whatAppBtn);
         mapMode = view.findViewById(R.id.map_mode);
         newsFeedFromProfile= view.findViewById(R.id.homeFrom_profile);
@@ -92,9 +94,10 @@ public class profileFragment extends Fragment {
         Model.instance.getUser(ProfileUserID, new Model.GetUserListener() {
             @Override
             public void onComplete(User user) {
+                PB_Profile.setVisibility(View.INVISIBLE);
                 if (user.getPhotoUrl()!=null){
                     Picasso.get().load(user.getPhotoUrl()).into(profilePhoto);
-                }
+                 }
                 if (ProfileUserID.equals(LoggedUserID))
                 {
                     editProfile.setVisibility(View.VISIBLE);
@@ -114,7 +117,9 @@ public class profileFragment extends Fragment {
                     whatAppBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String url = "https://api.whatsapp.com/send?phone="+user.getPhone();
+                            String msg = "Hello, I'm interested in your item";
+                            String num = user.getPhone();
+                            String url = "https://api.whatsapp.com/send?phone="+num+"&text="+msg;
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(url));
                             startActivity(i);
@@ -193,6 +198,7 @@ public class profileFragment extends Fragment {
                                 email.setText(user.getEmail());
                                 if (user.getPhotoUrl()!=null){
                                     Picasso.get().load(user.getPhotoUrl()).into(profilePhoto);
+
                                 }
 
                             }

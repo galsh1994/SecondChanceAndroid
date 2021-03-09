@@ -161,6 +161,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/whatAppBtn" />
 
+        <ProgressBar
+            android:id="@+id/PB_singlePost"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/single_post_item_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/single_post_item_img" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

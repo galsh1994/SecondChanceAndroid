@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class RegisterFragment extends Fragment {
     EditText registerPhone;
     TextView message;
     TextView fieldsMSG;
+    ProgressBar PB_register;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +81,9 @@ public class RegisterFragment extends Fragment {
         View view=  inflater.inflate(R.layout.fragment_register, container, false);
 
         //catch all buttons
-         saveRegister = view.findViewById(R.id.register_btn);
+        PB_register = view.findViewById(R.id.PB_register);
+        PB_register.setVisibility(View.INVISIBLE);
+        saveRegister = view.findViewById(R.id.register_btn);
         registerFirstName = view.findViewById(R.id.registerFirstName);
         registerFirstName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -159,6 +163,7 @@ public class RegisterFragment extends Fragment {
         saveRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                PB_register.setVisibility(View.VISIBLE);
                 userWasSaved =true;
                 checkAllFields=Validation.checkAllFieldsForUser(registerFirstName.getText().toString(),registerLastName.getText().toString(),registerEmail.getText().toString(),registerPassword.getText().toString(),registerPhone.getText().toString());
 

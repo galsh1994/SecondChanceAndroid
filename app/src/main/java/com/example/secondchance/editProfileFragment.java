@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.secondchance.Model.AppLocalDb;
@@ -68,7 +69,7 @@ public class editProfileFragment extends Fragment {
     User currentUser;
     TextView message;
     TextView fieldsMSG;
-
+    ProgressBar PB_EditProfile;
 
 
     @Override
@@ -77,7 +78,8 @@ public class editProfileFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view=  inflater.inflate(R.layout.fragment_edit_profile, container, false);
-
+        PB_EditProfile=view.findViewById(R.id.PB_EditProfile);
+        PB_EditProfile.setVisibility(View.INVISIBLE);
         firstName = view.findViewById(R.id.editTextFirstName);
         lastName= view.findViewById(R.id.editTextLastName);
         email= view.findViewById(R.id.editTextEmail);
@@ -156,6 +158,7 @@ public class editProfileFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                PB_EditProfile.setVisibility(View.VISIBLE);
                 Navigation.findNavController(v).popBackStack();
             }
         });
@@ -182,6 +185,7 @@ public class editProfileFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                PB_EditProfile.setVisibility(View.VISIBLE);
                 userWasSaved = true;
                 checkAllFields = Validation.checkAllFieldsForUser(
                         firstName.getText().toString(),
