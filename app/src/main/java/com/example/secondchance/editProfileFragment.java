@@ -215,7 +215,7 @@ public class editProfileFragment extends Fragment {
         BitmapDrawable drawable = (BitmapDrawable)profilePhoto.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
 
-        Model.instance.uploadUserImage(bitmap, user.getUserID(), new Model.UploadUserImageListener() {
+        Model.instance.uploadUserImage(bitmap, user.getEmail(), new Model.UploadUserImageListener() {
             @Override
             public void onComplete(String url) {
                 if (url == null){
