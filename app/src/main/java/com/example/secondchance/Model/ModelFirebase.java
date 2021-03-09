@@ -181,20 +181,7 @@ public class ModelFirebase {
 
             }
         });
-        CollectionReference posts = db.collection("posts");
-        Query query = posts.whereEqualTo("userID", user.getUserID());
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        posts.document(document.getId()).delete();
-                    }
-                } else {
-                    Log.d("msg", "Error getting documents: ", task.getException());
-                }
-            }
-        });
+
         mAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
