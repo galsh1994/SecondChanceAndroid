@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
@@ -92,7 +93,12 @@ public class MapsFragment extends Fragment {
                                                     Navigation.findNavController(view).navigate(actionToPost);
 
                                                 }
-                                            });
+
+                                                 @Override
+                                                 public void onFail(String err) {
+                                                     Toast.makeText(getActivity(), "Content is no longer available", Toast.LENGTH_SHORT).show();
+                                                 }
+                                             });
                                             break;
 
                                         }

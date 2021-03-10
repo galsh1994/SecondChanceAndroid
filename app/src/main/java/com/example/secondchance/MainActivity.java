@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.User;
@@ -165,7 +166,12 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(User user) {
                             Model.instance.deleteUser(user);
                         }
-                    });
+
+                         @Override
+                         public void onFail(String err) {
+
+                         }
+                     });
                      SharedPreferences.Editor editor=sp.edit();
                     editor.putString("currentUserID","0");
                     editor.commit();

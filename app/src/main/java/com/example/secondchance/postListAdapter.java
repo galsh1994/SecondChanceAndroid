@@ -66,6 +66,10 @@ public class postListAdapter extends RecyclerView.Adapter<postListViewHolder>{
                     });
                 }
             }
+
+            @Override
+            public void onFail(String err) {
+            }
         });
         // set username in the holder
 

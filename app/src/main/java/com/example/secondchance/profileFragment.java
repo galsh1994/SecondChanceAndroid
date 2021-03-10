@@ -26,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
@@ -165,6 +166,13 @@ public class profileFragment extends Fragment {
                     }
                 });
             }
+
+            @Override
+            public void onFail(String err) {
+                Toast.makeText(getActivity(), "Content is no longer available", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(view).popBackStack();
+
+            }
         });
 
         newsFeedFromProfile.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_profileFragment_to_newsFeedFragment));
@@ -200,6 +208,9 @@ public class profileFragment extends Fragment {
                                 }
 
                             }
+
+                            @Override
+                            public void onFail(String err) { }
                         });
                     }
                 });

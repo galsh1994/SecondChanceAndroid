@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.User;
@@ -110,6 +111,12 @@ public class LoginFragment extends Fragment {
                                         editor.commit();
                                         loginMessage.setVisibility(view.INVISIBLE);
                                         Navigation.findNavController(view).navigate(R.id.action_login_to_newsFeed);
+                                    }
+
+                                    @Override
+                                    public void onFail(String err) {
+                                        Toast.makeText(getActivity(), "Content is no longer available", Toast.LENGTH_SHORT).show();
+                                        Navigation.findNavController(view).popBackStack();
                                     }
                                 });
 

@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.secondchance.Model.Model;
 import com.example.secondchance.Model.Post;
@@ -84,6 +85,13 @@ public class EditItemFragment extends Fragment {
                 postLong=post.getCoordinatesLong();
                 currentPost=post;
                 oldPostImageID= post.getCondition()+post.getDescription();
+            }
+
+            @Override
+            public void onFail(String err) {
+                Toast.makeText(getActivity(), "Content is no longer available", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(view).popBackStack();
+
             }
         });
         //validation for the updated fields

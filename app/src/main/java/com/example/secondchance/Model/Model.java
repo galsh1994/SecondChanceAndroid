@@ -102,6 +102,7 @@ public class Model {
 
     public interface GetUserListener {
         void onComplete(User user);
+        void onFail(String err);
     }
 
     public void getUser(String id, GetUserListener listener) {
@@ -221,6 +222,8 @@ public class Model {
 
     public interface GetPostListener {
         void onComplete(Post post);
+        void onFail(String err);
+
     }
 
     public void getPost(String id, GetPostListener listener) {
@@ -352,6 +355,7 @@ public class Model {
         modelFirebase.deleteUserPhoto(name, listener);
 
     }
+
 
 
 

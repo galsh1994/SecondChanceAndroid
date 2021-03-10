@@ -112,8 +112,8 @@ public class ModelFirebase {
                         data.add(user);
 
                     }
+                    listener.onComplete(data);
                 }
-                listener.onComplete(data);
             }
         });
 
@@ -150,11 +150,13 @@ public class ModelFirebase {
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     if (doc.exists()) {
-
                         user.fromMap(task.getResult().getData());
+                        listener.onComplete(user);
+                    }
+                    else{
+                        listener.onFail("failed");
                     }
                 }
-                listener.onComplete(user);
             }
         });
     }
@@ -296,11 +298,15 @@ public class ModelFirebase {
                 Post post = new Post();
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
-                    if (doc != null) {
+                    if (doc.exists()) {
                         post.fromMap(task.getResult().getData());
+                        listener.onComplete(post);
+                    }
+                    else{
+                        listener.onFail("failed");
                     }
                 }
-                listener.onComplete(post);
+
             }
         });
     }
@@ -450,7 +456,4 @@ public class ModelFirebase {
             }
         });
     }
-
-
-
 }

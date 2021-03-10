@@ -31,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.secondchance.Model.AppLocalDb;
 import com.example.secondchance.Model.Model;
@@ -105,6 +106,12 @@ public class editProfileFragment extends Fragment {
                 email.setText(user.getEmail());
                 phoneNumber.setText("0"+user.getPhone().substring(3));
                 currentUser=user;
+            }
+
+            @Override
+            public void onFail(String err) {
+                Toast.makeText(getActivity(), "Content is no longer available", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(view).popBackStack();
             }
         });
         //validation for the updated fields
